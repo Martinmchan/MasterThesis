@@ -1,0 +1,11 @@
+L = 1000
+x = 1:L;
+y = sin(x);
+
+fY = fft(y);
+fY = fY(1:L/2 +1);
+fY = abs(fY);
+xPlot = (1:L/2+1)/L;
+plot(xPlot,fY)
+hold on
+plot(xPlot
