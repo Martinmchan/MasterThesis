@@ -1,7 +1,6 @@
 clear all
-close all
-[y1, Fs1] = audioread('000102_275_mono1.wav');
-[y3, Fs3] = audioread('000102_275_mono3.wav');
+[y1, Fs1] = audioread('000103_249_mono1.wav');
+[y3, Fs3] = audioread('000103_249_mono2.wav');
 
 
 [sz, ~] = size(y1);
@@ -15,6 +14,7 @@ finish = tresholdValue(1) + floor(sz/50);
 suby1 = y1(start:finish);
 suby3 = y3(start:finish);
 
+figure
 plot(suby1)
 hold on
 plot(suby3)
