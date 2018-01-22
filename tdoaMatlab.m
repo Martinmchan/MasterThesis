@@ -1,6 +1,6 @@
 clear all
-[y1, Fs1] = audioread('000103_240_mono1.wav');
-[y3, Fs3] = audioread('000103_240_mono2.wav');
+[y1, Fs1] = audioread('000103_249_mono1.wav');
+[y3, Fs3] = audioread('000103_249_mono2.wav');
 
 
 [sz, ~] = size(y1);

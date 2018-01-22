@@ -16,8 +16,11 @@ N = finish - start;
 Ncorr = 2*N-1; 
 NFFT = 2^nextpow2(Ncorr);
 R12 = bsxfun(@times,fft(suby1,NFFT),conj(fft(suby2,NFFT)));
+% r12_temp = fftshift(ifft(exp(i*angle(R12))),1);
 r12_temp = fftshift(ifft(exp(i*angle(R12))),1);
 r12 = r12_temp(NFFT/2+1-(N-1)/2:NFFT/2+1+(N-1)/2,:);
+
+
 
 %Finding the TDOA and distance between microphones
 lags = (-(Ncorr-1)/2:(Ncorr-1)/2).';
