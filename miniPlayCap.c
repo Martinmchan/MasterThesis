@@ -1,13 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
-//.miniPlayCap audiosource localhw:0 test.wav
-
-
-
-#include <alsa/asoundlib.h>
-#include <stdio.h>
-
 #define PCM_DEVICE "default"
 
 int main(int argc, char **argv) {
@@ -20,7 +13,7 @@ int main(int argc, char **argv) {
 	int buff_size, loops;
 	rate 	 = 48000;
 	channels = 1;
-	seconds  = 2;
+	seconds  = 1;
 
 	snd_pcm_open(&pcm_handle, PCM_DEVICE, SND_PCM_STREAM_PLAYBACK, 0);
 	snd_pcm_hw_params_alloca(&params);
@@ -40,6 +33,13 @@ int main(int argc, char **argv) {
 	buff = (char *) malloc(buff_size);
 
 	snd_pcm_hw_params_get_period_time(params, &tmp, NULL);
+	
+	FILE *timeFile = fopen("tSPlayCap.txt", "a");
+  	struct timeval currentTime;
+  	gettimeofday(&currentTime, NULL);
+  	long long int timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
+
+  	fprintf(timeFile, "%lld \n", timeStamp);
 
 	for (loops = (seconds * 1000000) / tmp; loops > 0; loops--) {
 		read(0, buff, buff_size);
@@ -49,6 +49,47 @@ int main(int argc, char **argv) {
 	snd_pcm_drain(pcm_handle);
 	snd_pcm_close(pcm_handle);
 	free(buff);
+	
+	////START RECORD!
+	
+	
+	char *buffer;
+	int buffer_frames = 128;
+	snd_pcm_t *handle;
+	snd_pcm_hw_params_t *hw_params;
+	snd_pcm_format_t format = SND_PCM_FORMAT_S16_LE;
 
+	snd_pcm_open(&handle, argv[1], SND_PCM_STREAM_CAPTURE, 0);
+	snd_pcm_hw_params_malloc(&hw_params);
+	snd_pcm_hw_params_any(handle, hw_params);
+	snd_pcm_hw_params_set_access(handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
+	snd_pcm_hw_params_set_format(handle, hw_params, format);
+	snd_pcm_hw_params_set_rate_near(handle, hw_params, &rate, 0);
+	snd_pcm_hw_params_set_channels(handle, hw_params, 1); // Changed from 2 to 1
+	snd_pcm_hw_params (handle, hw_params);
+	snd_pcm_prepare (handle);
+	
+	buffer = malloc(128 * snd_pcm_format_width(format) / 8 * 2);
+	int i;
+	int j;
+	FILE *fp = fopen("test.raw", "w");
+  	
+	//Get timestamp
+	gettimeofday(&currentTime, NULL);
+  	timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
+	fprintf(timeFile, "%lld \n", timeStamp);
+	fclose(timeFile);
+	//Start recording
+	for (i = 0; i < 1000; ++i) {
+    		snd_pcm_readi(handle, buffer, buffer_frames);
+    		fwrite(buffer, sizeof(buffer[0]), 256, fp);	
+	}
+
+  	free(buffer);
+  	fclose(fp);
+	
+  	snd_pcm_close (handle);
+
+	
 	return 0;
 }
