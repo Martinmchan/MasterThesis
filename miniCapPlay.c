@@ -5,9 +5,12 @@
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
 
+#define PCM_DEVICE "default"
+
 	      
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
+	//Parameters for recording
 	char *buffer;
 	int buffer_frames = 128;
 	signed int rate = 48000;
@@ -30,18 +33,16 @@ main (int argc, char *argv[])
 	int i;
 	int j;
 	FILE *fp = fopen("test.raw", "w");
-  	FILE *timeFile = fopen("timeStamps.txt", "w");
+  	FILE *timeFile = fopen("tsCapPlay.txt", "a");
   	
-	//Get timestamp
-	struct timeval timer_usec; 
-	long long int timestamp_usec;
-	timestamp_usec = ((long long int) timer_usec.tv_sec) * 1000000ll + 
-	        (long long int) timer_usec.tv_usec;
-  	fprintf(timeFile, "%lld \n", timestamp_usec);
-  	fclose(timeFile);
-
+	//Get timestamp for recording
+	struct timeval currentTime;
+	gettimeofday(&currentTime, NULL);
+	long long int timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
+  	fprintf(timeFile, "%lld \n", timeStamp);
+  	
 	//Start recording
-	for (i = 0; i < 1000; ++i) {
+	for (i = 0; i < 10000; ++i) {
     		snd_pcm_readi(handle, buffer, buffer_frames);
     		fwrite(buffer, sizeof(buffer[0]), 256, fp);	
 	}
@@ -50,7 +51,54 @@ main (int argc, char *argv[])
   	fclose(fp);
 	
   	snd_pcm_close (handle);
-	exit (0);
 	
+	
+	//Parameters for playback
+	unsigned int pcm, tmp, dir;
+	int channels, seconds;
+	snd_pcm_t *pcm_handle;
+	snd_pcm_hw_params_t *params;
+	char *buff;
+	int buff_size, loops;
+	rate 	 = 48000;
+	channels = 1;
+	seconds  = 2;
 
+	snd_pcm_open(&pcm_handle, PCM_DEVICE, SND_PCM_STREAM_PLAYBACK, 0);
+	snd_pcm_hw_params_alloca(&params);
+	snd_pcm_hw_params_any(pcm_handle, params);
+	snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
+	snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE); 
+	snd_pcm_hw_params_set_channels(pcm_handle, params, channels);
+	snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0); 
+	snd_pcm_hw_params(pcm_handle, params);
+
+	snd_pcm_hw_params_get_channels(params, &tmp);
+
+	/* Allocate buffer to hold single period */
+	snd_pcm_hw_params_get_period_size(params, &frames, 0);
+
+	buff_size = frames * channels * 2;
+	buff = (char *) malloc(buff_size);
+
+	snd_pcm_hw_params_get_period_time(params, &tmp, NULL);
+	
+	//Get timestamp for playback
+	gettimeofday(&currentTime, NULL);
+	timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
+  	fprintf(timeFile, "%lld \n", timeStamp);
+	
+	//Start playback
+	for (loops = (seconds * 1000000) / tmp; loops > 0; loops--) {
+		read(0, buff, buff_size);
+		snd_pcm_writei(pcm_handle, buff, frames);
+	}
+
+	snd_pcm_drain(pcm_handle);
+	snd_pcm_close(pcm_handle);
+	free(buff);
+	fclose(timeFile);
+	
+	return 0;
+	
 }
