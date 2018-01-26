@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
+#include <unistd.h>
 
 #define PCM_DEVICE "default"
 
@@ -32,21 +33,21 @@ int main (int argc, char *argv[])
 	buffer = malloc(128 * snd_pcm_format_width(format) / 8 * 2);
 	int i;
 	int j;
-	FILE *fp = fopen("test.raw", "w");
-  	FILE *timeFile = fopen("tsCapPlay.txt", "a");
+	FILE *fp = fopen("piff.raw", "w");
+  	FILE *timeFile = fopen("piff.txt", "a");
   	
 	//Get timestamp for recording
-	struct timeval currentTime;
-	gettimeofday(&currentTime, NULL);
-	long long int timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
-  	fprintf(timeFile, "%lld \n", timeStamp);
+	struct timeval currentTimeC;
+	gettimeofday(&currentTimeC, NULL);
+
   	
 	//Start recording
-	for (i = 0; i < 10000; ++i) {
+	for (i = 0; i < 2000; ++i) {
     		snd_pcm_readi(handle, buffer, buffer_frames);
     		fwrite(buffer, sizeof(buffer[0]), 256, fp);	
 	}
-
+	
+	
   	free(buffer);
   	fclose(fp);
 	
@@ -62,7 +63,7 @@ int main (int argc, char *argv[])
 	int buff_size, loops;
 	rate 	 = 48000;
 	channels = 1;
-	seconds  = 2;
+	seconds  = 1;
 
 	snd_pcm_open(&pcm_handle, PCM_DEVICE, SND_PCM_STREAM_PLAYBACK, 0);
 	snd_pcm_hw_params_alloca(&params);
@@ -84,9 +85,8 @@ int main (int argc, char *argv[])
 	snd_pcm_hw_params_get_period_time(params, &tmp, NULL);
 	
 	//Get timestamp for playback
-	gettimeofday(&currentTime, NULL);
-	timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
-  	fprintf(timeFile, "%lld \n", timeStamp);
+	struct timeval currentTimeP;
+	gettimeofday(&currentTimeP, NULL);
 	
 	//Start playback
 	for (loops = (seconds * 1000000) / tmp; loops > 0; loops--) {
@@ -97,6 +97,12 @@ int main (int argc, char *argv[])
 	snd_pcm_drain(pcm_handle);
 	snd_pcm_close(pcm_handle);
 	free(buff);
+	
+	//Write time stamps to file
+	long long int timeStampC = currentTimeC.tv_sec * (int)1e6 + currentTimeC.tv_usec;
+	fprintf(timeFile, "%lld \n", timeStampC);
+	long long int timeStampP = currentTimeP.tv_sec * (int)1e6 + currentTimeP.tv_usec;
+	fprintf(timeFile, "%lld \n \n", timeStampP);
 	fclose(timeFile);
 	
 	return 0;

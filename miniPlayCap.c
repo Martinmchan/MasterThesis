@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
+#include <unistd.h>
 #define PCM_DEVICE "default"
 
 int main(int argc, char **argv) {
@@ -34,12 +35,11 @@ int main(int argc, char **argv) {
 
 	snd_pcm_hw_params_get_period_time(params, &tmp, NULL);
 	
-	FILE *timeFile = fopen("tSPlayCap.txt", "a");
-  	struct timeval currentTime;
-  	gettimeofday(&currentTime, NULL);
-  	long long int timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
-
-  	fprintf(timeFile, "%lld \n", timeStamp);
+	sleep(1);	
+	
+	FILE *timeFile = fopen("puff.txt", "a");
+  	struct timeval currentTimeP;
+  	gettimeofday(&currentTimeP, NULL);
 
 	for (loops = (seconds * 1000000) / tmp; loops > 0; loops--) {
 		read(0, buff, buff_size);
@@ -50,9 +50,9 @@ int main(int argc, char **argv) {
 	snd_pcm_close(pcm_handle);
 	free(buff);
 	
+	sleep(2);
+	
 	////START RECORD!
-	
-	
 	char *buffer;
 	int buffer_frames = 128;
 	snd_pcm_t *handle;
@@ -72,18 +72,24 @@ int main(int argc, char **argv) {
 	buffer = malloc(128 * snd_pcm_format_width(format) / 8 * 2);
 	int i;
 	int j;
-	FILE *fp = fopen("test.raw", "w");
+	FILE *fp = fopen("puff.raw", "w");
   	
 	//Get timestamp
-	gettimeofday(&currentTime, NULL);
-  	timeStamp = currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
-	fprintf(timeFile, "%lld \n", timeStamp);
-	fclose(timeFile);
+	struct timeval currentTimeC;
+	gettimeofday(&currentTimeC, NULL);
+	
 	//Start recording
-	for (i = 0; i < 1000; ++i) {
+	for (i = 0; i < 2000; ++i) {
     		snd_pcm_readi(handle, buffer, buffer_frames);
     		fwrite(buffer, sizeof(buffer[0]), 256, fp);	
 	}
+	
+	//Write the times on file
+	long long int timeStampP = currentTimeP.tv_sec * (int)1e6 + currentTimeP.tv_usec;
+	fprintf(timeFile, "%lld \n", timeStampP);
+	long long int timeStampC = currentTimeC.tv_sec * (int)1e6 + currentTimeC.tv_usec;
+	fprintf(timeFile, "%lld \n \n", timeStampC);
+	fclose(timeFile);
 
   	free(buffer);
   	fclose(fp);
