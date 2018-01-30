@@ -1,5 +1,6 @@
 cd /tmp;
 
-./capPlayM < testTone.wav;
+systemctl stop audio*
+./capPlay < testTone.wav;
 
 exit;

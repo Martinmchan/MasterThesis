@@ -36,6 +36,7 @@ int main(){
 	snd_pcm_hw_params_set_channels(playHandler, params, channels);
 	snd_pcm_hw_params_set_rate_near(playHandler, params, &rate, 0);
 	snd_pcm_hw_params(playHandler, params);
+	snd_pcm_nonblock_mode(playHandler, 1);
 
 	snd_pcm_hw_params_get_period_size(params, &frames, 0);
 	size = frames * channels * 2;
@@ -76,6 +77,7 @@ int main(){
 	snd_pcm_hw_params_set_channels(recHandler, params, channels);
 	snd_pcm_hw_params (recHandler, params);
 	snd_pcm_prepare (recHandler);
+	snd_pcm_nonblock_mode(recHandler, 1);
 
 	recBuffer = malloc(size);
 	

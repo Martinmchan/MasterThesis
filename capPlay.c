@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
 #include <unistd.h>
-#define PCM_PLAYER "default"
+#define PCM_PLAYER "plughw:1,0,0"
 #define PCM_RECORDER "audiosource"
 
 int main(){
@@ -37,18 +37,21 @@ int main(){
 	snd_pcm_hw_params_set_channels(recHandler, params, channels);
 	snd_pcm_hw_params (recHandler, params);
 	snd_pcm_prepare (recHandler);
+	//snd_pcm_nonblock(recHandler, 0);
 
 	recBuffer = malloc(size);
 
 	//Get first time stamp	
   	struct timeval currentTimeC;
-  	gettimeofday(&currentTimeC, NULL);
+	gettimeofday(&currentTimeC, NULL);
+
 
 	//Start recording
 	for (i = 0; i < 2000; ++i) {
     		snd_pcm_readi(recHandler, recBuffer, buffFrames);
     		fwrite(recBuffer, sizeof(recBuffer[0]), 256, rawFile);	
 	}
+	
 	
 	free(recBuffer);
   	fclose(rawFile);
@@ -70,6 +73,7 @@ int main(){
 	snd_pcm_hw_params_set_channels(playHandler, params, channels);
 	snd_pcm_hw_params_set_rate_near(playHandler, params, &rate, 0);
 	snd_pcm_hw_params(playHandler, params);
+	//snd_pcm_nonblock(playHandler, 0);
 
 	snd_pcm_hw_params_get_period_size(params, &frames, 0);
 	size = frames * channels * 2;
@@ -80,13 +84,13 @@ int main(){
 	struct timeval currentTimeP;
 	gettimeofday(&currentTimeP, NULL);
 
-
 	//Start playback
 	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
 		read(0, playBuffer, size);
 		snd_pcm_writei(playHandler, playBuffer, frames);
 	}
-
+		
+	
 	snd_pcm_drain(playHandler);
 	snd_pcm_close(playHandler);
 	free(playBuffer);

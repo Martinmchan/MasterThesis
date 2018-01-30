@@ -9,8 +9,8 @@ plot(yPC);
 figure;
 plot(yCP);
 
-xPC = find(yPC>0.01,1); 
-xCP = find(yCP>0.01,1); 
+xPC = find(yPC>0.005,1); 
+xCP = find(yCP>0.005,1); 
 
 cPC_a = xPC/f*1000000;
 cCP_b = xCP/f*1000000;
