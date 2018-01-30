@@ -16,7 +16,9 @@ int main(){
 	int i, size;
 
 	FILE *rawFile = fopen("CP.raw", "w");
-	FILE *timeFile = fopen("CP.txt", "a");
+	FILE *timeFile = fopen("CP.txt", "w");
+	fclose(timeFile);
+	timeFile = fopen("CP.txt", "a");
 
 	//Initializing the needed variables and settings for playback
 	int buffFrames = 128;

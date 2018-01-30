@@ -16,11 +16,13 @@ int main(){
 	int i, size;
 
 	FILE *rawFile = fopen("CP.raw", "w");
-	FILE *timeFile = fopen("CP.txt", "a");
+	FILE *timeFile = fopen("CP.txt", "w");
+	fclose(timeFile);
+	timeFile = fopen("CP.txt", "a");
 
 	//Initializing the needed variables and settings for playback
 	int buffFrames = 128;
-	size = buffFrames * snd_pcm_format_width(format) / 8 * 2;
+	size = buffFrames * snd_pcm_format_width(format) / 8 * channels;
 
 	snd_pcm_t *recHandler;
 	char *recBuffer;
@@ -45,7 +47,7 @@ int main(){
 	//Start recording
 	for (i = 0; i < 2000; ++i) {
     		snd_pcm_readi(recHandler, recBuffer, buffFrames);
-    		fwrite(recBuffer, sizeof(recBuffer[0]), 256, rawFile);	
+    		fwrite(recBuffer, sizeof(recBuffer[0]), size, rawFile);	
 	}
 	
 	free(recBuffer);
@@ -76,12 +78,13 @@ int main(){
 
 	//Get the second time stamp
 	struct timeval currentTimeP;
-	gettimeofday(&currentTimeP, NULL);
-
 
 	//Start playback
 	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
 		read(0, playBuffer, size);
+		if(i == playTime * 1000000) {
+			gettimeofday(&currentTimeP, NULL);
+		}
 		snd_pcm_writei(playHandler, playBuffer, frames);
 	}
 
@@ -91,9 +94,9 @@ int main(){
 	
 	//Write the times on file
 	long long int timeStampC = currentTimeC.tv_sec * (int)1e6 + currentTimeC.tv_usec;
-	fprintf(timeFile, "%lld \n \n", timeStampC);
+	fprintf(timeFile, "%lld \n", timeStampC);
 	long long int timeStampP = currentTimeP.tv_sec * (int)1e6 + currentTimeP.tv_usec;
-	fprintf(timeFile, "%lld \n", timeStampP);
+	fprintf(timeFile, "%lld \n \n", timeStampP);
 	fclose(timeFile);
 
 	return 0;

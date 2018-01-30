@@ -1,5 +1,5 @@
 cd /tmp;
 
-./capPlay < testTone.wav;
+./capPlayM < testTone.wav;
 
 exit;

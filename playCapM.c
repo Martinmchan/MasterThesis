@@ -16,7 +16,9 @@ int main(){
 	int i, size;
 
 	FILE *rawFile = fopen("PC.raw", "w");
-	FILE *timeFile = fopen("PC.txt", "a");
+	FILE *timeFile = fopen("PC.txt", "w");
+	fclose(timeFile);
+	timeFile = fopen("PC.txt", "a");
 	
 	//Initializing the needed variables and settings for playback
 	int playTime = 1;
@@ -43,11 +45,13 @@ int main(){
 	sleep(1);
 	//Get first time stamp	
   	struct timeval currentTimeP;
-  	gettimeofday(&currentTimeP, NULL);
 
 	//Start playback
 	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
 		read(0, playBuffer, size);
+		if(i == playTime * 1000000) {
+			gettimeofday(&currentTimeP, NULL);
+		}
 		snd_pcm_writei(playHandler, playBuffer, frames);
 	}
 
@@ -57,7 +61,7 @@ int main(){
 	
 	//Initializing the needed variables and settings for playback
 	int buffFrames = 128;
-	size = buffFrames * snd_pcm_format_width(format) / 8 * 2;
+	size = buffFrames * snd_pcm_format_width(format) / 8 * channels;
 
 	snd_pcm_t *recHandler;
 	char *recBuffer;
@@ -84,7 +88,7 @@ int main(){
 	//Start recording
 	for (i = 0; i < 2000; ++i) {
     		snd_pcm_readi(recHandler, recBuffer, buffFrames);
-    		fwrite(recBuffer, sizeof(recBuffer[0]), 256, rawFile);	
+    		fwrite(recBuffer, sizeof(recBuffer[0]), size, rawFile);	
 	}
 	
 	free(recBuffer);

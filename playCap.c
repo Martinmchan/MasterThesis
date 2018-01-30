@@ -16,7 +16,9 @@ int main(){
 	int i, size;
 
 	FILE *rawFile = fopen("PC.raw", "w");
-	FILE *timeFile = fopen("PC.txt", "a");
+	FILE *timeFile = fopen("PC.txt", "w");
+	fclose(timeFile);
+	timeFile = fopen("PC.txt", "a");
 	
 	//Initializing the needed variables and settings for playback
 	int playTime = 1;
