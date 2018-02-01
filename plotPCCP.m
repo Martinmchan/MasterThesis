@@ -1,7 +1,7 @@
 close all;
 clear all;
 
-[yPC, f] = audioread('PC.wav');
+[yPC, f] = audioread('viaC.wav');
 [yCP, f] = audioread('CP.wav');
 
 
@@ -9,17 +9,18 @@ plot(yPC);
 figure;
 plot(yCP);
 
-xPC = find(yPC>0.005,1); 
-xCP = find(yCP>0.005,1); 
+xPC = find(yPC>0.008,1); 
+xCP = find(yCP>0.008,1); 
 
 cPC_a = xPC/f*1000000;
 cCP_b = xCP/f*1000000;
 
 file1 = fopen('PC.txt','r');
-t1 = fscanf(file1,'%f');
+tPC = fscanf(file1,'%f');
 
 file2 = fopen('CP.txt','r');
-t2 = fscanf(file2, '%f');
+tCP = fscanf(file2, '%f');
 
-T = (cPC_a + cCP_b + t2(1) + t1(2) - t1(1) - t2(2))/2;
+delay = 1536;
+T = (cPC_a + cCP_b + tCP(1) + tPC(2) - (tPC(1) +  delay/f*1000000) - (tCP(2) +  delay/f*1000000))/2;
 deltaS = T*343/1000000

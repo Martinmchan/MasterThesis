@@ -1,6 +1,6 @@
 cd /tmp;
 
 systemctl stop audio*
-./capPlay < testTone.wav;
+./capPlay < /dev/urandom;
 
 exit;

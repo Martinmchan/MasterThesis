@@ -20,7 +20,7 @@ int main(){
 	fclose(timeFile);
 	timeFile = fopen("CP.txt", "a");
 
-	//Initializing the needed variables and settings for playback
+	//Initializing the needed variables and settings for record
 	int buffFrames = 128;
 	size = buffFrames * snd_pcm_format_width(format) / 8 * 2;
 
@@ -37,7 +37,7 @@ int main(){
 	snd_pcm_hw_params_set_channels(recHandler, params, channels);
 	snd_pcm_hw_params (recHandler, params);
 	snd_pcm_prepare (recHandler);
-	//snd_pcm_nonblock(recHandler, 0);
+
 
 	recBuffer = malloc(size);
 
@@ -73,7 +73,7 @@ int main(){
 	snd_pcm_hw_params_set_channels(playHandler, params, channels);
 	snd_pcm_hw_params_set_rate_near(playHandler, params, &rate, 0);
 	snd_pcm_hw_params(playHandler, params);
-	//snd_pcm_nonblock(playHandler, 0);
+
 
 	snd_pcm_hw_params_get_period_size(params, &frames, 0);
 	size = frames * channels * 2;
@@ -87,7 +87,7 @@ int main(){
 	//Start playback
 	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
 		read(0, playBuffer, size);
-		snd_pcm_writei(playHandler, playBuffer, frames);
+		fprintf(stdout, "frames filled: %d \n",snd_pcm_writei(playHandler, playBuffer, frames));
 	}
 		
 	
