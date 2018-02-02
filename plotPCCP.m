@@ -1,8 +1,8 @@
 close all;
 clear all;
 
-[yPC, f] = audioread('cap1Exp1.wav');
-[yCP, f] = audioread('cap2Exp1.wav');
+[yPC, f] = audioread('PC.wav');
+[yCP, f] = audioread('CP.wav');
 
 
 plot(yPC);
