@@ -4,12 +4,11 @@ close all;
 a=1;
 b=1;
 c=1;
-V = X.^2/a^2 + Y.^2/b^2 - Z.^2/c^2;
-p1=patch(isosurface(X,Y,Z,V,1)); 
-hold on
-p2=patch(isosurface(X,Y,Z,V,5));
+V = abs(sqrt((X).^2+(Y).^2) - sqrt((X - 2).^2+(Y).^2));
+p1=patch(isosurface(X,Y,Z,V,2)); 
+
 set(p1,'FaceColor','green','EdgeColor','none');
-set(p2,'FaceColor','red','EdgeColor','none');
+
 daspect([1 1 1])
 view(3);
 camlight
