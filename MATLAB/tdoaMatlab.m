@@ -12,7 +12,7 @@ start = tresholdValue(1) - floor(sz/200);
 finish = tresholdValue(1) + floor(sz/50);
 
 suby1 = y1(start:finish);
-suby3 = y3(start:finish);
+suby3 = y3(start+409:finish);
 
 figure
 plot(suby1)
@@ -23,6 +23,8 @@ corre = xcorr(suby1, suby3);
 
 [C I] = max(corre);
 
-tdoa= ((length(corre)+1)/2 - I)/Fs1
+tdoa= ((length(corre)+1)/2 - I)
+
+tdoa = tdoa/Fs1;
 
 deltaS = tdoa*343
