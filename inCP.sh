@@ -1,6 +1,6 @@
 cd /tmp;
 
 systemctl stop audio*
-./cap
+./capPlay < matlabTestTone.wav;
 
 exit;

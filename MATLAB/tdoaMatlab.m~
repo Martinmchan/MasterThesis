@@ -23,6 +23,6 @@ corre = xcorr(suby1, suby3);
 
 [C I] = max(corre);
 
-tdoa= ((length(corre)+1)/2 - I)/Fs1
+tdoa= ((length(corre)+1)/2 - I)/48000
 
 deltaS = tdoa*343

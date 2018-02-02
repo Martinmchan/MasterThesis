@@ -1,6 +1,6 @@
 cd /tmp;
 
 systemctl stop audio*
-./playCap < /dev/urandom;
+./playCap < matlabTestTone.wav;
 
 exit;

@@ -52,8 +52,7 @@ Tt = (deltat116-deltat38)/2/48000;
 deltaSt = Tt*343
 
 %%
-close all;
-clear all;
+
 [y116, f] = audioread('cap116.wav');
 [y38, f] = audioread('cap38.wav');
 
@@ -84,15 +83,12 @@ suby38B = y38(xB);
 
 correA = xcorr(suby116A, suby38A);
 [C IA] = max(correA);
-tdoaA= ((length(correA)+1)/2 - IA)/f;
+tdoaA= ((length(correA)+1)/2 - I)/f;
 
 
 correB = xcorr(suby116B, suby38B);
-[C IB] = max(correB);
-tdoaB= ((length(correB)+1)/2 - IB)/f;
-
-T = (tdoaA - tdoaB)/2;
-deltaS = 343*T
+[C I] = max(correB);
+tdoaB= ((length(correB)+1)/2 - I)/f;
 
 
 
