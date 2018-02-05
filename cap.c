@@ -16,7 +16,7 @@ int main(){
 	int i, size;
 
 	FILE *rawFile = fopen("cap.raw", "w");
-	FILE *timeFile = fopen("cap.txt", "a");
+	FILE *timeFile = fopen("cap.txt", "w");
 
 	//Initializing the needed variables and settings for record
 	int buffFrames = 128;
@@ -60,6 +60,8 @@ int main(){
 
 	long long int timeStampC = currentTimeC.tv_sec * (int)1e6 + currentTimeC.tv_usec;
 	fprintf(timeFile, "%lld \n \n", timeStampC);
+
+	fclose(timeFile);
 
 	return 0;
 }

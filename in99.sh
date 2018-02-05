@@ -1,6 +1,6 @@
 cd /tmp;
 
 systemctl stop audio*
-./playCapBuf < testTone.wav;
+./play99 < testTone.wav;
 
 exit;

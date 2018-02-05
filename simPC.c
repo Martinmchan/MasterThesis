@@ -15,7 +15,7 @@ int main(){
 	snd_pcm_format_t format = SND_PCM_FORMAT_S16_LE;
 	int i;
 
-	FILE *rawFile = fopen("CP.raw", "w");
+	FILE *rawFile = fopen("sim.raw", "w");
 
 
 	//Initializing the needed variables and settings for record
@@ -63,13 +63,14 @@ int main(){
 	playBuffer = (char *) malloc(sizeP);
 	snd_pcm_hw_params_get_period_time(params, &periodT, NULL);
 	
-	fprintf(stdout, "periodT: %d ", periodT);
 
 	//Start playback and record
-	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
-		fprintf(stdout, "i : %d", i);	
-		read(0, playBuffer, sizeP);
-		snd_pcm_writei(playHandler, playBuffer, frames);
+	for (i = 0; i < (playTime * 1000000)*100 / periodT; i++) { 
+		if(i < (playTime * 1000000) / periodT){		
+			read(0, playBuffer, sizeP);
+			snd_pcm_writei(playHandler, playBuffer, frames);
+		}
+		
 		snd_pcm_readi(recHandler, recBuffer, buffFrames);
     		fwrite(recBuffer, sizeof(recBuffer[0]), 256, rawFile);
 	}

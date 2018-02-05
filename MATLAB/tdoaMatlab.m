@@ -1,32 +1,37 @@
 clear all
-[y1, Fs1] = audioread('tascam116.wav');
-[y3, Fs3] = audioread('tascam38.wav');
+close all
+[mic1, Fs1] = audioread('sim99.wav');
+[mic2, Fs2] = audioread('sim168.wav');
 
+mic1 = mic1 - mean(mic1);
+mic2 = mic2 - mean(mic2);
 
-[sz, ~] = size(y1);
-treshold = max(y3);
-tresholdValue = find(y3 >= treshold);
+y1 = mic1(90000:200000);
+y2 = mic2(90000:200000);
 
-
-start = tresholdValue(1) - floor(sz/200);
-finish = tresholdValue(1) + floor(sz/50);
-
-suby1 = y1(start:finish);
-suby3 = y3(start:finish);
-
-figure
-plot(y1)
-hold on
-plot(y3)
-
-corre = xcorr(y1, y3);
-
+gcctdoa1 = ourGccphat(y1,y2);
+corre = xcorr(y1, y2);
 [C I] = max(corre);
-
-tdoa= ((length(corre)+1)/2 - I)
-
-tdoa = tdoa/Fs1;
-
-deltaS = tdoa*343
+corrtdoa1 = ((length(corre)+1)/2 - I);
 
 
+y1 = mic1(200000:400000);
+y2 = mic2(200000:400000);
+gcctdoa2 = ourGccphat(y1,y2);
+corre = xcorr(y1, y2);
+[C I] = max(corre);
+corrtdoa2 = ((length(corre)+1)/2 - I);
+
+plot(mic1)
+hold on
+plot(mic2)
+
+
+gcctdoa = (gcctdoa1 - gcctdoa2)/2;
+gcctdoa = gcctdoa/Fs1;
+gccdeltaS = 343*gcctdoa
+
+
+corrtdoa = (corrtdoa2 - corrtdoa1)/2;
+corrtdoa = corrtdoa/Fs1;
+corrdeltaS = 343*corrtdoa

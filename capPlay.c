@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
 #include <unistd.h>
+#include <time.h>
 #define PCM_PLAYER "plughw:1,0,0"
 #define PCM_RECORDER "audiosource"
 
