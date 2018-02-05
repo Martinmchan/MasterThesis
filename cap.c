@@ -47,7 +47,7 @@ int main(){
 	fprintf(stdout,"Now recording!!!!");	
 	
 	//Start recording
-	for (i = 0; i < 2000; ++i) {
+	for (i = 0; i < 4000; ++i) {
     		snd_pcm_readi(recHandler, recBuffer, buffFrames);
     		fwrite(recBuffer, sizeof(recBuffer[0]), size, rawFile);	
 	}
