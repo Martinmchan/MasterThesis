@@ -1,7 +1,7 @@
 clear all
 close all
-[mic1, Fs1] = audioread('sim99.wav');
-[mic2, Fs2] = audioread('sim168.wav');
+[mic1, Fs1] = audioread('cap99.wav');
+[mic2, Fs2] = audioread('cap168.wav');
 
 mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
