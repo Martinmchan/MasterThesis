@@ -1,6 +1,5 @@
 clear all
 close all
-
 [mic1, Fs1] = audioread('cap99.wav');
 [mic2, Fs2] = audioread('cap168.wav');
 
@@ -54,15 +53,15 @@ plot(y2)
 hold on
 plot(y1)
 
-deltaT = ourGccphat(y1,y2);
-deltaT = abs(deltaT)
+deltaT = ourGccphat(y1,y2)
+deltaT
 
 %%
 
 close all
 
-y1 = mic1(375000-deltaT:end);
-y2 = mic2(375000:end-deltaT);
+y1 = mic1(375000:end-deltaT);
+y2 = mic2(375000-deltaT:end);
 
 plot(y2)
 hold on

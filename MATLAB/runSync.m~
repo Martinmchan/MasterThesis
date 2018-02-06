@@ -1,0 +1,19 @@
+close all;
+clear all;
+
+[mic1, Fs1] = audioread('cap99.wav');
+[mic2, Fs2] = audioread('cap168.wav');
+
+mic1 = mic1 - mean(mic1);
+mic2 = mic2 - mean(mic2);
+
+mic2 = ourSync(mic1, mic2);
+
+plot(mic1)
+hold on
+plot(mic2)
+
+
+tdoa = ourGccphat(mic1(400000:600000), mic2(400000:600000));
+
+deltaS = tdoa/Fs1*343

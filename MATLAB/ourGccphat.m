@@ -14,6 +14,6 @@ r12 = r12_temp(NFFT/2+1-(N-1)/2:NFFT/2+1+(N-1)/2);
 %Finding the TDOA and distance between microphones
 lags = (-(Ncorr-1)/2:(Ncorr-1)/2).';
 [~,idx] = max(abs(r12));
-tdoa = (N/2+lags(idx));
+tdoa = floor((N/2+lags(idx)));
 
 end
