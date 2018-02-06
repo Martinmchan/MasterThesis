@@ -15,9 +15,7 @@ int main(){
 	snd_pcm_format_t format = SND_PCM_FORMAT_S16_LE;
 	int i, size;
 
-
-	FILE *rawFile = fopen("cap168.raw", "w");
-
+	FILE *rawFile = fopen("cap38.raw", "w");
 
 	//Initializing the needed variables and settings for record
 	int buffFrames = 128;

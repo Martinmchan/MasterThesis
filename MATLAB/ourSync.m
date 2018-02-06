@@ -1,12 +1,12 @@
-function y2 = ourSync(y1,y2)
+function y2 = ourSync(y1,y2,s1,s2)
 
 
-mic1 = y1(1:200000);
-mic2 = y2(1:200000);
+mic1 = y1(s1);
+mic2 = y2(s1);
 gcctdoa1 = ourGccphat(mic1, mic2);
 
-mic1 = y1(200000:400000);
-mic2 = y2(200000:400000);
+mic1 = y1(s2);
+mic2 = y2(s2);
 gcctdoa2 = ourGccphat(mic1,mic2);
 
 gcctdoa = floor((gcctdoa1 - gcctdoa2)/2);
