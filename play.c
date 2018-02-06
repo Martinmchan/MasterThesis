@@ -37,12 +37,14 @@ int main(){
 	size = frames * channels * 2;
 	playBuffer = (char *) malloc(size);
 	snd_pcm_hw_params_get_period_time(params, &periodT, NULL);
-
 	
+	sleep(4);
+	
+
 	//Start playback
 	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
 		read(0, playBuffer, size);
-		fprintf(stdout, "frames filled: %d \n",snd_pcm_writei(playHandler, playBuffer, frames));
+		snd_pcm_writei(playHandler, playBuffer, frames);
 	}
 	
 	snd_pcm_drain(playHandler);

@@ -22,9 +22,9 @@ corre = xcorr(y1, y2);
 [C I] = max(corre);
 corrtdoa2 = ((length(corre)+1)/2 - I);
 
-plot(mic1)
-hold on
 plot(mic2)
+hold on
+plot(mic1)
 
 
 gcctdoa = (gcctdoa1 - gcctdoa2)/2;

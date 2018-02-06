@@ -15,8 +15,7 @@ int main(){
 	snd_pcm_format_t format = SND_PCM_FORMAT_S16_LE;
 	int i, size;
 
-	FILE *rawFile = fopen("cap.raw", "w");
-	FILE *timeFile = fopen("cap.txt", "w");
+	FILE *rawFile = fopen("cap99.raw", "w");
 
 	//Initializing the needed variables and settings for record
 	int buffFrames = 128;
@@ -42,9 +41,7 @@ int main(){
 	//Get first time stamp	
   	struct timeval currentTimeC;
 	gettimeofday(&currentTimeC, NULL);
-	
-	
-	fprintf(stdout,"Now recording!!!!");	
+		
 	
 	//Start recording
 	for (i = 0; i < 4000; ++i) {
@@ -57,11 +54,6 @@ int main(){
 	free(recBuffer);
   	fclose(rawFile);
   	snd_pcm_close(recHandler);
-
-	long long int timeStampC = currentTimeC.tv_sec * (int)1e6 + currentTimeC.tv_usec;
-	fprintf(timeFile, "%lld \n \n", timeStampC);
-
-	fclose(timeFile);
 
 	return 0;
 }
