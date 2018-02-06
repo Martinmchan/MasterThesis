@@ -38,7 +38,7 @@ int main(){
 	playBuffer = (char *) malloc(size);
 	snd_pcm_hw_params_get_period_time(params, &periodT, NULL);
 	
-	sleep(6);
+	sleep(10);
 	
 
 	//Start playback
