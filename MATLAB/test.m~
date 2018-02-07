@@ -16,8 +16,8 @@ f = Fs*(0:(L/2))/L;
 
 P1 = P1.*(P1>0.006);
 
+pl
 
-
-y = real(ifft(P1));
- 
-plot(y)
+% y = ifft(P1);
+% 
+% plot(y)

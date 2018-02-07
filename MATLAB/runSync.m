@@ -22,10 +22,25 @@ s3 = 400001:600000;
 mic2 = ourSync(mic1, mic2, s1, s2);
 mic3 = ourSync(mic1, mic3, s1, s3);
 
-plot(mic3)
-hold on
 plot(mic1)
+hold on
 plot(mic2)
+plot(mic3)
+% figure
+% plot(mic1)
+% figure
+% plot(mic2)
+% figure
+% plot(mic3)
 
-tdoa = ourGccphat(mic1(s2),mic3(s2));
+
+
+tdoa = ourGccphat(mic2(s1),mic3(s1));
 deltaS = tdoa/f*343
+
+
+
+
+
+
+

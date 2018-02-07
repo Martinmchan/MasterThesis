@@ -1,5 +1,5 @@
 clear all
-x0 = [84,32,0]';
+x0 = [0.5,0.5,0.5]';
 
 options.Algorithm = 'levenberg-marquardt';
 options.ScaleProblem = 'jacobian';
