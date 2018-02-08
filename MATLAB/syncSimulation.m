@@ -20,12 +20,12 @@ signal = sin(sFreq/sLength*2*pi*xSignal);
 
 
 delay1 = floor(0*f);
-delay2 = floor(0.6*f);
-delay3 = floor(1*f);
+delay2 = floor(-0.6*f);
+delay3 = floor(-1*f);
 
-dist12 = 1.5;
-dist13 = 1.5;
-dist23 = 3;
+dist12 = 8;
+dist13 = 3;
+dist23 = 11;
 
 amp = 0.07;
 
@@ -52,8 +52,8 @@ if delay1 > 0
     tmp = (rand(1,delay1)*2-1)*0.005 + off1;
     mic1 = [tmp mic1];
 elseif delay1 < 0
-    mic1 = mic1(delay1:end);
-    tmp = (rand(1,delay1)*2-1)*0.005 + off1;
+    mic1 = mic1(-delay1:end);
+    tmp = (rand(1,-delay1)*2-1)*0.005 + off1;
     mic1 = [mic1 tmp];
 end
 
@@ -62,8 +62,8 @@ if delay2 > 0
     tmp = (rand(1,delay2)*2-1)*0.005 + off2;
     mic2 = [tmp mic2];
 elseif delay2 < 0
-    mic2 = mic2(delay2:end);
-    tmp = (rand(1,delay2)*2-1)*0.005 + off2;
+    mic2 = mic2(-delay2:end);
+    tmp = (rand(1,-delay2)*2-1)*0.005 + off2;
     mic2 = [mic2 tmp];
 end
 
@@ -73,8 +73,8 @@ if delay3 > 0
     tmp = (rand(1,delay3)*2-1)*0.005 + off3;
     mic3 = [tmp mic3];
 elseif delay3 < 0
-    mic3 = mic3(delay3:end);
-    tmp = (rand(1,delay3)*2-1)*0.005 + off3;
+    mic3 = mic3(-delay3:end);
+    tmp = (rand(1,-delay3)*2-1)*0.005 + off3;
     mic3 = [mic3 tmp];
 end
 
@@ -96,8 +96,11 @@ s1 = 1:200000;
 s2 = 200001:400000;
 s3 = 400001:600000;
 
-mic2 = knownSync(mic1, mic2, s1, dist12);
-mic3 = knownSync(mic1, mic3, s1, dist13);
+mic2 = ourSync(mic1, mic2, s1, s2);
+mic3 = ourSync(mic1, mic3, s1, s3);
+
+% mic2 = knownSync(mic1, mic2, s1, dist12);
+% mic3 = knownSync(mic1, mic3, s1, dist13);
 
 plot(mic1)
 hold on
@@ -105,7 +108,7 @@ plot(mic2)
 plot(mic3)
 
 
-tdoa = ourGccphat(mic1(s2),mic3(s2));
+tdoa = ourGccphat(mic1(s3),mic2(s3));
 deltaS = tdoa/f*343
 
 

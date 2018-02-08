@@ -2,7 +2,7 @@ function y2 = knownSync(y1,y2,s1,deltaS)
 
 
 deltaT = ourGccphat(y1(s1),y2(s1));
-deltaFrame = deltaS*48000/343;
+deltaFrame = floor(deltaS*48000/343);
 
 
 if deltaT > 0
