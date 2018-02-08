@@ -26,8 +26,8 @@ plot(mic1)
 hold on
 plot(mic2)
 plot(mic3)
-% figure
-% plot(mic1)
+figure
+plot(mic1)
 % figure
 % plot(mic2)
 % figure

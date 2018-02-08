@@ -14,7 +14,6 @@ gcctdoa = floor((gcctdoa1 - gcctdoa2)/2);
 if gcctdoa < 0
     x1 = (-gcctdoa:200000);
     x2 = (1:200000+gcctdoa);
-    
 elseif gcctdoa > 0
     x1 = (1:200000-gcctdoa);
     x2 = (gcctdoa:200000);
