@@ -19,16 +19,11 @@ s1 = 1:200000;
 s2 = 200001:400000;
 s3 = 400001:600000;
 
-[x1Start x1End] = findTone(mic1(s1),mic2(s1),mic3(s1));
-[x2Start x2End] = findTone(mic1(s2),mic2(s2),mic3(s2));
-[x3Start x3End] = findTone(mic1(s3),mic2(s3),mic3(s3));
-
-s1 = x1Start:x1End;
-s2 = 200000 + x2Start:200000 + x2End;
-s3 = 400000 + x2Start:400000 + x2End;
+[x1Start x1E
 
 mic2 = ourSync(mic1, mic2, s1, s2);
 mic3 = ourSync(mic1, mic3, s1, s3);
+
 
 plot(mic1)
 hold on
