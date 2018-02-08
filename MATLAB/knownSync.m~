@@ -1,0 +1,16 @@
+function y2 = knownSync(y1,y2,s1,s2,deltaS)
+
+
+deltaT = ourGccphat(mic1,mic2)
+
+
+if deltaT > 0
+    y2 = [zeros(deltaT,1);y2];
+elseif deltaT < 0
+    y2 = y2(-deltaT:end);
+else
+    y2 = 0;
+end
+
+
+end
