@@ -22,7 +22,7 @@ end
 
 mic1 = y1(x2);
 mic2 = y2(x1);
-deltaT = ourGccphat(mic1,mic2)
+deltaT = ourGccphat(mic1,mic2);
 
 
 if deltaT > 0
