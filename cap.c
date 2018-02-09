@@ -15,7 +15,7 @@ int main(){
 	snd_pcm_format_t format = SND_PCM_FORMAT_S16_LE;
 	int i, size;
 
-	FILE *rawFile = fopen("cap38.raw", "w");
+	FILE *rawFile = fopen("cap99.raw", "w");
 
 	//Initializing the needed variables and settings for record
 	int buffFrames = 128;
@@ -44,7 +44,7 @@ int main(){
 		
 	
 	//Start recording
-	for (i = 0; i < 6000; ++i) {
+	for (i = 0; i < 10000; ++i) {
     		snd_pcm_readi(recHandler, recBuffer, buffFrames);
     		fwrite(recBuffer, sizeof(recBuffer[0]), size, rawFile);	
 	}
