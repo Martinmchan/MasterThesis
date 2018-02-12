@@ -1,12 +1,10 @@
 cd /tmp;
 
 systemctl stop audio*
-./cap99 & 
-./play99 < testTone.wav
+arecord -Daudiosource -r48000 -fS16_LE -c1 -d15 /tmp/cap38.wav & 
 
 sleep 6
 
-./play99 < testTone2.wav
-
+aplay -Dlocalhw_0 -r48000 -fS16_LE /tmp/testTone.wav
 
 exit;
