@@ -17,7 +17,7 @@ int main(){
 
 
 	//Initializing the needed variables and settings for playback
-	int playTime = 1;
+	int playTime = 0.25;
 
 	snd_pcm_t *playHandler;
 	char *playBuffer;
@@ -38,7 +38,7 @@ int main(){
 	playBuffer = (char *) malloc(size);
 	snd_pcm_hw_params_get_period_time(params, &periodT, NULL);
 	
-	//sleep(10);
+	sleep(10);
 	
 
 	//Start playback

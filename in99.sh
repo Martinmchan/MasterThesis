@@ -4,7 +4,7 @@ systemctl stop audio*
 ./cap99 & 
 ./play99 < testTone.wav
 
-sleep 5
+sleep 6
 
 ./play99 < testTone2.wav
 
