@@ -43,15 +43,15 @@ s3 = 500001:700000;
 % plot(x1End + x2End + x3End,0.05,'o');
 % figure
 
-% mic2 = ourSync(mic1, mic2, s1, s2);
-% mic3 = ourSync(mic1, mic3, s1, s3);
-% 
-% 
-% plot(mic1)
-% hold on
-% plot(mic2)
-% plot(mic3)
-% 
+mic2 = ourSync(mic1, mic2, s1, s2);
+mic3 = ourSync(mic1, mic3, s1, s3);
+
+
+plot(mic1)
+hold on
+plot(mic2)
+plot(mic3)
+
 
 tdoa12 = ourGccphat(mic1(s3),mic2(s3));
 deltaS12 = abs(tdoa12/f*343);
