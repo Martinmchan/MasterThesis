@@ -19,11 +19,7 @@ mic3 = mic3 - mean(mic3);
 
 s1 = 1:200000;
 s2 = 200001:400000;
-s3 = 400001:555000;
-s4 = 600000:800000;
-s5 = 800001:1000000;
-s6 = 1000001:1200000;
-
+s3 = 400001:600000;
 
 % [x1Start x1End] = findTone(mic1,mic2,mic3);
 % s2 = x1End:length(mic1);
@@ -47,15 +43,13 @@ s6 = 1000001:1200000;
 % plot(x1End + x2End + x3End,0.05,'o');
 % figure
 
-mic2 = ourSync(mic1, mic2, s1, s2);
-mic3 = ourSync(mic1, mic3, s1, s3);
+mic1 = ourSync(mic2, mic1, s2, s1);
+mic3 = ourSync(mic2, mic3, s2, s3);
 
 
 plot(mic1)
 hold on
 plot(mic2)
-plot(mic3)
-figure
 plot(mic3)
 
 
@@ -71,16 +65,16 @@ disp("delta13 = " + deltaS13);
 disp("delta23 = " + deltaS23);
 
 
-sSked = 550000:740000;
-
-tdoa12 = ourGccphat(mic1(sSked),mic2(sSked));
-deltaS12 = (tdoa12/f*343);
-tdoa13 = ourGccphat(mic1(sSked),mic3(sSked));
-deltaS13 = (tdoa13/f*343);
-tdoa23 = ourGccphat(mic2(sSked),mic3(sSked));
-deltaS23 = (tdoa23/f*343);
-
-disp("delta12 = " + deltaS12);
-disp("delta13 = " + deltaS13);
-disp("delta23 = " + deltaS23);
+% sSked = 550000:740000;
+% 
+% tdoa12 = ourGccphat(mic1(sSked),mic2(sSked));
+% deltaS12 = (tdoa12/f*343);
+% tdoa13 = ourGccphat(mic1(sSked),mic3(sSked));
+% deltaS13 = (tdoa13/f*343);
+% tdoa23 = ourGccphat(mic2(sSked),mic3(sSked));
+% deltaS23 = (tdoa23/f*343);
+% 
+% disp("delta12 = " + deltaS12);
+% disp("delta13 = " + deltaS13);
+% disp("delta23 = " + deltaS23);
 
