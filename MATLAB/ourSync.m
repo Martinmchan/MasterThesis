@@ -30,14 +30,14 @@ function y2 = ourSync(y1,y2,s1,s2)
 
     mic1 = y1(x2);
     mic2 = y2(x1);
-    deltaT = ourGccphat(mic1,mic2);
+    deltaT = ourGccphat(mic1,mic2)
 
     if deltaT > 0
         y2 = [zeros(deltaT,1);y2];
     elseif deltaT < 0
-        y2 = y2(-deltaT:end);
+        y2 = y2(1-deltaT:end);
     else
-        y2 = 0;
+        y2 = y2;
     end
 
 

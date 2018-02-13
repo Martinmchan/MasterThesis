@@ -1,9 +1,9 @@
 close all;
 clear all;
 
-[mic1, f] = audioread('cap168.wav');
-[mic2, f] = audioread('cap99.wav');
-[mic3, f] = audioread('cap38.wav');
+[mic1, f] = audioread('000128_248_mono1.wav');
+[mic2, f] = audioread('000128_248_mono2.wav');
+[mic3, f] = audioread('000128_248_mono3.wav');
 
 size = length(mic1);
 
@@ -17,9 +17,9 @@ mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
 mic3 = mic3 - mean(mic3);
 
-s1 = 1:200000;
-s2 = 200001:400000;
-s3 = 400001:600000;
+s1 = 150000:300000;
+s2 = 300001:500000;
+s3 = 500001:700000;
 
 % [x1Start x1End] = findTone(mic1,mic2,mic3);
 % s2 = x1End:length(mic1);
@@ -43,15 +43,15 @@ s3 = 400001:600000;
 % plot(x1End + x2End + x3End,0.05,'o');
 % figure
 
-mic1 = ourSync(mic2, mic1, s2, s1);
-mic3 = ourSync(mic2, mic3, s2, s3);
-
-
-plot(mic1)
-hold on
-plot(mic2)
-plot(mic3)
-
+% mic2 = ourSync(mic1, mic2, s1, s2);
+% mic3 = ourSync(mic1, mic3, s1, s3);
+% 
+% 
+% plot(mic1)
+% hold on
+% plot(mic2)
+% plot(mic3)
+% 
 
 tdoa12 = ourGccphat(mic1(s3),mic2(s3));
 deltaS12 = abs(tdoa12/f*343);
@@ -64,8 +64,8 @@ disp("delta12 = " + deltaS12);
 disp("delta13 = " + deltaS13);
 disp("delta23 = " + deltaS23);
 
-
-% sSked = 550000:740000;
+% 
+% sSked = 600000:750000;
 % 
 % tdoa12 = ourGccphat(mic1(sSked),mic2(sSked));
 % deltaS12 = (tdoa12/f*343);
