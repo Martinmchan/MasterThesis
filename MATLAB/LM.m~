@@ -1,0 +1,30 @@
+clear all
+
+%Read the files
+[y1, f] = audioread('.wav');
+[y2, f] = audioread('.wav');
+[y3, f] = audioread('.wav');
+[y4, f] = audioread('.wav');
+
+%Compute tdoa
+tdoa12 = ourGccphat(y1, y2);
+tdoa13 = ourGccphat(y1, y3);
+tdoa14 = ourGccphat(y1, y4);
+
+%The microphones positions
+
+
+%Initial guess
+x0 = [90,2,3]';
+
+%Boundaries on the room
+lb = [0,0,0];
+ub = [2,2,2];
+
+options.Algorithm = 'levenberg-marquardt';
+xP = lsqnonlin(@myFunc,x0, lb,ub)
+
+param1 = xP;
+a1 = myFunc(param1);
+param2 = [0,0,0];
+a2 = myFunc(param2);
