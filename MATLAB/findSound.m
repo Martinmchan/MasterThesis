@@ -2,7 +2,7 @@ function [xStart xEnd] = findSound(signal)
 
 signal = abs(signal);
 
-treshold = 15;
+treshold = 8;
 
 x1 = 1;
 x2 = 1;
@@ -32,7 +32,7 @@ for i = (size-movSize):-1:movSize
     end     
 end
 
-extra = size/20;
+extra = floor(size/20);
 
 xStart = x1 - extra;
 xEnd = x2 + extra;

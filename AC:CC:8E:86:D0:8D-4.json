@@ -1,0 +1,19 @@
+{
+  "Source": {
+    "Type": "alsa",
+    "AlsaDevice": "audiosource"
+  },
+  "Sinks": [
+    {
+      "Port": 6000,
+      "Address": "10.96.2.5"
+    }
+  ],
+  "Profile": "default",
+  "Enabled": true,
+  "Clock": {
+    "Type": "gstnet",
+    "Address": "172.25.12.168",
+    "Port": 6000
+  }
+}
