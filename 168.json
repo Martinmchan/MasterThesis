@@ -6,7 +6,7 @@
   "Sinks": [
     {
       "Port": 6000,
-      "Address": "10.96.2.5"
+      "Address": "172.25.9.11"
     }
   ],
   "Profile": "default",
@@ -14,6 +14,6 @@
   "Clock": {
     "Type": "gstnet",
     "Address": "172.25.12.168",
-    "Port": 6000
+    "Port": 5015
   }
 }

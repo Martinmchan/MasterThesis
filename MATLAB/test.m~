@@ -1,0 +1,22 @@
+close all;
+clear all;
+
+[mic1,f] = audioread('cap168.wav');
+[mic2,f] = audioread('cap99.wav');
+[mic3,f] = audioread('cap38.wav');
+
+s = 1:1500
+
+plot(mic1)
+
+
+tdoa12 = ourGccphat(mic1,mic2);
+deltaS12 = abs(tdoa12/f*343);
+tdoa13 = ourGccphat(mic1,mic3);
+deltaS13 = abs(tdoa13/f*343);
+tdoa23 = ourGccphat(mic2,mic3);
+deltaS23 = abs(tdoa23/f*343);
+
+disp("delta12 = " + deltaS12);
+disp("delta13 = " + deltaS13);
+disp("delta23 = " + deltaS23);
