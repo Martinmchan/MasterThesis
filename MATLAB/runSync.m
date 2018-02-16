@@ -17,9 +17,9 @@ mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
 mic3 = mic3 - mean(mic3);
 
-s1 = 100001:200000;
-s2 = 250001:350000;
-s3 = 400001:500000;
+s1 = 100001:300000;
+s2 = 300001:450000;
+s3 = 450001:600000;
 
 % [x1Start x1End] = findTone(mic1,mic2,mic3);
 % s2 = x1End:length(mic1);

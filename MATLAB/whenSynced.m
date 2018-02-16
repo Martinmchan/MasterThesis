@@ -5,8 +5,7 @@ clear all;
 [mic2,f] = audioread('cap38.wav');
 [mic3,f] = audioread('cap99.wav');
 
-s = 225001:350000;
-
+s = 450001:600000;
 
 
 plot(mic1)
@@ -14,7 +13,6 @@ figure
 plot(mic2)
 figure
 plot(mic3)
-figure
 
 tdoa12 = ourGccphat(mic1(s),mic2(s));
 deltaS12 = (tdoa12/f*343);
