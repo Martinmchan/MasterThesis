@@ -1,28 +1,35 @@
-close all;
-clear all;
-
-[mic1,f] = audioread('cap168.wav');
-[mic2,f] = audioread('cap38.wav');
-[mic3,f] = audioread('cap99.wav');
-
-s12 = 100001:250000;
 
 
+close all
+clear all
 
-plot(mic1)
+Fs = 48000;
+
+
+t = 1:48000;
+y = sin(3*2*pi*t/Fs);
+y = y + sin(20*2*pi*t/Fs);
+
+
+
+plot(y)
+
+Y = fft(y);
+
+L = length(Y);
+
+P1 = abs(Y);
+f = Fs*(0:L-1)/L;
+
+% plot(f,P1)
+
+Y(1:4) = 0;
+Y(L-3:L) = 0;
+
+y = ifft(Y)
+
 figure
-plot(mic2)
-figure
-plot(mic3)
-figure
+plot(abs(y))
 
-tdoa12 = ourGccphat(mic1(s),mic2(s));
-deltaS12 = (tdoa12/f*343);
-tdoa13 = ourGccphat(mic1(s),mic3(s));
-deltaS13 = (tdoa13/f*343);
-tdoa23 = ourGccphat(mic2(s),mic3(s));
-deltaS23 = (tdoa23/f*343);
+sound(abs(y),48000)
 
-disp("delta12 = " + deltaS12);
-disp("delta13 = " + deltaS13);
-disp("delta23 = " + deltaS23);

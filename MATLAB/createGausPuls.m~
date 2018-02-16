@@ -6,7 +6,7 @@ t = 1:48000;
 
 normford1 = 50*normpdf(t,12000,2);
 normford2 = 50*normpdf(t,24000,2);
-normford3 = 50*normpdf(t,36000,2);
+normford3 = 50*normpdf(t,36000,);
 
 normford = normford1 + normford2 + normford3;
 
@@ -32,4 +32,4 @@ plot(real(y))
 
 %sound(normford, 48000)
 sound(real(y), 48000);
-audiowrite('gaussToneFilter.wav',real(y),48000)
+%audiowrite('gaussTone.wav',normford,48000)

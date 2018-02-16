@@ -1,7 +1,7 @@
 close all;
 clear all;
 
-[X,Fs] = audioread('testTone.wav');
+[X,Fs] = audioread('testTonePianoF.wav');
 
 Y = fft(X);
 L = length(Y);
