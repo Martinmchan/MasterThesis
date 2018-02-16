@@ -2,8 +2,8 @@ close all;
 clear all;
 
 [mic1, f] = audioread('cap168.wav');
-[mic2, f] = audioread('cap38.wav');
-[mic3, f] = audioread('cap99.wav');
+[mic2, f] = audioread('cap99.wav');
+[mic3, f] = audioread('cap38.wav');
 
 size = length(mic1);
 
@@ -17,9 +17,9 @@ mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
 mic3 = mic3 - mean(mic3);
 
-s1 = 1:150000;
-s2 = 150001:300000;
-s3 = 300001:400000;
+s1 = 100001:200000;
+s2 = 250001:350000;
+s3 = 400001:500000;
 
 % [x1Start x1End] = findTone(mic1,mic2,mic3);
 % s2 = x1End:length(mic1);

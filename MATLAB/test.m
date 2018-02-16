@@ -5,7 +5,9 @@ clear all;
 [mic2,f] = audioread('cap38.wav');
 [mic3,f] = audioread('cap99.wav');
 
-s = 300001:400000;
+s = 225001:350000;
+
+
 
 plot(mic1)
 figure

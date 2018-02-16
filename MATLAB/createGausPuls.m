@@ -1,12 +1,18 @@
-tc = gauspuls('cutoff',250e3,0.6,[],-40); 
-t1 = -tc : 1/4800000 : tc; 
-y1 = gauspuls(t1,250e3,0.6);
-plot(t1,y1)
-sound(y1,48000);
+close all;
+clear all;
 
-%%
-t2 = -0.3:1/48000:0.3;
-y2 = 10*sinc(400*t2);
-plot(t2,y2)
-sound(y2, 48000)
-audiowrite('sinc.wav', y2, 48000)
+t = 1:48000;
+
+normford1 = 25*normpdf(t,12000,5);
+normford2 = 25*normpdf(t,24000,5);
+normford3 = 25*normpdf(t,36000,5);
+
+normford = normford1 + normford2 + normford3;
+
+
+plot(normford)
+
+
+sound(normford, 48000)
+
+audiowrite('gaussTone.wav',normford,48000)
