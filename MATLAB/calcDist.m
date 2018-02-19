@@ -1,5 +1,5 @@
-function deltaS = ourSync2(mic1,mic2,s1,s2)
-    N = 20;
+function deltaS = calcDist(mic1,mic2,s1,s2)
+    N = 16;
     targetF = 4000;
     f = 48000;
     freq_index = round(targetF/f*N) + 1;

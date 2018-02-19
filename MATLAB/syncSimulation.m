@@ -13,7 +13,7 @@ noise2 = (rand(1,reclength)*2-1)*0.005 + off2;
 noise3 = (rand(1,reclength)*2-1)*0.005 + off3;
 
 
-sFreq = 250;
+sFreq = 4000;
 sLength = 1*f;
 xSignal = 1:sLength;
 signal = sin(sFreq/sLength*2*pi*xSignal);
@@ -96,8 +96,8 @@ s1 = 1:200000;
 s2 = 200001:400000;
 s3 = 400001:600000;
 
-mic2 = ourSync(mic1, mic2, s1, s2);
-mic3 = ourSync(mic1, mic3, s1, s3);
+mic2 = ourSync2(mic1, mic2, s1, s2);
+mic3 = ourSync2(mic1, mic3, s1, s3);
 
 plot(mic1)
 hold on
