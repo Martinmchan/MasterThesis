@@ -6,40 +6,18 @@ clear all;
 [mic3, f] = audioread('cap38.wav');
 
 plot(mic1)
-hold on
-plot(mic2)
-plot(mic3)
 figure
-
-mic1 = mic1 - mean(mic1);
-mic2 = mic2 - mean(mic2);
-mic3 = mic3 - mean(mic3);
+plot(mic2)
+figure
+plot(mic3)
 
 s1 = 1:200000;
 s2 = 200001:400000;
-s3 = 400001:555000;
-s4 = 600000:800000;
-s5 = 800001:1000000;
-s6 = 1000001:1200000;
+s3 = 400001:600000;
 
-deltaTmic2 = (computeDeltaT(mic1, mic2, s1, s2)+computeDeltaT(mic1, mic2, s4, s5))/2;
-deltaTmic3 = (computeDeltaT(mic1, mic3, s1, s3)+computeDeltaT(mic1, mic3, s4, s6))/2;
-
-mic2 = ourSync2(mic2, floor(deltaTmic2));
-mic3 = ourSync2(mic3, floor(deltaTmic3));
-
-plot(mic1)
-hold on
-plot(mic2)
-plot(mic3)
-
-tdoa12 = ourGccphat(mic1(s3),mic2(s3));
-deltaS12 = abs(tdoa12/f*343);
-tdoa13 = ourGccphat(mic1(s2),mic3(s2));
-deltaS13 = abs(tdoa13/f*343);
-tdoa23 = ourGccphat(mic2(s1),mic3(s1));
-deltaS23 = abs(tdoa23/f*343);
-
+deltaS12 = ourSync2(mic1, mic2, s1, s2);
+deltaS13 = ourSync2(mic1, mic3, s1, s3);
+deltaS23 = ourSync2(mic2, mic3, s2, s3);
 disp("delta12 = " + deltaS12);
 disp("delta13 = " + deltaS13);
 disp("delta23 = " + deltaS23);

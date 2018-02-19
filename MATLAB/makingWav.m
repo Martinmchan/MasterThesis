@@ -1,5 +1,6 @@
-t = 1:1/48000:3;
+t = 1:1/48000:2;
 
-y = sin(250*2*pi*t);
+y = sin(4000*2*pi*t);
 
+sound(y,48000)
 audiowrite('testTone.wav',y,48000);
