@@ -4,7 +4,7 @@ clear all;
 [mic1, f] = audioread('cap168.wav');
 [mic2, f] = audioread('cap99.wav');
 [mic3, f] = audioread('cap38.wav');
-[mic4, f] = audioread('.wav');
+[mic4, f] = audioread('cap250.wav');
 
 mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
@@ -16,6 +16,7 @@ figure
 plot(mic2)
 figure
 plot(mic3)
+figure
 plot(mic4)
 
 s1 = 1:200000;
@@ -33,6 +34,7 @@ hold on
 plot(mic2)
 plot(mic3)
 plot(mic4)
+
 
 s5 = 550000:700000;
 

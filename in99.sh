@@ -1,7 +1,7 @@
 cd /tmp;
 
 systemctl stop audio*
-arecord -Daudiosource -r48000 -fS16_LE -c1 -d17 /tmp/cap99.wav & 
+arecord -Daudiosource -r48000 -fS16_LE -c1 -d25 /tmp/cap99.wav & 
 
 sleep 6
 
