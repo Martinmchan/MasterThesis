@@ -41,28 +41,25 @@ int main(){
 	recBuffer = malloc(size);
 
 	//Get first time stamp	
-  	/*struct timeval currentTimeC;
-	gettimeofday(&currentTimeC, NULL);*/
-	//snd_pcm_status_t *recStatus;
-	//snd_htimestamp_t recStamp;
-	//snd_pcm_status_malloc(&recStatus);
 
-//	snd_pcm_status(recHandler, recStatus);
+  	//struct timeval currentTimeC;
+	//gettimeofday(&currentTimeC, NULL);
 	
+	snd_pcm_status_t *recStatus;
+	snd_htimestamp_t recStamp;
+
+	snd_pcm_status_malloc(&recStatus);
+	snd_pcm_status(recHandler, recStatus);
+
 	/* Timestamp från senaste framen capturad till underliggande buffer */
-//	snd_pcm_status_get_htstamp(recStatus, &recStamp);
-
-//	unsigned long long time_ns = (recStamp.tv_sec * ((unsigned long long) 1e9)) + recStamp.tv_nsec;
-
+	snd_pcm_status_get_htstamp(recStatus, &recStamp);
+	unsigned long long time_ns_rec = (recStamp.tv_sec * ((unsigned long long) 1e9)) + recStamp.tv_nsec;
 	/* Hur många frames fanns buffrade? */
-//	snd_pcm_uframes_t avail = snd_pcm_status_get_avail(recStatus);
-
+	snd_pcm_uframes_t avail = snd_pcm_status_get_avail(recStatus);
 	/* Hur lång tid motsvarar de? */
-//	unsigned long long time_ns_buffer = (avail * ((unsigned long long) 1e9)) / rate;
-
+	unsigned long long time_ns_buffer = (avail * ((unsigned long long) 1e9)) / rate;
 	/* Subtrahera buffertid för att få capture tid för första utlästa samples från read. */
-//	time_ns -= time_ns_buffer;
-	
+	time_ns_rec -= time_ns_buffer;
 
 	//Start recording
 	for (i = 0; i < 2000; ++i) {
@@ -70,7 +67,6 @@ int main(){
     		fwrite(recBuffer, sizeof(recBuffer[0]), 256, rawFile);	
 	}
 	
-//	fprintf(timeFile, "%lld \n \n",);
 	free(recBuffer);
   	fclose(rawFile);
   	snd_pcm_close(recHandler);
@@ -99,47 +95,44 @@ int main(){
 	snd_pcm_hw_params_get_period_time(params, &periodT, NULL);
 
 	//Get the second time stamp
-	/*struct timeval currentTimeP;
-	gettimeofday(&currentTimeP, NULL);*/
+
+	//struct timeval currentTimeP;
+	//gettimeofday(&currentTimeP, NULL);
 	
-//	snd_pcm_status_t *playStatus;
-//	snd_htimestamp_t playStamp;
-//	snd_pcm_status_malloc(&playStatus);
-//
-//	snd_pcm_status(playHandler, playStatus);
+	snd_pcm_status_t *playStatus;
+	snd_htimestamp_t playStamp;
 
-	/* Timestamp från senaste framen capturad till underliggande buffer */
-//	snd_pcm_status_get_htstamp(playStatus, &playStamp);
-
-//	time_ns = (playStamp.tv_sec * ((unsigned long long) 1e9)) + playStamp.tv_nsec;
-
-	/* Hur många frames fanns buffrade? */
-//	avail = snd_pcm_status_get_avail(playStatus);
-
-	/* Hur lång tid motsvarar de? */
-//	time_ns_buffer = (avail * ((unsigned long long) 1e9)) / rate;
-
-	/* Subtrahera buffertid för att få capture tid för första utlästa samples från read. */
-//	time_ns -= time_ns_buffer;
+	snd_pcm_status_malloc(&playStatus);
+	
 
 	//Start playback
 	for (i = (playTime * 1000000) / periodT; i > 0; i--) {
 		read(0, playBuffer, size);
-		fprintf(stdout, "frames filled: %d \n",snd_pcm_writei(playHandler, playBuffer, frames));
+		snd_pcm_writei(playHandler, playBuffer, frames);
 	}
+
+	snd_pcm_status(playHandler, playStatus);
+
+	/* Timestamp från senaste framen capturad till underliggande buffer */
+	snd_pcm_status_get_htstamp(playStatus, &playStamp);
+	unsigned long long time_ns_play = (playStamp.tv_sec * ((unsigned long long) 1e9)) + playStamp.tv_nsec;
+	/* Hur många frames fanns buffrade? */
+	snd_pcm_uframes_t availp = snd_pcm_status_get_avail(playStatus);
+	/* Hur lång tid motsvarar de? */
+	unsigned long long time_ns_bufferp = (availp * ((unsigned long long) 1e9)) / rate;
+	/* Subtrahera buffertid för att få capture tid för första utlästa samples från read. */
+	time_ns_play -= time_ns_bufferp;
 		
-//	fprintf(timeFile, "%lld \n \n", time_ns);
 	snd_pcm_drain(playHandler);
 	snd_pcm_close(playHandler);
 	free(playBuffer);
-//	free(playStatus);
-//	free(recStatus);	
+	
 
 	//Write the times on file
 	//long long int timeStampC = currentTimeC.tv_sec * (int)1e6 + currentTimeC.tv_usec;
-	//fprintf(timeFile, "%lld \n \n", timeStampC);
+	fprintf(timeFile, "%lld \n \n", time_ns_rec);
 	//long long int timeStampP = currentTimeP.tv_sec * (int)1e6 + currentTimeP.tv_usec;
-	//fprintf(timeFile, "%lld \n", timeStampP);
+	fprintf(timeFile, "%lld \n", time_ns_play);
 	fclose(timeFile);
 
 	return 0;
