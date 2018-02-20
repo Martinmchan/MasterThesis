@@ -1,5 +1,6 @@
 close all;
 clear all;
+tic
 %Initialize camera position
 cameraMatrix = [0 0 1.7; -0.1 2.5 1.7; 2 0.5 1.65; 2.0 2.6 1.85];
 
@@ -52,9 +53,13 @@ plot(mic2)
 plot(mic3)
 plot(mic4)
 
-s = 1:200000;
+
+
+s = 20000:100000;
 %Calculates the sound source position
 [xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), cameraMatrix);
 
 %Scatterplots them.
 scatterPlot(cameraMatrix, xS, yS, zS)
+
+toc
