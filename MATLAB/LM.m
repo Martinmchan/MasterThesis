@@ -7,6 +7,8 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
 %   OUTPUT
 %       xS, yS, zS - the coordinates for the sound source
 
+    f = 48000;
+
     %Compute tdoa
     tdoa12 = ourGccphat(y1, y2);
     tdoa13 = ourGccphat(y1, y3);
@@ -29,7 +31,4 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
     
     xS = xP(1,1); yS = xP(2,1); zS = xP(3,1);
 
-
-    param1 = xP;
-    a1 = myFunc(param1, tdoa12, tdoa13, tdoa14, xyz);
 end

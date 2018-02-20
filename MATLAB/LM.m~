@@ -7,6 +7,8 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
 %   OUTPUT
 %       xS, yS, zS - the coordinates for the sound source
 
+    f = 
+
     %Compute tdoa
     tdoa12 = ourGccphat(y1, y2);
     tdoa13 = ourGccphat(y1, y3);
@@ -25,7 +27,7 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
 
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';
-    xP = lsqnonlin(@myFunc,x0, lb ,ub, [], tdoa12, tdoa13, tdoa14, xyzMic)
+    xP = lsqnonlin(@myFunc,x0, lb ,ub, [], tdoa12, tdoa13, tdoa14, xyzMic);
     
     xS = xP(1,1); yS = xP(2,1); zS = xP(3,1);
 
