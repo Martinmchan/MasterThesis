@@ -4,20 +4,8 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
 %       y1, y2, y3, y4 - is the audio files from the microphones, synced
 %       and cut so that we only look at the sound the source made.
 %       xyzMic - a matrix with the coordinates for the four microphones
-
-    %Locate the sound in time
-    % [xStart xEnd] = findSound(y1);
-    xStart = 1120000;
-    xEnd = 1180000;
-    y1 = y1(xStart:xEnd);
-    y2 = y2(xStart:xEnd);
-    y3 = y3(xStart:xEnd);
-    y4 = y4(xStart:xEnd);
-    % 
-    % 
-    % plot(xStart,0,'go');
-    % plot(xEnd,0,'ro');
-    % figure
+%   OUTPUT
+%       xS, yS, zS - the coordinates for the sound source
 
     %Compute tdoa
     tdoa12 = ourGccphat(y1, y2);
@@ -31,14 +19,15 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
     %Initial guess
     x0 = [1.05,0.7,1]';
 
-    %Boundaries on the room
+    %Boundaries for the room
     lb = [-2.1,-2.1,-2.1];
     ub = [3,3,3];
 
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';
-    xP = lsqnonlin(@myFunc,x0, lb ,ub, [], tdoa12, tdoa13, tdoa14, xyz)
-
+    xP = lsqnonlin(@myFunc,x0, lb ,ub, [], tdoa12, tdoa13, tdoa14, xyzMic)
+    
+    xS = xP(1,1); yS = xP(2,1); zS = xP(3,1);
 
 
     param1 = xP;
