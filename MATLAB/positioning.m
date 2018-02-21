@@ -57,7 +57,7 @@ plot(mic4)
 
 %%
 
-s = 60000:360000;
+s = 10000:16000;
 %Calculates the sound source position
 [xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), cameraMatrix);
 
@@ -65,3 +65,7 @@ s = 60000:360000;
 scatterPlot(cameraMatrix, xS, yS, zS)
 
 toc
+
+
+
+
