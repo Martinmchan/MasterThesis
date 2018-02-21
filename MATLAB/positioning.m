@@ -2,7 +2,7 @@ close all;
 clear all;
 tic
 %Initialize camera position
-cameraMatrix = [0 0 1.7; -0.1 2.5 1.7; 2 0.5 1.65; 2.0 2.6 1.85];
+cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85];
 
 %Reads the data and plots them
 [mic1, f] = audioread('cap168.wav');
@@ -40,6 +40,8 @@ plot(mic2)
 plot(mic3)
 plot(mic4)
 
+syncQuality = checkSync(cameraMatrix, dist12, dist13, dist14);
+
 %Generate the data after sync
 mic1 = mic1(800001:end);
 mic2 = mic2(800001:end);
@@ -55,7 +57,7 @@ plot(mic4)
 
 %%
 
-s = 1:260000;
+s = 60000:360000;
 %Calculates the sound source position
 [xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), cameraMatrix);
 

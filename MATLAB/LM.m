@@ -18,15 +18,11 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
     tdoa13 = tdoa13/f*343;
     tdoa14 = tdoa14/f*343;
     
-    tdoa12 = -2.5;
-    tdoa13 = -2.2;
-    tdoa14 = -3.1;
-    
     %Initial guess
     x0 = [1.05,0.7,1]';
 
     %Boundaries for the room
-    lb = [-2.1,-2.1,0];
+    lb = [-1,-1,0];
     ub = [3,3,3];
 
     %Calculate the position of the sound source using Levenberg-Marquardt
