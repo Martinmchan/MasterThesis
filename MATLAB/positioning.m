@@ -2,14 +2,14 @@ close all;
 clear all;
 tic
 %Initialize camera position
-cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85; 1.2 1.65 0];
+cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85; 1.2 1.65 0.1];
 
 %Reads the data and plots them
-[mic1, f] = audioread('mic1test19.wav');
-[mic2, f] = audioread('mic2test19.wav');
-[mic3, f] = audioread('mic3test19.wav');
-[mic4, f] = audioread('mic4test19.wav');
-[mic5, f] = audioread('mic5test19.wav');
+[mic1, f] = audioread('mic1.wav');
+[mic2, f] = audioread('mic2.wav');
+[mic3, f] = audioread('mic3.wav');
+[mic4, f] = audioread('mic4.wav');
+[mic5, f] = audioread('mic5.wav');
 
 
 mic1 = mic1 - mean(mic1);
@@ -48,16 +48,16 @@ plot(mic5)
 
 syncQuality1 = checkSync(cameraMatrix, dist12, dist13, dist14);
 syncQuality2 = checkSync2(mic2, mic3, s2, s3);
-syncQuality3 = checkSync2(mic2, mic4, s2, s4);
-syncQuality4 = checkSync2(mic3, mic4, s3, s4);
-syncQuality5 = checkSyns2(mic2, mic5, s2, s5);
+syncQuality3 = checkSync2(mic3, mic4, s3, s4);
+syncQuality4 = checkSync2(mic4, mic5, s4, s5);
+syncQuality5 = checkSync2(mic5, mic2, s5, s2);
 
 %Generate the data after sync
-mic1 = mic1(800001:end);
-mic2 = mic2(800001:end);
-mic3 = mic3(800001:end);
-mic4 = mic4(800001:end);
-mic5 = mic5(800001:end);
+mic1 = mic1(1000001:end);
+mic2 = mic2(1000001:end);
+mic3 = mic3(1000001:end);
+mic4 = mic4(1000001:end);
+mic5 = mic5(1000001:end);
 
 figure
 plot(mic1)
@@ -69,7 +69,7 @@ plot(mic5)
 
 %%
 
-s = 1:310000;
+s = 100000:400000;
 %Calculates the sound source position
 [xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), mic5(s), cameraMatrix);
 

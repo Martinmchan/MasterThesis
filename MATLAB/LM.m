@@ -18,7 +18,7 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, y5, xyzMic)
     tdoa12 = tdoa12/f*343;
     tdoa13 = tdoa13/f*343;
     tdoa14 = tdoa14/f*343;
-    tdoa15 = toda15/f*343;
+    tdoa15 = tdoa15/f*343;
     
     %Initial guess
     x0 = [1.05,0.7,1]';
