@@ -5,10 +5,10 @@ tic
 cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85];
 
 %Reads the data and plots them
-[mic1, f] = audioread('mic1test19.wav');
-[mic2, f] = audioread('mic2test19.wav');
-[mic3, f] = audioread('mic3test19.wav');
-[mic4, f] = audioread('mic4test19.wav');
+[mic1, f] = audioread('mic1test9.wav');
+[mic2, f] = audioread('mic2test9.wav');
+[mic3, f] = audioread('mic3test9.wav');
+[mic4, f] = audioread('mic4test9.wav');
 
 mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
@@ -68,6 +68,44 @@ s = 1:310000;
 scatterPlot(cameraMatrix, xS, yS, zS)
 
 toc
+
+%%
+
+close all
+plot(mic1)
+figure
+plot(mic2)
+figure
+plot(mic3)
+figure
+plot(mic4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
