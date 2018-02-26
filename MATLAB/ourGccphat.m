@@ -1,4 +1,4 @@
-function [tdoa1, tdoa2, tdoa3] = ourGccphat(mic1,mic2)
+function tdoa = ourGccphat(mic1,mic2)
 %GCC-Phat
 N = length(mic1);
 Ncorr = 2*N-1;
@@ -25,4 +25,5 @@ r12(idx-5:idx+5) = 0;
 [~,idx] = max(abs(r12));
 tdoa3 = floor((N/2+lags(idx)));
 
+tdoa = [tdoa1, tdoa2, tdoa3];
 end
