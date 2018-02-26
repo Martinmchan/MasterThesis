@@ -16,11 +16,11 @@ r12 = r12_temp(floor(NFFT/2)+1-floor((N-1)/2):floor(NFFT/2)+1+floor((N-1)/2));
 lags = (-(Ncorr-1)/2:(Ncorr-1)/2).';
 [~,idx] = max(abs(r12));
 tdoa1 = floor((N/2+lags(idx)));
-r12(idx-5:idx+5) = 0;
+r12(idx-2:idx+2) = 0;
 
 [~,idx] = max(abs(r12));
 tdoa2 = floor((N/2+lags(idx)));
-r12(idx-5:idx+5) = 0;
+r12(idx-2:idx+2) = 0;
 
 [~,idx] = max(abs(r12));
 tdoa3 = floor((N/2+lags(idx)));
