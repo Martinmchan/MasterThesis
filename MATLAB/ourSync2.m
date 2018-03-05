@@ -1,4 +1,4 @@
-function [y2Synced dist]= ourSync2(mic1, mic2, s1, s2)
+function [y2Synced, dist, deltaT]= ourSync2(mic1, mic2, s1, s2)
     
     N = 16;
     targetF = 4000;

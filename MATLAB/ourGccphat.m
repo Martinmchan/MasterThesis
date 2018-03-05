@@ -15,6 +15,23 @@ plot(343/48000*[-floor(length(r12)/2):floor(length(r12)/2)],abs(r12));
 %Finding the TDOA and distance between microphones
 lags = (-(Ncorr-1)/2:(Ncorr-1)/2).';
 [~,idx] = max(abs(r12));
-tdoa = floor((N/2+lags(idx)));
+tdoa1 = floor((N/2+lags(idx)));
+r12(idx-5:idx+5) = 0;
 
+[~,idx] = max(abs(r12));
+tdoa2 = floor((N/2+lags(idx)));
+r12(idx-5:idx+5) = 0;
+
+[~,idx] = max(abs(r12));
+tdoa3 = floor((N/2+lags(idx)));
+r12(idx-5:idx+5) = 0;
+
+[~,idx] = max(abs(r12));
+tdoa4 = floor((N/2+lags(idx)));
+r12(idx-5:idx+5) = 0;
+
+[~,idx] = max(abs(r12));
+tdoa5 = floor((N/2+lags(idx)));
+
+tdoa = [tdoa1, tdoa2, tdoa3, tdoa4, tdoa5];
 end
