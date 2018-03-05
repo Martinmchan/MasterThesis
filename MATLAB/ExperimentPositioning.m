@@ -26,12 +26,12 @@ plot(micMatrix{1});
 for i = 2:nbrOfSpeakers
    s1 = 1:200000;
    s = j:j+200000;
-   [mic, dist, ~] = ourSync2(micMatrix{1}, micMatrix{i}, s1, s);
+   [mic, distance, ~] = ourSync2(micMatrix{1}, micMatrix{i}, s1, s);
    micMatrix{i} = mic;
    j = j+200000;
    hold on
    plot(micMatrix{i});
-   dist{i} = dist;
+   dist{i} = distance;
 end
 
 %syncQuality1 = checkSync(cameraMatrix, dist12, dist13, dist14);
