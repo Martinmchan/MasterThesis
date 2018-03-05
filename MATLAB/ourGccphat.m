@@ -24,6 +24,14 @@ r12(idx-5:idx+5) = 0;
 
 [~,idx] = max(abs(r12));
 tdoa3 = floor((N/2+lags(idx)));
+r12(idx-5:idx+5) = 0;
 
-tdoa = [tdoa1, tdoa2, tdoa3];
+[~,idx] = max(abs(r12));
+tdoa4 = floor((N/2+lags(idx)));
+r12(idx-5:idx+5) = 0;
+
+[~,idx] = max(abs(r12));
+tdoa5 = floor((N/2+lags(idx)));
+
+tdoa = [tdoa1, tdoa2, tdoa3, tdoa4, tdoa5];
 end
