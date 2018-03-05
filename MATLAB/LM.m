@@ -13,6 +13,10 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
     tdoa12 = ourGccphat(y1, y2);
     tdoa13 = ourGccphat(y1, y3);
     tdoa14 = ourGccphat(y1, y4);
+    
+    tdoa12 = tdoa12(1);
+    tdoa13 = tdoa13(1);
+    tdoa14 = tdoa14(1);
 
     tdoa12 = tdoa12/f*343;
     tdoa13 = tdoa13/f*343;

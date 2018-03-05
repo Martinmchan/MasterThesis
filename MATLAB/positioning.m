@@ -5,10 +5,10 @@ tic
 cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85];
 
 %Reads the data and plots them
-[mic1, f] = audioread('cap168Succ.wav');
-[mic2, f] = audioread('cap99Succ.wav');
-[mic3, f] = audioread('cap38Succ.wav');
-[mic4, f] = audioread('cap250Succ.wav');
+[mic1, f] = audioread('000217_240_mono1.wav');
+[mic2, f] = audioread('000217_240_mono2.wav');
+[mic3, f] = audioread('000217_240_mono3.wav');
+[mic4, f] = audioread('000217_240_mono4.wav');
 
 mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
@@ -63,8 +63,14 @@ plot(mic3)
 plot(mic4)
 
 %%
+close all
+[mic1, f] = audioread('000217_240_mono1.wav');
+[mic2, f] = audioread('000217_240_mono2.wav');
+[mic3, f] = audioread('000217_240_mono3.wav');
+[mic4, f] = audioread('000217_240_mono4.wav');
 
-s = 1:350000;
+
+s = 55000:420000;
 %Calculates the sound source position
 [xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), cameraMatrix);
 
