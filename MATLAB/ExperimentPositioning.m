@@ -28,15 +28,14 @@ for i = 2:nbrOfSpeakers
    s = j:j+200000;
    [mic, distance, ~] = ourSync2(micMatrix{1}, micMatrix{i}, s1, s);
    micMatrix{i} = mic;
+   sVec(i) = j;
    j = j+200000;
    hold on
    plot(micMatrix{i});
-   dist{i} = distance;
+   dist(i) = distance;
 end
 
-%syncQuality1 = checkSync(cameraMatrix, dist12, dist13, dist14);
-%syncQuality2 = checkSync2(mic2, mic3, s2, s3);
-%syncQuality3 = checkSync2(mic3, mic4, s3, s4);
+quality = ExperimentCheckSyncQuality(cameraMatrix, dist, micMatrix, nbrOfSpeakers, sVec);
 
 %Generate the data after sync
 figure;
