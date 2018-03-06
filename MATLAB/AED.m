@@ -5,23 +5,30 @@ close all
 plot(mic1)
 figure
 plot(mic2)
+figure
+
+mic1 = mic1(1:150000);
+mic2 = mic2(1:150000);
 
 x = [mic1' mic2'];
 M = length(mic1);
 
-hb = zeros(M,1);
-hp = zeros(M,1);
-hb(floor(M/2)) = 1;
-u = [hb' -hp'];
-mu = 0.003;
-for i = 1:2*M
+g1 = zeros(M,1);
+g2 = zeros(M,1);
+g2(floor(M/2)) = sqrt(2)/2;
+u = [g2' -g1'];
+mu = 0.01;
+for i = 1:M
     e = u*x';
-    u(i+1) = (u(i)-mu*e*x(i));    
+    u = (u-mu*e*x)/norm(u-mu*e*x);
 end
 
-[~, idx2] = min(u(M+1:2*M));
-[~, idx1] = min(u(1:M));
-D = (M + idx2) - idx1;
+%%
+g1 = u(M+1:2*M);
+g2 = u(1:M);
+[~, idxg1] = max(abs(g1));
+[~, idxg2] = max(abs(g2));
+D = idxg1 - idxg2;
 plot(u)
 tdoa = D/f*343;
 
