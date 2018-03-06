@@ -1,4 +1,4 @@
-function ExperimentscatterPlot(xyzMic, nbrOfSpeakers, xS, yS, zS)
+function ExperimentscatterPlot(xyzMic, nbrOfSpeakers, xLM, yLM, zLM, xSRP, ySRP, zSRP)
 %scatterPlot Plots the microphones and the sound source.
 %   INPUT
 %       xyzMic - a matrix with the coordinates for the four microphones
@@ -12,6 +12,7 @@ function ExperimentscatterPlot(xyzMic, nbrOfSpeakers, xS, yS, zS)
     text(micX+dx, micY+dy, micZ+dz, c);
     set(gca,'Xlim',[-1, 3], 'YLim', [-1, 3], 'Zlim', [0, 3])
     hold on
-    scatter3(xS,yS,zS,'*b','MarkerFaceColor','g')
+    scatter3(xLM,yLM,zLM,'*b','MarkerFaceColor','g')
+    scatter3(xSRP,ySRP,zSRP,'*g','MarkerFaceColor','g')
 
 end

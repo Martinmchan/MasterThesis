@@ -2,9 +2,9 @@ close all;
 clear all;
 
 %Initialize camera position, number of speakers and the names of the files
-cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85]; %; 1.2 1.65 0.1];
-nbrOfSpeakers = 4;
-microphones = ['mic1test1.wav'; 'mic2test1.wav'; 'mic3test1.wav'; 'mic4test1.wav'];
+cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85; 1.2 1.65 0.1];
+nbrOfSpeakers = 5;
+microphones = ['mic1Succ2.wav'; 'mic2Succ2.wav'; 'mic3Succ2.wav'; 'mic4Succ2.wav'; 'mic5Succ2.wav'];
 
 %Reads the data and plots them
 micMatrix = [];
@@ -56,16 +56,11 @@ usb = [3,3,3];
 [xLM, yLM, zLM] = ExperimentLM(micMatrix, nbrOfSpeakers, cameraMatrix, lsb, usb);
 
 %SRP-Phat
-microphones = [];
-for i=1:nbrOfSpeakers
-   mic = micMatrix{i};
-   mic = mic(s);
-   microphones = [microphones mic];
-end
-[finalpos,finalsrp,finalfe]=srplems(microphones, cameraMatrix, f, lsb, usb);
+microphones = [mic1(l) mic2(l) mic3(l) mic4(l)];
+[finalpos,finalsrp,finalfe]=srplems(microphones, mic_loc, fs, lsb, usb)
 
 xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
 %Scatterplots them.
-ExperimentscatterPlot(cameraMatrix, nbrOfSpeakers, xLM, yLM, zLM, xSRP, ySRP, zSRP);
+ExperimentscatterPlot(cameraMatrix, nbrOfSpeakers, xLM, yLM, zLM, xSRP, ySRP, zSRP)
 
 

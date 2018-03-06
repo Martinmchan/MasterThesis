@@ -80,8 +80,8 @@ for i=1:M-1
       su1mic=sf(:,i)*ones(1,M);      %%%Create M copies of each signal's FFT
       prodall=su1mic.*csf;           %%%%Calculate the cross-power spectrum: = fft(x1).*conj(fft(x2))
       ss=prodall(:,i+1:M);           %%%% ss will be the cross-power spectra of microphone pairs (i,i+1), (i,i+2)...(i,M)
-      ss=ss./(abs(ss)+eps);          %%%% PHAT weighting
-      
+      %ss=ss./(abs(ss)+eps);          %%%% PHAT weighting
+      ss = ss./(abs(ss
       ssifft=real(ifft(ss,dftsize)); %%%% Get the GCC-PHAT ssifft, which is the IFFT of the cross-power spectra
       %newssifft=[ssifft(end-hefs:end,:); ssifft(1:efs-hefs-1,:)]; %%% Only select 'efs' samples (the beginning+end portions)
       newssifft=[ssifft(end-hefs+1:end,:); ssifft(1:efs-hefs,:)];
@@ -112,9 +112,9 @@ npoints=100;   %%% Best N points. Again, choose an appropriate number according 
 [bestpos,bestsrp,nofes]=src(magiconst,lsb,usb,randpts,npoints,mic_loc,yintpt,row1,efsintp);
 
 % Outputs:
-finalpos=bestpos;  %%%Final source location estimate
-finalsrp=bestsrp/np;  %%%Final source's SRP-PHAT value (normalized by number of pairs)
-finalfe=nofes+randpts; %%% Number of fe's used.
+finalpos=bestpos  %%%Final source location estimate
+finalsrp=bestsrp/np  %%%Final source's SRP-PHAT value (normalized by number of pairs)
+finalfe=nofes+randpts %%% Number of fe's used.
 
 %% SRC algorithm:
 
