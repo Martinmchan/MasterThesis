@@ -14,6 +14,7 @@ lsb = [-1,-1,0];
 usb = [3,3,3];
 [finalpos,finalsrp,finalfe]=srplems([mic1 mic2 mic3 mic4], cameraMatrix, f, lsb, usb);
 
+xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
 scatterPlot(cameraMatrix, xS, yS, zS);
 hold on
 scatter3(finalpos(1,1),finalpos(1,2),finalpos(1,3),'*g','MarkerFaceColor','g')
