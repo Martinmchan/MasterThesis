@@ -32,7 +32,7 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';
     xP = lsqnonlin(@myFunc,x0, lb ,ub, [], tdoa12, tdoa13, tdoa14, xyzMic);
-    a = myFunc(xP, tdoa12, tdoa13, tdoa14, xyzMic)
+    a = myFunc(xP, tdoa12, tdoa13, tdoa14, xyzMic);
     xS = xP(1,1); yS = xP(2,1); zS = xP(3,1);
 
 end
