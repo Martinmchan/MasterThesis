@@ -1,4 +1,4 @@
-function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
+function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic, lb, ub)
 %LM Computes the position for the sound source using Levenberg-Marquardt.
 %   INPUT
 %       y1, y2, y3, y4 - is the audio files from the microphones, synced
@@ -24,10 +24,6 @@ function [xS, yS, zS] = LM(y1, y2, y3, y4, xyzMic)
 
     %Initial guess
     x0 = [1.05,0.7,1]';
-
-    %Boundaries for the room
-    lb = [-1,-1,0];
-    ub = [3,3,3];
 
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';

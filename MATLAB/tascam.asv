@@ -29,14 +29,15 @@ plot(mic4)
 % mic4 = mic4(s);
 
 cameraMatrix = [0 0 1.7; 0 5.2 1.7; 2.85 0 1.7; 2.85 5.2 1.7]; %; 1.2 1.65 0.1];
-lsb = [-1,-1,0];
-usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 
-[xS, yS, zS] = LM(mic1, mic2, mic3, mic4, cameraMatrix, lsb, usb);
+[xS, yS, zS] = LM(mic1, mic2, mic3, mic4, cameraMatrix);
+
+lsb = [-1,-1,0];
+usb = [4,6,3];
 [finalpos,finalsrp,finalfe]=srplems([mic1 mic2 mic3 mic4], cameraMatrix, f, lsb, usb);
 
 xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
-scatterPlot(cameraMatrix, xS, yS, zS, lsb, usb);
+scatterPlot(cameraMatrix, xS, yS, zS);
 hold on
 scatter3(finalpos(1,1),finalpos(1,2),finalpos(1,3),'*g','MarkerFaceColor','g')
 
