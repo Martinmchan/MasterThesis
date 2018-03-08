@@ -15,9 +15,9 @@ clear all
 close all
 
 [mic1, f] = audioread('000219_249_mono1.wav');
-[mic2, f] = audioread('000219_249_mono2.wav');
-[mic3, f] = audioread('000219_249_mono3.wav');
-[mic4, f] = audioread('000219_249_mono4.wav');
+[mic2, f] = audioread('000219_248_mono2.wav');
+[mic3, f] = audioread('000219_248_mono3.wav');
+[mic4, f] = audioread('000219_248_mono4.wav');
 
 plot(mic4)
 
