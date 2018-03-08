@@ -18,9 +18,9 @@ end
 j = 2;
 for i=2:nbrOfSpeakers
     if i == nbrOfSpeakers
-        quality(j,:) = checkSync2(micMatrix{i}, micMatrix{2}, sVec(i), sVec(2));
+        quality(j,:) = checkSync2(micMatrix{i}, micMatrix{2}, sVec(i), sVec(2))
     else
-        quality(j,:) = checkSync2(micMatrix{i}, micMatrix{i+1}, sVec(i), sVec(i+1));
+        quality(j,:) = checkSync2(micMatrix{i}, micMatrix{i+1}, sVec(i), sVec(i+1))
     end
     j = j+1;
 end
