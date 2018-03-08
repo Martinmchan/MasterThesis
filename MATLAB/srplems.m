@@ -104,8 +104,8 @@ efsintp=length(xx)/2;
 
 row1=([0:np-1]*2*efsintp)'; 
 
-randpts=3000;  %%% J0 in SRC. Depending on the size of the search volume, choose an appropriate value here (Here, 3000 is for a V_{search}= 4m x 1m x 6m) 
-npoints=100;   %%% Best N points. Again, choose an appropriate number according to your problem.
+randpts=1500;  %%% J0 in SRC. Depending on the size of the search volume, choose an appropriate value here (Here, 3000 is for a V_{search}= 4m x 1m x 6m) 
+npoints=50;   %%% Best N points. Again, choose an appropriate number according to your problem.
 
 
 %%Doing SRC:
