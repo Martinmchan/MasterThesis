@@ -4,7 +4,7 @@ clear all;
 %Initialize camera position, number of speakers and the names of the files
 cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85]; %; 1.2 1.65 0.1];
 nbrOfSpeakers = 4;
-microphones = ['mic1test1.wav'; 'mic2test1.wav'; 'mic3test1.wav'; 'mic4test1.wav'];
+microphones = ['mic1test3.wav'; 'mic2test3.wav'; 'mic3test3.wav'; 'mic4test3.wav'];
 
 %Reads the data and plots them
 micMatrix = [];
@@ -35,7 +35,7 @@ for i = 2:nbrOfSpeakers
    dist(i) = distance;
 end
 
-quality = ExperimentCheckSyncQuality(cameraMatrix, dist, micMatrix, nbrOfSpeakers, sVec);
+%quality = ExperimentCheckSyncQuality(cameraMatrix, dist, micMatrix, nbrOfSpeakers, sVec);
 
 %Generate the data after sync
 figure;

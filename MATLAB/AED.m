@@ -1,4 +1,5 @@
 close all
+clear all
 [mic1, f] = audioread('000217_241_mono1.wav');
 [mic2, f] = audioread('000217_241_mono2.wav');
 
@@ -17,13 +18,15 @@ g1 = zeros(M,1);
 g2 = zeros(M,1);
 g2(floor(M/2)) = sqrt(2)/2;
 u = [g2' -g1'];
+
 mu = 0.01;
+
 for i = 1:M
     e = u*x';
     u = (u-mu*e*x)/norm(u-mu*e*x);
 end
 
-%%
+
 g1 = u(M+1:2*M);
 g2 = u(1:M);
 [~, idxg1] = max(abs(g1));
