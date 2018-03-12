@@ -27,7 +27,6 @@ for i = 1:M
     u = (u-mu*e*x)/norm(u-mu*e*x);
 end
 
-
 g1 = u(M+1:2*M);
 g2 = u(1:M);
 [~, idxg1] = max(abs(g1));
