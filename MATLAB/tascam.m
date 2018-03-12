@@ -14,30 +14,27 @@
 clear all
 close all
 
-[mic1, f] = audioread('000219_243_mono1.wav');
-[mic2, f] = audioread('000219_243_mono2.wav');
-[mic3, f] = audioread('000219_243_mono3.wav');
-[mic4, f] = audioread('000219_243_mono4.wav');
+[mic1, f] = audioread('000224_240_mono1.wav');
+[mic2, f] = audioread('000224_240_mono2.wav');
+[mic3, f] = audioread('000224_240_mono3.wav');
+[mic4, f] = audioread('000224_240_mono4.wav');
 
 plot(mic4)
 
 
-s = 80000:90000;
+s = 1:120000;
 mic1 = mic1(s);
 mic2 = mic2(s);
 mic3 = mic3(s);
 mic4 = mic4(s);
 
-cameraMatrix = [0 0 1.7; 0 2.85 1.7; 2.85 0 1.7; 2.85 2.85 1.7]; %; 1.2 1.65 0.1];
+cameraMatrix = [0 0 1.1; 0 1.8 1.1; 1.57 0 1.1; 1.57 1.80 1.1];
 lsb = [-1,-1,0];
 usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 
 [xS, yS, zS] = LM(mic1, mic2, mic3, mic4, cameraMatrix, lsb, usb);
-[finalpos,finalsrp,finalfe]=srplems([mic1 mic2 mic3 mic4], cameraMatrix, f, lsb, usb);
 
-xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
 scatterPlot(cameraMatrix, xS, yS, zS, lsb, usb);
-hold on
-scatter3(finalpos(1,1),finalpos(1,2),finalpos(1,3),'*g','MarkerFaceColor','g');
+
 
 
