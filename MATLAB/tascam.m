@@ -1,34 +1,34 @@
-%Test 1 - klapp vid mic 1
-%Test 2 - prat vid mic 1
-%Test 3 - klapp mellan mic2 och mic 4
-%Test 4 - musik vid mic 3
-%Test 5 - musik mellan mic 1 och mic 2
-%Test 6 - musik mellan mic 3 och mic 4 p? golvet
-%Test 7 - musik mellan mic 1 och mic 3 
-%Test 8 - musik vid dockan
+%Test 0 - klapp vid mic 1
+%Test 1 - prat vid mic 1
+%Test 2 - klapp mellan mic2 och mic 4
+%Test 3 - musik vid mic 3
+%Test 4 - musik mellan mic 1 och mic 2
+%Test 5 - musik mellan mic 3 och mic 4 p? golvet
+%Test 6 - musik mellan mic 1 och mic 3 
+%Test 7 - musik vid dockan
 %---------------------------------------
-%Test 9 - musik vid 4 5.2 meter
-%Test 10 - musik vid 3 p? golvet 5.2 meter
+%Test 8 - musik vid 4 5.2 meter
+%Test 9 - musik vid 3 p? golvet 5.2 meter
 
 
 clear all
 close all
 
-[mic1, f] = audioread('000219_249_mono1.wav');
-[mic2, f] = audioread('000219_249_mono2.wav');
-[mic3, f] = audioread('000219_249_mono3.wav');
-[mic4, f] = audioread('000219_249_mono4.wav');
+[mic1, f] = audioread('000219_245_mono1.wav');
+[mic2, f] = audioread('000219_245_mono2.wav');
+[mic3, f] = audioread('000219_245_mono3.wav');
+[mic4, f] = audioread('000219_245_mono4.wav');
 
 plot(mic4)
 
 % 
-% s = 50000:70000;
+% s = 62000:76000;
 % mic1 = mic1(s);
 % mic2 = mic2(s);
 % mic3 = mic3(s);
 % mic4 = mic4(s);
 
-cameraMatrix = [0 0 1.7; 0 5.2 1.7; 2.85 0 1.7; 2.85 5.2 1.7]; %; 1.2 1.65 0.1];
+cameraMatrix = [0 0 1.7; 0 2.85 1.7; 2.85 0 1.7; 2.85 2.85 1.7]; %; 1.2 1.65 0.1];
 lsb = [-1,-1,0];
 usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 
