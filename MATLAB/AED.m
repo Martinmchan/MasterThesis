@@ -1,15 +1,17 @@
 close all
 clear all
-[mic1, f] = audioread('000219_240_mono1.wav');
-[mic2, f] = audioread('000219_240_mono2.wav');
+[mic1, f] = audioread('000217_241_mono1.wav');
+[mic2, f] = audioread('000217_241_mono2.wav');
+% mic2 = [zeros(300,1); mic1];
+
 
 plot(mic1)
 figure
 plot(mic2)
 figure
 
-mic1 = mic1(60000:75000);
-mic2 = mic2(60000:75000);
+mic1 = mic1(50000:120000);
+mic2 = mic2(50000:120000);
 
 x = [mic1' mic2'];
 M = length(mic1);

@@ -6,15 +6,23 @@
 %285x285x155
 %24_243: Britney Spears vid mic 1
 %24_244: Lady Gaga fr?n mic 1 till mic 4 och tillbaks
+%25_245: massor av klappar vid mic 1
+%25_246: ABBA i mitten
+%25_247: Green Day vid mic 2 på golvet
 
 
 clear all
 close all
 
-[mic1, f] = audioread('000224_244_mono1.wav');
-[mic2, f] = audioread('000224_244_mono2.wav');
-[mic3, f] = audioread('000224_244_mono3.wav');
-[mic4, f] = audioread('000224_244_mono4.wav');
+[mic1, f] = audioread('000225_247_mono1.wav');
+[mic2, f] = audioread('000225_247_mono2.wav');
+[mic3, f] = audioread('000225_247_mono3.wav');
+[mic4, f] = audioread('000225_247_mono4.wav');
+
+mic1 = ourFilter(mic1,1,60);
+mic2 = ourFilter(mic2,1,60);
+mic3 = ourFilter(mic3,1,60);
+mic4 = ourFilter(mic4,1,60);
 
 sz = length(mic1);
 
@@ -23,7 +31,7 @@ gccMap = [];
 
 
 for i = 1:window:sz-window
-    gcc = returnAllGccphat(mic1(i:i+window), mic4(i:i+window));
+    gcc = returnAllGccphat(mic2(i:i+window), mic3(i:i+window));
     gccMap = [gccMap gcc];
 end
 
