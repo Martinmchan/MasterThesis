@@ -14,19 +14,19 @@
 clear all
 close all
 
-[mic1, f] = audioread('000219_245_mono1.wav');
-[mic2, f] = audioread('000219_245_mono2.wav');
-[mic3, f] = audioread('000219_245_mono3.wav');
-[mic4, f] = audioread('000219_245_mono4.wav');
+[mic1, f] = audioread('000219_243_mono1.wav');
+[mic2, f] = audioread('000219_243_mono2.wav');
+[mic3, f] = audioread('000219_243_mono3.wav');
+[mic4, f] = audioread('000219_243_mono4.wav');
 
 plot(mic4)
 
-% 
-% s = 62000:76000;
-% mic1 = mic1(s);
-% mic2 = mic2(s);
-% mic3 = mic3(s);
-% mic4 = mic4(s);
+
+s = 80000:90000;
+mic1 = mic1(s);
+mic2 = mic2(s);
+mic3 = mic3(s);
+mic4 = mic4(s);
 
 cameraMatrix = [0 0 1.7; 0 2.85 1.7; 2.85 0 1.7; 2.85 2.85 1.7]; %; 1.2 1.65 0.1];
 lsb = [-1,-1,0];

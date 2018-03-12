@@ -3,12 +3,14 @@ clear all;
 tic
 %Initialize camera position
 cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85];
+lsb = [-1,-1,0];
+usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 
 %Reads the data and plots them
-[mic1, f] = audioread('000217_240_mono1.wav');
-[mic2, f] = audioread('000217_240_mono2.wav');
-[mic3, f] = audioread('000217_240_mono3.wav');
-[mic4, f] = audioread('000217_240_mono4.wav');
+[mic1, f] = audioread('mic1test1.wav');
+[mic2, f] = audioread('mic2test1.wav');
+[mic3, f] = audioread('mic3test1.wav');
+[mic4, f] = audioread('mic4test1.wav');
 
 mic1 = mic1 - mean(mic1);
 mic2 = mic2 - mean(mic2);
@@ -63,20 +65,17 @@ plot(mic3)
 plot(mic4)
 
 %%
-close all
-[mic1, f] = audioread('000217_240_mono1.wav');
-[mic2, f] = audioread('000217_240_mono2.wav');
-[mic3, f] = audioread('000217_240_mono3.wav');
-[mic4, f] = audioread('000217_240_mono4.wav');
 
-
-s = 55000:420000;
+s = 80000:90000;
 %Calculates the sound source position
-[xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), cameraMatrix);
+[xS, yS, zS] = LM(mic1(s), mic2(s), mic3(s), mic4(s), cameraMatrix, lsb, usb);
 
-%Scatterplots them.
-scatterPlot(cameraMatrix, xS, yS, zS)
+[finalpos,finalsrp,finalfe]=srplems([mic1(s) mic2(s) mic3(s) mic4(s)], cameraMatrix, f, lsb, usb);
 
+xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
+scatterPlot(cameraMatrix, xS, yS, zS, lsb, usb);
+hold on
+scatter3(finalpos(1,1),finalpos(1,2),finalpos(1,3),'*g','MarkerFaceColor','g');
 toc
 
 
