@@ -14,21 +14,21 @@
 clear all
 close all
 
-[mic1, f] = audioread('000224_240_mono1.wav');
-[mic2, f] = audioread('000224_240_mono2.wav');
-[mic3, f] = audioread('000224_240_mono3.wav');
-[mic4, f] = audioread('000224_240_mono4.wav');
+[mic1, f] = audioread('000224_243_mono1.wav');
+[mic2, f] = audioread('000224_243_mono2.wav');
+[mic3, f] = audioread('000224_243_mono3.wav');
+[mic4, f] = audioread('000224_243_mono4.wav');
 
 plot(mic4)
 
+% 
+% s = 1:120000;
+% mic1 = mic1(s);
+% mic2 = mic2(s);
+% mic3 = mic3(s);
+% mic4 = mic4(s);
 
-s = 1:120000;
-mic1 = mic1(s);
-mic2 = mic2(s);
-mic3 = mic3(s);
-mic4 = mic4(s);
-
-cameraMatrix = [0 0 1.1; 0 1.8 1.1; 1.57 0 1.1; 1.57 1.80 1.1];
+cameraMatrix = [0 0 1.55; 0 2.85 1.55; 2.85 0 1.55; 2.85 2.85 1.55];
 lsb = [-1,-1,0];
 usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 
@@ -37,4 +37,39 @@ usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 scatterPlot(cameraMatrix, xS, yS, zS, lsb, usb);
 
 
+%%
+clear all
+close all
+
+[mic1, f] = audioread('000224_243_mono1.wav');
+[mic2, f] = audioread('000224_243_mono2.wav');
+[mic3, f] = audioread('000224_243_mono3.wav');
+[mic4, f] = audioread('000224_243_mono4.wav');
+% 
+% s = 70000:1660000;
+% mic1 = mic1(s);
+% mic2 = mic2(s);
+% mic3 = mic3(s);
+% mic4 = mic4(s);
+
+
+
+
+cameraMatrix = [0 0 1.55; 0 2.85 1.55; 2.85 0 1.55; 2.85 2.85 1.55];
+lsb = [-1,-1,0];
+usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
+sz = length(mic1);
+window = 2000;
+gccMap = [];
+
+for i = 1:window:sz-window
+    [xS, yS, zS] = LM(mic1(i:i+window), mic2(i:i+window), mic3(i:i+window), mic4(i:i+window), cameraMatrix, lsb, usb);
+    gccMap = [gccMap [xS yS zS]'];
+end
+
+scatterPlot(cameraMatrix, gccMap(1,1),gccMap(2,1),gccMap(3,1), lsb, usb);
+nbrOfPoints = length(gccMap(1,:)); 
+for i = 2:nbrOfPoints
+    scatter3(gccMap(1,i),gccMap(2,i),gccMap(3,i),'*b','MarkerFaceColor','g')
+end
 
