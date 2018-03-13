@@ -1,0 +1,30 @@
+micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85];
+
+test1:
+Klapp vid mic 1
+
+test2:
+Snack vid mic 1
+
+test3, test4:
+Klapp mellan mic 2 och 4
+
+test5, test6:
+Snack mellan mic 2 och 4
+
+test7, test8:
+G-dragon vid mic 3
+
+test9, test10, test11, test12:
+Klapp vid mic 4
+
+test13, test14, test15, test16:
+Snack vid mic 4
+
+test17, test18:
+Starkt skrik vid mic 3
+
+test19, test20:
+Starkt skrik vid mic 2
+
+

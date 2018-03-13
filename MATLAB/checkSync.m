@@ -1,7 +1,7 @@
-function quality = checkSync(cameraMatrix, dist12, dist13, dist14)
-    realDist12 = norm(cameraMatrix(1,:)-cameraMatrix(2,:));
-    realDist13 = norm(cameraMatrix(1,:)-cameraMatrix(3,:));
-    realDist14 = norm(cameraMatrix(1,:)-cameraMatrix(4,:));
+function quality = checkSync(micMatrix, dist12, dist13, dist14)
+    realDist12 = norm(micMatrix(1,:)-micMatrix(2,:));
+    realDist13 = norm(micMatrix(1,:)-micMatrix(3,:));
+    realDist14 = norm(micMatrix(1,:)-micMatrix(4,:));
 
     err = norm([realDist12, realDist13, realDist14] - [dist12, dist13, dist14]);
     

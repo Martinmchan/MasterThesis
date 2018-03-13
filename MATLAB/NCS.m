@@ -2,17 +2,17 @@ close all;
 clear all;
 
 %Initialize camera position, number of speakers and the names of the files
-cameraMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85; 1.2 1.65 0.1; 1.0 2.0 0.3; 1.0 2.0 0.5; 1.0 2.0 0.8;];
+micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85; 1.2 1.65 0.1; 1.0 2.0 0.3; 1.0 2.0 0.5; 1.0 2.0 0.8;];
 nbrOfSpeakers = 8;
 microphones = {'000224_240_mono1.wav'; '000224_240_mono2.wav'; '000224_240_mono3.wav'; '000224_240_mono4.wav'; '000224_240_mono1.wav'; '000224_240_mono2.wav'; '000224_240_mono3.wav'; '000224_240_mono4.wav'};
 
 %Reads the data and plots them
-micMatrix = [];
+signalMatrix = [];
 f=0;
 for i = 1:nbrOfSpeakers
     [mic, f] = audioread(microphones{i});
     mic = mic - mean(mic);
-    micMatrix{i} = mic;
+    signalMatrix{i} = mic;
     hold on
     plot(mic);
 end
@@ -22,26 +22,26 @@ end
 %good the sync was.
 j=200000;
 figure;
-plot(micMatrix{1});
+plot(signalMatrix{1});
 for i = 2:nbrOfSpeakers
    s1 = 1:200000;
    s = j:j+200000;
-   [mic, distance, ~] = ourSync2(micMatrix{1}, micMatrix{i}, s1, s);
-   micMatrix{i} = mic;
+   [mic, distance, ~] = ourSync(signalMatrix{1}, signalMatrix{i}, s1, s);
+   signalMatrix{i} = mic;
    sVec(i) = j;
    j = j+200000;
    hold on
-   plot(micMatrix{i});
+   plot(signalMatrix{i});
    dist(i) = distance;
 end
 
-quality = ExperimentCheckSyncQuality(cameraMatrix, dist, micMatrix, nbrOfSpeakers, sVec);
+quality = ManyCheckSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVec);
 
 %Generate the data after sync
 figure;
 for i = 1:nbrOfSpeakers
-    micMatrix{i} = micMatrix{i}(j:end);
-    plot(micMatrix{i});
+    signalMatrix{i} = signalMatrix{i}(j:end);
+    plot(signalMatrix{i});
     hold on;
 end
 
@@ -53,19 +53,19 @@ usb = [3,3,3];
 
 %Calculates the sound source position
 %Levenberg-Marquardt
-[xLM, yLM, zLM] = ExperimentLM(micMatrix, nbrOfSpeakers, cameraMatrix, lsb, usb);
+[xLM, yLM, zLM] = ManyLM(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
 
 %SRP-Phat
 microphones = [];
 for i=1:nbrOfSpeakers
-   mic = micMatrix{i};
+   mic = signalMatrix{i};
    mic = mic(s);
    microphones = [microphones mic];
 end
-[finalpos,finalsrp,finalfe]=srplems(microphones, cameraMatrix, f, lsb, usb);
+[finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
 
 xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
 %Scatterplots them.
-ExperimentscatterPlot(cameraMatrix, nbrOfSpeakers, xLM, yLM, zLM, xSRP, ySRP, zSRP);
+ManyscatterPlot(micMatrix, nbrOfSpeakers, xLM, yLM, zLM, xSRP, ySRP, zSRP);
 
 

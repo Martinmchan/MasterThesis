@@ -1,4 +1,4 @@
-function [xS, yS, zS] = ExperimentLM(micMatrix, nbrOfSpeakers, xyzMic, lsb, usb)
+function [xS, yS, zS] = ManyLM(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb)
 %LM Computes the position for the sound source using Levenberg-Marquardt.
 %   INPUT
 %       y1, y2, y3, y4 - is the audio files from the microphones, synced
@@ -11,7 +11,7 @@ function [xS, yS, zS] = ExperimentLM(micMatrix, nbrOfSpeakers, xyzMic, lsb, usb)
     
     %Calculate the TDOA
     for i = 2:nbrOfSpeakers
-        tmp = ourGccphat(micMatrix{1}, micMatrix{i});
+        tmp = ourGccphat(signalMatrix{1}, signalMatrix{i});
         tdoa{i} = tmp/f*343;
     end
   
@@ -20,7 +20,7 @@ function [xS, yS, zS] = ExperimentLM(micMatrix, nbrOfSpeakers, xyzMic, lsb, usb)
 
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';
-    xP = lsqnonlin(@ExperimentmyFunc,x0, lsb ,usb, [], tdoa, nbrOfSpeakers, xyzMic);
+    xP = lsqnonlin(@ManymyFunc,x0, lsb ,usb, [], tdoa, nbrOfSpeakers, micMatrix);
     xS = xP(1,1); yS = xP(2,1); zS = xP(3,1);
 
 end

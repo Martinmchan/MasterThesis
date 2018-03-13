@@ -1,0 +1,28 @@
+1m mellan mic1 och mic 2
+000217_241 snack parallellt
+---------------------------------------
+micMatrix = [0 0 1.70; 0 2.85 1.70; 2.85 0 1.70; 2.85 2.85 1.70];
+000219_240 - klapp vid mic 1
+000219_241 - prat vid mic 1
+000219_242 - klapp mellan mic2 och mic 4
+000219_243 - musik vid mic 3
+000219_244 - musik mellan mic 1 och mic 2
+000219_245 - musik mellan mic 3 och mic 4 p? golvet
+000219_246 - musik mellan mic 1 och mic 3 
+000219_247 - musik vid dockan
+---------------------------------------
+micMatrix = [0 0 1.70; 0 5.20 1.70; 2.85 0 1.70; 2.85 5.20 1.70];
+000219_248 - musik vid 4 5.2 meter
+000219_249- musik vid 3 p? golvet 5.2 meter
+---------------------------------------
+micMatrix = [0 0 1.70; 0 1.80 1.70; 1.57 0 1.70; 1.57 1.80 1.70];
+000224_240: G-dragon vid mic 1
+000224_241: Spice girls fr?n mic 1 till mic 2 och tillbaks
+000224_242: The Sounds vid mic 1
+---------------------------------------
+micMatrix = [0 0 1.55; 0 2.85 1.55; 2.85 0 1.55; 2.85 2.85 1.55];
+000224_243: Britney Spears vid mic 1
+000224_244: Lady Gaga fr?n mic 1 till mic 4 och tillbaks
+000225_245: massor av klappar vid mic 1
+000225_246: ABBA i mitten
+000225_247: Green Day vid mic 2 på golvet

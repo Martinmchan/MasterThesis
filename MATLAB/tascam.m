@@ -11,6 +11,18 @@
 %285x520x170
 %Test 8 - musik vid 4 5.2 meter
 %Test 9 - musik vid 3 p? golvet 5.2 meter
+%---------------------------------------
+%157x180x170
+%24_240: G-dragon vid mic 1
+%24_241: Spice girls fr?n mic 1 till mic 2 och tillbaks
+%24_242: The Sounds vid mic 1
+%-----------------------------------------
+%285x285x155
+%24_243: Britney Spears vid mic 1
+%24_244: Lady Gaga fr?n mic 1 till mic 4 och tillbaks
+%25_245: massor av klappar vid mic 1
+%25_246: ABBA i mitten
+%25_247: Green Day vid mic 2 på golvet
 
 
 clear all
@@ -21,13 +33,10 @@ close all
 [mic3, f] = audioread('000224_242_mono3.wav');
 [mic4, f] = audioread('000224_242_mono4.wav');
 
-
-
 mic1 = ourFilter(mic1,1,100);
 mic2 = ourFilter(mic2,1,100);
 mic3 = ourFilter(mic3,1,100);
 mic4 = ourFilter(mic4,1,100);
-
 
 % 
 % s = 1:120000;
@@ -36,48 +45,11 @@ mic4 = ourFilter(mic4,1,100);
 % mic3 = mic3(s);
 % mic4 = mic4(s);
 
-cameraMatrix = [0 0 1.70; 0 1.80 1.70; 1.57 0 1.70; 1.57 1.80 1.70];
+micMatrix = [0 0 1.70; 0 1.80 1.70; 1.57 0 1.70; 1.57 1.80 1.70];
 lsb = [-1,-1,0];
-usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
+usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,3];
 
-[xS, yS, zS] = LM(mic1, mic2, mic3, mic4, cameraMatrix, lsb, usb);
+[xS, yS, zS] = LM(mic1, mic2, mic3, mic4, micMatrix, lsb, usb);
 
-scatterPlot(cameraMatrix, xS, yS, zS, lsb, usb);
-
-
-%%
-clear all
-close all
-
-[mic1, f] = audioread('000225_243_mono1.wav');
-[mic2, f] = audioread('000225_243_mono2.wav');
-[mic3, f] = audioread('000225_243_mono3.wav');
-[mic4, f] = audioread('000225_243_mono4.wav');
-% 
-% s = 70000:1660000;
-% mic1 = mic1(s);
-% mic2 = mic2(s);
-% mic3 = mic3(s);
-% mic4 = mic4(s);
-
-
-
-
-cameraMatrix = [0 0 1.55; 0 2.85 1.55; 2.85 0 1.55; 2.85 2.85 1.55];
-lsb = [-1,-1,0];
-usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
-sz = length(mic1);
-window = 2000;
-gccMap = [];
-
-for i = 1:window:sz-window
-    [xS, yS, zS] = LM(mic1(i:i+window), mic2(i:i+window), mic3(i:i+window), mic4(i:i+window), cameraMatrix, lsb, usb);
-    gccMap = [gccMap [xS yS zS]'];
-end
-
-scatterPlot(cameraMatrix, gccMap(1,1),gccMap(2,1),gccMap(3,1), lsb, usb);
-nbrOfPoints = length(gccMap(1,:)); 
-for i = 2:nbrOfPoints
-    scatter3(gccMap(1,i),gccMap(2,i),gccMap(3,i),'*b','MarkerFaceColor','g')
-end
+scatterPlot(micMatrix, xS, yS, zS, lsb, usb);
 

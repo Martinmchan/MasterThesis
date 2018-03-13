@@ -1,4 +1,4 @@
-function outF = ExperimentmyFunc(param, tdoa, nbrOfSpeakers, xyz)
+function outF = ManymyFunc(param, tdoa, nbrOfSpeakers, xyz)
 x = param(1);
 y = param(2);
 z = param(3);

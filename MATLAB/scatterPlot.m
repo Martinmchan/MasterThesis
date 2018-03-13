@@ -1,12 +1,12 @@
-function scatterPlot(xyzMic, xS, yS, zS, lb, ub)
+function scatterPlot(micMatrix, xS, yS, zS, lb, ub)
 %scatterPlot Plots the microphones and the sound source.
 %   INPUT
 %       xyzMic - a matrix with the coordinates for the four microphones
 %       xS, yS, zS - the coordinates for the sound source
 
-    micX = xyzMic(:,1);
-    micY = xyzMic(:,2);
-    micZ = xyzMic(:,3);
+    micX = micMatrix(:,1);
+    micY = micMatrix(:,2);
+    micZ = micMatrix(:,3);
     figure
     scatter3(micX, micY, micZ,100,'sr','MarkerFaceColor','r')
     a = [1:4]'; b = num2str(a); c = cellstr(b);

@@ -1,16 +1,3 @@
-%157x180x170
-%24_240: G-dragon vid mic 1
-%24_241: Spice girls fr?n mic 1 till mic 2 och tillbaks
-%24_242: The Sounds vid mic 1
-%-----------------------------------------
-%285x285x155
-%24_243: Britney Spears vid mic 1
-%24_244: Lady Gaga fr?n mic 1 till mic 4 och tillbaks
-%25_245: massor av klappar vid mic 1
-%25_246: ABBA i mitten
-%25_247: Green Day vid mic 2 på golvet
-
-
 clear all
 close all
 
@@ -31,7 +18,7 @@ gccMap = [];
 
 
 for i = 1:window:sz-window
-    gcc = returnAllGccphat(mic1(i:i+window), mic2(i:i+window));
+    gcc = returnFullGCC(mic1(i:i+window), mic2(i:i+window));
     gccMap = [gccMap gcc];
 end
 
