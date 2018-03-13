@@ -14,10 +14,10 @@
 clear all
 close all
 
-[mic1, f] = audioread('000225_247_mono1.wav');
-[mic2, f] = audioread('000225_247_mono2.wav');
-[mic3, f] = audioread('000225_247_mono3.wav');
-[mic4, f] = audioread('000225_247_mono4.wav');
+[mic1, f] = audioread('000224_242_mono1.wav');
+[mic2, f] = audioread('000224_242_mono2.wav');
+[mic3, f] = audioread('000224_242_mono3.wav');
+[mic4, f] = audioread('000224_242_mono4.wav');
 
 mic1 = ourFilter(mic1,1,60);
 mic2 = ourFilter(mic2,1,60);
@@ -31,7 +31,7 @@ gccMap = [];
 
 
 for i = 1:window:sz-window
-    gcc = returnAllGccphat(mic2(i:i+window), mic3(i:i+window));
+    gcc = returnAllGccphat(mic1(i:i+window), mic2(i:i+window));
     gccMap = [gccMap gcc];
 end
 

@@ -1,3 +1,4 @@
+%285x285x170
 %Test 0 - klapp vid mic 1
 %Test 1 - prat vid mic 1
 %Test 2 - klapp mellan mic2 och mic 4
@@ -7,6 +8,7 @@
 %Test 6 - musik mellan mic 1 och mic 3 
 %Test 7 - musik vid dockan
 %---------------------------------------
+%285x520x170
 %Test 8 - musik vid 4 5.2 meter
 %Test 9 - musik vid 3 p? golvet 5.2 meter
 
@@ -14,12 +16,18 @@
 clear all
 close all
 
-[mic1, f] = audioread('000224_243_mono1.wav');
-[mic2, f] = audioread('000224_243_mono2.wav');
-[mic3, f] = audioread('000224_243_mono3.wav');
-[mic4, f] = audioread('000224_243_mono4.wav');
+[mic1, f] = audioread('000224_242_mono1.wav');
+[mic2, f] = audioread('000224_242_mono2.wav');
+[mic3, f] = audioread('000224_242_mono3.wav');
+[mic4, f] = audioread('000224_242_mono4.wav');
 
-plot(mic4)
+
+
+mic1 = ourFilter(mic1,1,100);
+mic2 = ourFilter(mic2,1,100);
+mic3 = ourFilter(mic3,1,100);
+mic4 = ourFilter(mic4,1,100);
+
 
 % 
 % s = 1:120000;
@@ -28,7 +36,7 @@ plot(mic4)
 % mic3 = mic3(s);
 % mic4 = mic4(s);
 
-cameraMatrix = [0 0 1.55; 0 2.85 1.55; 2.85 0 1.55; 2.85 2.85 1.55];
+cameraMatrix = [0 0 1.70; 0 1.80 1.70; 1.57 0 1.70; 1.57 1.80 1.70];
 lsb = [-1,-1,0];
 usb = [max(cameraMatrix(:,1)) + 1,max(cameraMatrix(:,2)) + 1,3];
 
@@ -41,10 +49,10 @@ scatterPlot(cameraMatrix, xS, yS, zS, lsb, usb);
 clear all
 close all
 
-[mic1, f] = audioread('000224_243_mono1.wav');
-[mic2, f] = audioread('000224_243_mono2.wav');
-[mic3, f] = audioread('000224_243_mono3.wav');
-[mic4, f] = audioread('000224_243_mono4.wav');
+[mic1, f] = audioread('000225_243_mono1.wav');
+[mic2, f] = audioread('000225_243_mono2.wav');
+[mic3, f] = audioread('000225_243_mono3.wav');
+[mic4, f] = audioread('000225_243_mono4.wav');
 % 
 % s = 70000:1660000;
 % mic1 = mic1(s);
