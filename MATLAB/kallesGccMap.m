@@ -1,15 +1,15 @@
 clear all
 close all
 
-[mic1, f] = audioread('000224_242_mono1.wav');
-[mic2, f] = audioread('000224_242_mono2.wav');
-[mic3, f] = audioread('000224_242_mono3.wav');
-[mic4, f] = audioread('000224_242_mono4.wav');
+[mic1, f] = audioread('000224_241_mono1.wav');
+[mic2, f] = audioread('000224_241_mono2.wav');
+[mic3, f] = audioread('000224_241_mono3.wav');
+[mic4, f] = audioread('000224_241_mono4.wav');
 
-mic1 = ourFilter(mic1,1,60);
-mic2 = ourFilter(mic2,1,60);
-mic3 = ourFilter(mic3,1,60);
-mic4 = ourFilter(mic4,1,60);
+mic1 = ourFilter(mic1,1,200);
+mic2 = ourFilter(mic2,1,200);
+mic3 = ourFilter(mic3,1,200);
+mic4 = ourFilter(mic4,1,200);
 
 sz = length(mic1);
 
@@ -26,10 +26,9 @@ xAxis = 1:floor(sz/window);
 yAxis = 343/48000*[-floor(window/2):floor(window/2)];
 
 
+imagesc(xAxis, yAxis, gccMap)
+figure
 mesh(xAxis, yAxis, gccMap)
-
-
-
 
 
 
