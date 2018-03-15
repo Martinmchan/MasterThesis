@@ -6,9 +6,9 @@ for i=2:nbrOfSpeakers
     realDist(i) = norm(micMatrix(1,:) - micMatrix(i,:)); 
 end
 
-err = [];
+err = []
 for i = 1:nbrOfSpeakers
-    tempErr = abs(realDist(i)-dist(i));
+    tempErr = abs(realDist(i)-realDist(2));
     err = [err tempErr];
 end
 
