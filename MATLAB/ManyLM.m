@@ -6,7 +6,9 @@ function [xS, yS, zS] = ManyLM(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb)
 %       xyzMic - a matrix with the coordinates for the four microphones
 %   OUTPUT
 %       xS, yS, zS - the coordinates for the sound source
-
+    
+    warning off all
+    
     f = 48000;
     
     %Calculate the TDOA
