@@ -4,7 +4,7 @@ clear all;
 %Initialize camera position, number of speakers and the names of the files
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
 nbrOfSpeakers = 8;
-microphones = {'mic1_0315_11.wav';'mic2_0315_11.wav';'mic3_0315_11.wav';'mic4_0315_11.wav';'mic5_0315_11.wav';'mic6_0315_11.wav';'mic7_0315_11.wav';'mic8_0315_11.wav'};
+microphones = {'mic1_0315_2.wav';'mic2_0315_2.wav';'mic3_0315_2.wav';'mic4_0315_2.wav';'mic5_0315_2.wav';'mic6_0315_2.wav';'mic7_0315_2.wav';'mic8_0315_2.wav'};
 
 %Reads the data and plots them
 signalMatrix = [];
@@ -17,7 +17,6 @@ for i = 1:nbrOfSpeakers
     hold on
     plot(mic);
 end
-
 
 %Syncs all the microphones using mic1 as master, then plot the result.
 %Distance between the microphones are also shown as an indicator of how
@@ -49,13 +48,18 @@ end
 
 %%
 %Initialize the signal and the boundaries on the room
-s = 1:2550000;
-lsb = [-1,-1,0];
-usb = [5,5,3];
+s = 1:3400000;
+lsb = [-1,-1,-1];
+usb = [3,5,3];
+
+%Change the length of the microphones
+for i=1:nbrOfSpeakers
+    signalMatrix{i} = signalMatrix{i}(s);
+end
 
 %Calculates the sound source position
 %Levenberg-Marquardt
-[xLM, yLM, zLM] = ManyLM(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
+%[xLM, yLM, zLM] = ManyLM(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
 
 %Combo LMs
 pointMatrix = LMCombo(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
@@ -64,7 +68,6 @@ pointMatrix = LMCombo(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
 microphones = [];
 for i=1:nbrOfSpeakers
    mic = signalMatrix{i};
-   mic = mic(s);
    microphones = [microphones mic];
 end
 SRPMatrix = zeros(3,35);
@@ -76,18 +79,20 @@ for i = 1:length(SRPMatrix(1,:))
 end
 xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
 
-%%
 %Scatterplots them.
 plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
+
+%%
 hold on
-scatter3(xLM,yLM,zLM,'*k')
+%scatter3(xLM,yLM,zLM,'*k')
 scatter3(xSRP,ySRP,zSRP,'*g')
 
+% for i = 1:length(pointMatrix(1,:))
+%     scatter3(pointMatrix(1,i),pointMatrix(2,i),pointMatrix(3,i),'*b')
+% end
 
-for i = 1:length(pointMatrix(1,:))
-    scatter3(pointMatrix(1,i),pointMatrix(2,i),pointMatrix(3,i),'*b')
-end
 xCombo = mean(pointMatrix(1,:));yCombo = mean(pointMatrix(2,:));zCombo = mean(pointMatrix(3,:));
 scatter3(xCombo,yCombo,zCombo,'*c')
-xAllMean = mean([xLM xSRP xCombo]);yAllMean = mean([yLM ySRP yCombo]);zAllMean = mean([zLM zSRP zCombo]);
+
+xAllMean = mean([xSRP xCombo]);yAllMean = mean([ySRP yCombo]);zAllMean = mean([zSRP zCombo]);
 scatter3(xAllMean,yAllMean,zAllMean,'*m')
