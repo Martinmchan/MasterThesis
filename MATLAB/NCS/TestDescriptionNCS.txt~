@@ -1,0 +1,45 @@
+micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.2 0.5 1.68; 2.1 2.7 1.85];
+(Rummet på våning 3)
+test1:
+Klapp vid mic 1
+
+test2:
+Snack vid mic 1
+
+test3, test4:
+Klapp mellan mic 2 och 4
+
+test5, test6:
+Snack mellan mic 2 och 4
+
+test7, test8:
+G-dragon vid mic 3
+
+test9, test10, test11, test12:
+Klapp vid mic 4
+
+test13, test14, test15, test16:
+Snack vid mic 4
+
+test17, test18:
+Starkt skrik vid mic 3
+
+test19, test20:
+Starkt skrik vid mic 2
+
+-------------------------------------------------------
+micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.1 0.5 1.67; 2.1 2.85 1.03; 1.1 2.0 0.6; 2.05 1.35 0.95; 1.4 0.25 0.3];
+(Rummet på våning 3)
+0314_1: Skedar vid mic 2 (datorn typ)
+0314_2: G-dragon vid mic 2 (datorn typ)
+
+--------------------------------------------------------
+micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
+(J0 30m)
+0315_1: Bara bra synk
+0315_2: G-dragon vid mic 1
+0315_3: Klappar vid mic 1
+0315_4: Spice Girl vid x ~= 0.9, y ~= 3, z ~= 1.5
+0315_5: Prat vid (squat) x~=0.9 , y~= 1.7, z~= 0.7
+0315_6: Prat vid (liggandes) x~=0.9 , y~= 1.7, z~= 0.2
+0315_7: MIKA

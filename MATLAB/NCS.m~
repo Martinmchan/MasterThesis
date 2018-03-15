@@ -2,9 +2,9 @@ close all;
 clear all;
 
 %Initialize camera position, number of speakers and the names of the files
-micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.1 0.5 1.67; 2.1 2.85 1.03; 1.1 2.0 0.6; 2.05 1.35 0.95; 1.4 0.25 0.3];
-nbrOfSpeakers = 7;
-microphones = {'mic1_0314_2.wav';'mic2_0314_2.wav';'mic3_0314_2.wav';'mic4_0314_2.wav';'mic5_0314_2.wav';'mic6_0314_2.wav';'mic7_0314_2.wav'};
+micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
+nbrOfSpeakers = 8;
+microphones = {'mic1.wav';'mic2.wav';'mic3.wav';'mic4.wav';'mic5.wav';'mic6.wav';'mic7.wav';'mic8.wav'};
 
 % micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.1 0.5 1.67; 2.1 2.85 1.03; 1.1 2.0 0.6];
 % nbrOfSpeakers = 5;
@@ -56,9 +56,9 @@ end
 
 %%
 %Initialize the signal and the boundaries on the room
-s = 100000:500000;
+s = 1:2550000;
 lsb = [-1,-1,0];
-usb = [3,3,3];
+usb = [5,5,3];
 
 %Calculates the sound source position
 %Levenberg-Marquardt
@@ -74,7 +74,7 @@ for i=1:nbrOfSpeakers
    mic = mic(s);
    microphones = [microphones mic];
 end
-SRPMatrix = zeros(3,35)
+SRPMatrix = zeros(3,35);
 
 for i = 1:length(SRPMatrix(1,:))
     [finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
@@ -82,13 +82,19 @@ for i = 1:length(SRPMatrix(1,:))
     SRPMatrix(1,i) = xSRP; SRPMatrix(2,i) = ySRP; SRPMatrix(3,i) = zSRP;
 end
 xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
+
+%%
 %Scatterplots them.
-plotSpeakers(micMatrix, nbrOfSpeakers);
+plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
 hold on
 scatter3(xLM,yLM,zLM,'*k')
 scatter3(xSRP,ySRP,zSRP,'*g')
-% for i = 1:length(pointMatrix(1,:))
-%     scatter3(pointMatrix(1,i),pointMatrix(2,i),pointMatrix(3,i),'*b')
-% end
-% scatter3(mean(pointMatrix(1,:)),mean(pointMatrix(2,:)),mean(pointMatrix(3,:)),'*c')
 
+
+for i = 1:length(pointMatrix(1,:))
+    scatter3(pointMatrix(1,i),pointMatrix(2,i),pointMatrix(3,i),'*b')
+end
+xCombo = mean(pointMatrix(1,:));yCombo = mean(pointMatrix(2,:));zCombo = mean(pointMatrix(3,:));
+scatter3(xCombo,yCombo,zCombo,'*c')
+xAllMean = mean([xLM xSRP xCombo]);yAllMean = mean([yLM ySRP yCombo]);zAllMean = mean([zLM zSRP zCombo]);
+scatter3(xAllMean,yAllMean,zAllMean,'*m')
