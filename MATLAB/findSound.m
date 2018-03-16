@@ -1,7 +1,6 @@
 function [xStart xEnd] = findSound(signal)
 
 signal = abs(signal);
-
 treshold = 12;
 
 x1 = 1;
