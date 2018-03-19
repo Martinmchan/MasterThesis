@@ -1,4 +1,5 @@
 function outF = myFuncSpeaker(param, nbrOfSpeakers, distMatrix, posMic1)
+
     outF = [];
     for i = 1:nbrOfSpeakers
        for j = i+1:nbrOfSpeakers
@@ -11,6 +12,5 @@ function outF = myFuncSpeaker(param, nbrOfSpeakers, distMatrix, posMic1)
             end
        end 
     end
-
 end
 

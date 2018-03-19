@@ -2,14 +2,13 @@ close all;
 clear all;
 
 %Initialize speaker position, number of speakers and the names of the files
-micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08; 0 0 0; 2 3 2; 1.6 2.7 2.7; 2.6 0.68 2];
-nbrOfSpeakers = 12;
+micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1];
+nbrOfSpeakers = 6;
 
 distMatrix = zeros(nbrOfSpeakers);
 for i = 1:nbrOfSpeakers
     for j = i+1:nbrOfSpeakers 
         distMatrix(i,j) = norm(micMatrix(i,:) - micMatrix(j,:));
-    
     end
 end
 
@@ -22,7 +21,7 @@ usbSpeaker = ones(1,(nbrOfSpeakers-1)*3)*5;
 lsb = [-1,-1,-1];
 usb = [3,5,3];
 
-calcMicMatrix = calculateMicMatrix(nbrOfSpeakers,distMatrix, posMic1, lsbSpeaker, usbSpeaker);
+calcMicMatrix = calculateMicMatrix(nbrOfSpeakers,distMatrix, posMic1, lsb, usb);
 
 %Scatterplots them.
 plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
