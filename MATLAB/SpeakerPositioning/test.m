@@ -4,7 +4,7 @@ clear all;
 %Initialize speaker position, number of speakers and the names of the files
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
 nbrOfSpeakers = 8;
-microphones = {'mic1_0315_2.wav';'mic2_0315_2.wav';'mic3_0315_2.wav';'mic4_0315_2.wav';'mic5_0315_2.wav';'mic6_0315_2.wav';'mic7_0315_2.wav';'mic8_0315_2.wav'};
+microphones = {'mic1_0315_3.wav';'mic2_0315_3.wav';'mic3_0315_3.wav';'mic4_0315_3.wav';'mic5_0315_3.wav';'mic6_0315_3.wav';'mic7_0315_3.wav';'mic8_0315_3.wav'};
 
 
 %Reads the data and plots them
@@ -44,19 +44,22 @@ quality = ManyCheckSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVe
 
 %%
 posMic1 = [0 0 1.70];
-lsbSpeaker = ones(1,(nbrOfSpeakers-1)*3)-2;
-usbSpeaker = ones(1,(nbrOfSpeakers-1)*3)*5;
+posMic2 = [0.9 0 0.1];
+posMic3 = [1.83 0 0.5];
+lsbSpeaker = ones(1,(nbrOfSpeakers-3)*3)-2;
+usbSpeaker = ones(1,(nbrOfSpeakers-3)*3)*5;
 
 lsb = [-1,-1,-1];
 usb = [3,5,3];
 
-calcMicMatrix = calculateMicMatrix(nbrOfSpeakers,distMatrix, posMic1, lsbSpeaker, usbSpeaker);
+calcMicMatrix = calculateMicMatrix2(nbrOfSpeakers,distMatrix, posMic1, posMic2, posMic3, lsbSpeaker, usbSpeaker);
+
 
 %Scatterplots them.
 plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
 hold on
-for i = 1:nbrOfSpeakers-1
-    a = i+1; b = num2str(a); c = cellstr(b);
+for i = 1:nbrOfSpeakers-3
+    a = i+3; b = num2str(a); c = cellstr(b);
     dx = 0.2; dy = 0.2; dz = 0.2;
     text(calcMicMatrix(i,1)+dx, calcMicMatrix(i,2)+dy, calcMicMatrix(i,3)+dz, c);
     scatter3(calcMicMatrix(i,1),calcMicMatrix(i,2),calcMicMatrix(i,3),'*b')

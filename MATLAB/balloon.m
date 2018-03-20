@@ -16,10 +16,6 @@ function tdoa = balloon(mic1, mic2)
     
     for i = 1:sz - nbrSamples
         if mic1(i + nbrSamples) > multP*avg1
-            mic1(i + nbrSamples)
-            multP
-            avg1
-            multP*avg1
             t1 = i + nbrSamples;
             break;
         else
@@ -35,18 +31,6 @@ function tdoa = balloon(mic1, mic2)
             avg2 = avg2 - mic2(i)/nbrSamples + mic2(i + nbrSamples)/nbrSamples;
         end  
     end
-
-    
-    figure
-    plot(mic1)
-    hold on
-    plot(t1,0,'or')
-    
-    figure
-    plot(mic2)
-    hold on
-    plot(t2,0,'or')
-    
     
     tdoa = t1-t2;
 end
