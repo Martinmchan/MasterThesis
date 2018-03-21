@@ -12,6 +12,10 @@ function pointMatrix = LMCombo(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb)
         tdoa2 = gccScore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
         tdoa3 = gccScore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
         
+        %tdoa1 = balloon(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+        %tdoa2 = balloon(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+        %tdoa3 = balloon(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+        
         xP = lsqnonlin(@myFunc,x0, lsb ,usb, [], tdoa1, tdoa2, tdoa3, micMatrix);
         
         pointMatrix(1,i) = xP(1,1);

@@ -39,12 +39,46 @@ micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.
 0315_1: Bara bra synk
 0315_2: G-dragon vid mic 1
 0315_3: Klappar vid mic 1
-0315_4: Spice Girl vid x ~= 0.9, y ~= 3, z ~= 1.5
-0315_5: Prat vid (squat) x~=0.9 , y~= 1.7, z~= 0.7
+0315_4: Spice Girl vid x = 0.9, y = 3, z = 1.5
+0315_5: Prat vid (squat) x = 0.9 , y = 1.7, z = 0.7
 0315_6: Prat vid (liggandes) x~=0.9 , y~= 1.7, z~= 0.2
 0315_7: MIKA rörandes från mic 1 till mic 8
 0315_8: Blondie vid mic 8
 0315_9: Maria Callas vid mic 8
 0315_10: Ballong vid mic 7
 0315_11: Cindy Lauper på golvet vid mic 8
+
+--------------------------------------------------------
+micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
+(J0 30m)
+0320_1: G-dragon vid [0.9 1.2 1.65]
+0320_2: G-dragon vid [0.45 2.4 1.65]
+0320_3: G-dragon vid [1.35 2.4 1.65]
+0320_4: G-dragon vid [0.9 3.4 1.65]
+0320_5: Musik vid [1.63 0.2 0.5]
+0320_6: Musik vid [1.63 0.2 0.5]
+0320_7: Musik vid [0.2 4.25 1.1]
+0320_8: Musik vid [0.2 4.25 1.1]
+0320_9: Musik vid [0.9 6 1.65]
+0320_10: Ballongsmällar vid [0.9 1.2 1.65], [0.45 2.4 1.65], [1.35 2.4 1.65], [0.9 3.4 1.65]
+0320_11: Ballongsmällar vid [0.2 0.2 1.7], [1.63 0.2 0.5], [0.2 4.25 1.1], [1.63 4.25 1.08]
+0320_12: Musik vid [1.63 0.2 1.5]
+0320_13: Musik vid [1.63 0.2 1.5]
+0320_14: Musik vid [0.2 4.25 1.8]
+0320_15: Musik vid [0.2 4.25 1.8]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
