@@ -11,8 +11,8 @@ function [xS, yS, zS] = ManyLMScores(signalMatrix, nbrOfSpeakers, micMatrix, lsb
     
     %Calculate the TDOA
     for i = 2:nbrOfSpeakers
-        tmp = gccScore(signalMatrix{1}, signalMatrix{i});
-        tdoa{i} = tmp/f*343;
+        tmp = gccScore(signalMatrix{1}, signalMatrix{i})
+        tdoa{i} = tmp/f*343
     end
   
     %Initial guess
