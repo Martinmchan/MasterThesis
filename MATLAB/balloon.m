@@ -8,8 +8,8 @@ function tdoa = balloon(mic1, mic2)
     nbrSamples = 10000;
     multP = 10;
     
-    avg1 = mean(mic1(1:nbrSamples))
-    avg2 = mean(mic2(1:nbrSamples))
+    avg1 = mean(mic1(1:nbrSamples));
+    avg2 = mean(mic2(1:nbrSamples));
     
     t1 = 0;
     t2 = 0;
