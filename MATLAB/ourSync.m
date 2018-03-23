@@ -10,17 +10,25 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     L = length(y1);
     play1a = 0;
     cap1b = 0;
+
     for i = 1:N:L-100
         dft_data = abs(goertzel(y1(i:i+N),freq_index));
-        if dft_data >0.1
+<<<<<<< HEAD
+        if dft_data >0.3
+=======
+        if dft_data > 0.3
+>>>>>>> 15a8fc8e83273d83d62adf18669ee88c491fd3ad
             play1a = i;
             break;
         end
     end
-    
     for i = 1:N:L-100
         dft_data = abs(goertzel(y2(i:i+N),freq_index));
-        if dft_data >0.1
+<<<<<<< HEAD
+        if dft_data >0.3
+=======
+        if dft_data > 0.3
+>>>>>>> 15a8fc8e83273d83d62adf18669ee88c491fd3ad
             cap1b= i;
             break;
         end
@@ -34,15 +42,22 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     cap2a = 0;
     for i = 1:N:L-100
         dft_data = abs(goertzel(y1(i:i+N),freq_index));
-        if dft_data >0.1
+<<<<<<< HEAD
+        if dft_data >0.3
+=======
+        if dft_data > 0.3
+>>>>>>> 15a8fc8e83273d83d62adf18669ee88c491fd3ad
             cap2a = i;
             break;
         end
     end
-    
     for i = 1:N:L-100
         dft_data = abs(goertzel(y2(i:i+N),freq_index));
-        if dft_data >0.1
+<<<<<<< HEAD
+        if dft_data >0.3
+=======
+        if dft_data > 0.3
+>>>>>>> 15a8fc8e83273d83d62adf18669ee88c491fd3ad
             play2b = i;
             break;
         end

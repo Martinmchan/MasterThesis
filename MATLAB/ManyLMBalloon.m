@@ -12,7 +12,7 @@ function [xS, yS, zS] = ManyLMBalloon(signalMatrix, nbrOfSpeakers, micMatrix, ls
     %Calculate the TDOA
     for i = 2:nbrOfSpeakers
         tmp = balloon(signalMatrix{1}, signalMatrix{i});
-        tdoa{i} = tmp/f*343;
+        tdoa{i} = tmp/f*343
     end
   
     %Initial guess

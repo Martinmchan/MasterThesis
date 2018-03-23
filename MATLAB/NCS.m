@@ -5,8 +5,7 @@ clear all;
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
 nbrOfSpeakers = 8;
 
-microphones = {'mic1_0320_5.wav';'mic2_0320_5.wav';'mic3_0320_5.wav';'mic4_0320_5.wav';'mic5_0320_5.wav';'mic6_0320_5.wav';'mic7_0320_5.wav';'mic8_0320_5.wav'};
-facit = [1.63 0.2 0.5];
+microphones =  {'mic1_0320_18.wav';'mic2_0320_18.wav';'mic3_0320_18.wav';'mic4_0320_18.wav';'mic5_0320_18.wav';'mic6_0320_18.wav';'mic7_0320_18.wav';'mic8_0320_18.wav'};
 
 %Reads the data and plots them
 signalMatrix = [];
@@ -58,30 +57,31 @@ usb = [3,7,3];
 
 %Change the length of the microphones
 for i=1:nbrOfSpeakers
-    signalMatrix{i} = signalMatrix{i}(s);
+    syncedSignalMatrix{i} = signalMatrix{i}(s);
 end
 
 % Calculates the sound source position
 % Levenberg-Marquardt
-[xLM, yLM, zLM] = ManyLMBalloon(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
+[xLM, yLM, zLM] = ManyLMBalloon(syncedSignalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
+
 
 %Combo LMs
-pointMatrix = LMCombo(signalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
+pointMatrix = LMCombo(syncedSignalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
 
-%SRP-Phat
-microphones = [];
-for i=1:nbrOfSpeakers
-   mic = signalMatrix{i};
-   microphones = [microphones mic];
-end
-SRPMatrix = zeros(3,35);
-
-for i = 1:length(SRPMatrix(1,:))
-    [finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
-    xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
-    SRPMatrix(1,i) = xSRP; SRPMatrix(2,i) = ySRP; SRPMatrix(3,i) = zSRP;
-end
-xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
+% %SRP-Phat
+% microphones = [];
+% for i=1:nbrOfSpeakers
+%    mic = syncedSignalMatrix{i};
+%    microphones = [microphones mic];
+% end
+% SRPMatrix = zeros(3,35);
+% 
+% for i = 1:length(SRPMatrix(1,:))
+%     [finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
+%     xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
+%     SRPMatrix(1,i) = xSRP; SRPMatrix(2,i) = ySRP; SRPMatrix(3,i) = zSRP;
+% end
+% xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
 
 %Scatterplots them.
 plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
@@ -89,8 +89,9 @@ plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
 
 hold on
 scatter3(xLM,yLM,zLM,'*k')
-scatter3(xSRP,ySRP,zSRP,'*g')
 
+% scatter3(xSRP,ySRP,zSRP,'*g')
+% 
 % for i = 1:length(pointMatrix(1,:))
 %     scatter3(pointMatrix(1,i),pointMatrix(2,i),pointMatrix(3,i),'*b')
 % end
@@ -98,18 +99,18 @@ scatter3(xSRP,ySRP,zSRP,'*g')
 xCombo = mean(pointMatrix(1,:));yCombo = mean(pointMatrix(2,:));zCombo = mean(pointMatrix(3,:));
 scatter3(xCombo,yCombo,zCombo,'*c')
 
-xAllMean = mean([xSRP xCombo]);yAllMean = mean([ySRP yCombo]);zAllMean = mean([zSRP zCombo]);
-scatter3(xAllMean,yAllMean,zAllMean,'*m')
+% xAllMean = mean([xSRP xCombo]);yAllMean = mean([ySRP yCombo]);zAllMean = mean([zSRP zCombo]);
+% scatter3(xAllMean,yAllMean,zAllMean,'*m')
 
 %%
-
+facit = [0.9 2.4 1.6];
 %Checks and print the errors
-errSRP = norm([xSRP ySRP zSRP] - facit);
-errCombo = norm([xCombo yCombo zCombo] - facit);
-errAllMean = norm([xAllMean yAllMean zAllMean] - facit);
+% errSRP = norm([xSRP ySRP zSRP] - facit);
+% errCombo = norm([xCombo yCombo zCombo] - facit);
+% errAllMean = norm([xAllMean yAllMean zAllMean] - facit);
 errBalloon = norm([xLM yLM zLM] - facit);
-
-disp("Error SRP: " + errSRP);
-disp("Error Combo: " + errCombo);
-disp("Error AllMean: " + errAllMean);
+% 
+% disp("Error SRP: " + errSRP);
+% disp("Error Combo: " + errCombo);
+% disp("Error AllMean: " + errAllMean);
 disp("Error Balloon: " + errBalloon);
