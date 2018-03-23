@@ -43,6 +43,8 @@ nbrOfSpeakers = 4;
 % end
 % xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
 
+
+%%
 %Plots them
 plotSpeakers(micMatrix, 4, lsb, usb);
 
