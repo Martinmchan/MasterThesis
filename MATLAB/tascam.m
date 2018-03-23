@@ -1,10 +1,10 @@
 clear all
 close all
 
-[mic1, f] = audioread('000225_247_mono1.wav');
-[mic2, f] = audioread('000225_247_mono2.wav');
-[mic3, f] = audioread('000225_247_mono3.wav');
-[mic4, f] = audioread('000225_247_mono4.wav');
+[mic1, f] = audioread('000224_242_mono1.wav');
+[mic2, f] = audioread('000224_242_mono2.wav');
+[mic3, f] = audioread('000224_242_mono3.wav');
+[mic4, f] = audioread('000224_242_mono4.wav');
 
 mic1 = ourFilter(mic1,1,200);
 mic2 = ourFilter(mic2,1,200);
@@ -35,8 +35,10 @@ for i = 1:length(SRPMatrix(1,:))
 end
 xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
 
+
+%%
 %Plots them
-plotSpeakers(micMatrix, 4);
+plotSpeakers(micMatrix, 4, lsb, usb);
 hold on
 scatter3(xS,yS,zS,'*k')
 scatter3(xSRP,ySRP,zSRP,'*g')

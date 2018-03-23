@@ -5,8 +5,8 @@ clear all;
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
 nbrOfSpeakers = 8;
 
-microphones = {'mic1_0320_4.wav';'mic2_0320_4.wav';'mic3_0320_4.wav';'mic4_0320_4.wav';'mic5_0320_4.wav';'mic6_0320_4.wav';'mic7_0320_4.wav';'mic8_0320_4.wav'};
-facit = [1.7 4.35 1];
+microphones = {'mic1_0320_5.wav';'mic2_0320_5.wav';'mic3_0320_5.wav';'mic4_0320_5.wav';'mic5_0320_5.wav';'mic6_0320_5.wav';'mic7_0320_5.wav';'mic8_0320_5.wav'};
+facit = [1.63 0.2 0.5];
 
 %Reads the data and plots them
 signalMatrix = [];
@@ -51,7 +51,7 @@ end
 %%
 %Initialize the signal and the boundaries on the room
 
-s = 1:3000000;
+s = 300000:3350000;
 
 lsb = [-1,-1,-1];
 usb = [3,7,3];
