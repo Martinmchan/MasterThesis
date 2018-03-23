@@ -4,7 +4,7 @@ clear all;
 %Initialize camera position, number of speakers and the names of the files
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
 nbrOfSpeakers = 8;
-microphones = {'mic1_0315_2.wav';'mic2_0315_2.wav';'mic3_0315_2.wav';'mic4_0315_2.wav';'mic5_0315_2.wav';'mic6_0315_2.wav';'mic7_0315_2.wav';'mic8_0315_2.wav'};
+microphones = {'mic1_0315_8.wav';'mic2_0315_8.wav';'mic3_0315_8.wav';'mic4_0315_8.wav';'mic5_0315_8.wav';'mic6_0315_8.wav';'mic7_0315_8.wav';'mic8_0315_8.wav'};
 facit = [1.7 4.35 1];
 
 %Reads the data and plots them
@@ -53,7 +53,6 @@ end
 s = 1:3000000;
 lsb = [-1,-1,-1];
 usb = [3,5,3];
-
 %Change the length of the microphones
 for i=1:nbrOfSpeakers
     syncedSignalMatrix{i} = signalMatrix{i}(s);
