@@ -1,10 +1,10 @@
 clear all
 close all
 
-[mic1, f] = audioread('000306_257_mono1.wav');
-[mic2, f] = audioread('000306_257_mono2.wav');
-[mic3, f] = audioread('000306_257_mono3.wav');
-[mic4, f] = audioread('000306_257_mono4.wav');
+[mic1, f] = audioread('000306_249_mono1.wav');
+[mic2, f] = audioread('000306_249_mono2.wav');
+[mic3, f] = audioread('000306_249_mono3.wav');
+[mic4, f] = audioread('000306_249_mono4.wav');
 
 mic1 = ourFilter(mic1,1,200);
 mic2 = ourFilter(mic2,1,200);
