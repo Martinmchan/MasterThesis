@@ -10,6 +10,6 @@ function plotSpeakers(micMatrix, nbrOfSpeakers, lb, ub)
     a = [1:nbrOfSpeakers]'; b = num2str(a); c = cellstr(b);
     dx = 0.2; dy = 0.2; dz = 0.2;
     text(micX+dx, micY+dy, micZ+dz, c);
-    set(gca,'Xlim',[min(lb), max(ub)], 'YLim', [min(lb), max(ub)], 'Zlim', [lb(3), ub(3)])
+    set(gca,'Xlim',[min(lb), max(ub)], 'YLim', [min(lb), max(ub)], 'Zlim', [0, 3])
 
 end
