@@ -1,17 +1,17 @@
 close all
 clear all
-[mic1, f] = audioread('000217_241_mono1.wav');
-[mic2, f] = audioread('000217_241_mono2.wav');
+[mic1, f] = audioread('000306_249_mono1.wav');
+[mic2, f] = audioread('000306_249_mono2.wav');
 % mic2 = [zeros(300,1); mic1];
-
 
 plot(mic1)
 figure
 plot(mic2)
 figure
 
-mic1 = mic1(50000:120000);
-mic2 = mic2(50000:120000);
+%%
+mic1 = mic1(50000:200000);
+mic2 = mic2(50000:200000);
 
 x = [mic1' mic2'];
 M = length(mic1);
@@ -33,7 +33,7 @@ g1 = u(M+1:2*M);
 g2 = u(1:M);
 [~, idxg1] = max(abs(g1));
 [~, idxg2] = max(abs(g2));
-D = idxg1 - idxg2;
+D = idxg2 - idxg1;
 plot(u)
 tdoa = D/f*343;
 
