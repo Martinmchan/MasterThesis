@@ -31,8 +31,6 @@ function tdoa = balloon(mic1, mic2)
             avg2 = avg2 - mic2(i)/nbrSamples + mic2(i + nbrSamples)/nbrSamples;
         end  
     end
-%     plot(t1, 0, 'o')
-%     plot(t2, 0, 'o')
-    
+
     tdoa = t1-t2;
 end
