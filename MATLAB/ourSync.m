@@ -12,7 +12,7 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     cap1b = 0;
     for i = 1:N:L-100
         dft_data = abs(goertzel(y1(i:i+N),freq_index));
-        if dft_data >0.1
+        if dft_data > 0.3
             play1a = i;
             break;
         end
@@ -20,7 +20,7 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     
     for i = 1:N:L-100
         dft_data = abs(goertzel(y2(i:i+N),freq_index));
-        if dft_data >0.1
+        if dft_data > 0.3
             cap1b= i;
             break;
         end
@@ -34,7 +34,7 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     cap2a = 0;
     for i = 1:N:L-100
         dft_data = abs(goertzel(y1(i:i+N),freq_index));
-        if dft_data >0.1
+        if dft_data > 0.3
             cap2a = i;
             break;
         end
@@ -42,7 +42,7 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     
     for i = 1:N:L-100
         dft_data = abs(goertzel(y2(i:i+N),freq_index));
-        if dft_data >0.1
+        if dft_data > 0.3
             play2b = i;
             break;
         end

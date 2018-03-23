@@ -15,8 +15,8 @@ function score = gccScore(mic1, mic2)
     end
 %     figure
 %     plot(score);
-%     figure
-%     h = histogram(score/48000*343, 150)
+    figure
+    h = histogram(score/48000*343, 150)
     
     %score = mean(score);
         
