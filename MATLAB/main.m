@@ -5,20 +5,17 @@ close all
 %Choose between tascam or NCS
 type = 't';
 
-%Initiate and read all data
+%Initiate data
 micMatrix = [0 0 1.74; 0 23 1.74; 2 23 1.74; 2 0 1.74];
+nbrOfSpeakers = 4;
 lsb = [-1,-1,1.5];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,1.9];
-microphones =  {'000306_255_mono1.wav','000306_255_mono2.wav','000306_255_mono3.wav','000306_255_mono4.wav'};
-nbrOfSpeakers = length(microphones);
+%namebase = '_0320_10.wav';
+namebase = '000306_255_mono';
 
-signalMatrix = [];
-f=0;
-for i = 1:nbrOfSpeakers
-    [mic, f] = audioread(microphones{i});
-    mic = mic - mean(mic);
-    signalMatrix{i} = mic;
-end
+%Read data
+[signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
+
 
 %Syncs the signals if NCS is chosen
 if type == 'n'
