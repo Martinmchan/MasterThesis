@@ -26,7 +26,7 @@ if type == 'n'
 end
 
 %Finds the sound source in time
-[startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
+[startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
 soundNbr = 0;
@@ -35,23 +35,19 @@ soundNbr = 0;
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
-methods = {'calcPos', 'MovingAverage'; 'calcPos', 'GCCphat'};
+methods = {'calcPos', 'MovingAverage'};
 lsb = [-1,-1,-1];
 usb = [3,7,3];
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
-if soundNbr > 0
-    for i = 1:nbrOfSpeakers
-        tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
-    end
-    positionMatrix = positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
-else
-    positionMatrix = [];
-    for i = 1:nbrSound
-        for j = 1:nbrOfSpeakers
-            tempSignalMatrix{j} = signalMatrix{j}(startSoundArray(i):endSoundArray(i)); 
-        end
-    positionMatrix = [positionMatrix; positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)];
-   end
-end
-    
+positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
+
+
+%Plots the results
+ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb)
+
+
+
+
+
+
 

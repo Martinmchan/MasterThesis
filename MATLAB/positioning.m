@@ -1,6 +1,6 @@
-function positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+function positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)
     positionMatrix = zeros(length(methods),3);
-    for i=1:length(methods)
+    for i=1:length(methods(:,1))
         if length(methods{i,1}) == length('SRPphat')
             if methods{i,1} == 'SRPphat'
                 microphones = [];
@@ -25,7 +25,7 @@ function positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, 
                 positionMatrix(i,1) = pos(1,1); positionMatrix(i,2) = pos(1,2); positionMatrix(i,3) = pos(1,3);
             end
         end
-
+    end
 
 
 
