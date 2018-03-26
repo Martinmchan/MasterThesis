@@ -1,4 +1,4 @@
-function [startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signal, spacing)
+function [startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signal, treshold, spacing)
     
     figure
     plot(signal)
@@ -12,7 +12,7 @@ function [startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signal, sp
     nbrSamples = 10000;
     
     while counter < sz - nbrSamples
-        [tStart, tEnd] = findSound(signal(counter:sz), nbrSamples);
+        [tStart, tEnd] = findSound(signal(counter:sz), nbrSamples, treshold);
         if tStart ~= 0
             tempStart = tStart - spacing*nbrSamples;
             tempEnd = tEnd + spacing*nbrSamples;
