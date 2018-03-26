@@ -20,20 +20,47 @@ end
 
 %Syncs the signals if NCS is chosen
 if type == 'n'
-<<<<<<< HEAD
-    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, 0);
-end
-
-%Position the sound source
-%Choose between as a method
-%   LM, LM-Combo, SRP-PHAT
-%Then choose the method to calculate TDOA
-%   GCCPhat, GCCScores, Balloon
-methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
-positionMatrix = positioning(signalMatrix,f, lsb, usb, nbrOfSpeakers, methods);
-=======
     fastSync = 1;
     quality = 0;
     [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
 end
->>>>>>> 0f2a04eb9d77c0f48d2f6e5b15e648f1ae376359
+
+%Finds the sound source in time
+[startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}, 5);
+
+%Choose which sound to calculate, or calculate all of them if 0 is chosen
+soundNbr = 0;
+
+%Position the sound source, choose between
+%   calcPos, calcPosCombo, SRP-PHAT
+%Then choose the method to calculate TDOA
+%   GCCPhat, GCCScores, MovingAverage
+methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
+if soundNbr > 0
+    for i = 1:nbrOfSpeakers
+        tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
+    end
+    positionMatrix = positioning(tempSignalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+else
+    positionMatrix = [];
+    for i = 1:nbrSound
+        for i = 1:nbrOfSpeakers
+            tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
+        end
+    positionMatrix = [positionMatrix positioning(tempSignalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)];
+   end
+end
+    
+
+
+
+
+
+
+
+
+
+
+
+
+

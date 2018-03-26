@@ -1,6 +1,6 @@
 function [syncedSignalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, calcQuality, fastSync)
     
-    [startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}(1:nbrOfSpeakers*200000));
+    [startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}(1:nbrOfSpeakers*200000),3);
     
     sVec{1} = 0;
     if fastSync
