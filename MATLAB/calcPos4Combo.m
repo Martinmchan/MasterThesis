@@ -30,8 +30,14 @@ function pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb,
             error('You have to choose one of the options');
         end       
 
-        
-        tempPos = lsqnonlin(@ourFuncCombo,x0, lsb ,usb, [], tdoa, nbrOfSpeakers, micMatrix, comboMatrix(i,:));
+        rDist = norm(micMatrix(comboMatrix(1,i),:) - micMatrix(comboMatrix(2,i),:));
+        tdoa{1} = min(tdoa{1},rDist - 0.1);
+        rDist = norm(micMatrix(comboMatrix(1,i),:) - micMatrix(comboMatrix(3,i),:));
+        tdoa{2} = min(tdoa{2},rDist - 0.1);
+        rDist = norm(micMatrix(comboMatrix(1,i),:) - micMatrix(comboMatrix(4,i),:));
+        tdoa{3} = min(tdoa{3},rDist - 0.1);
+
+        tempPos = lsqnonlin(@ourFunc4Combo,x0, lsb ,usb, [], tdoa, micMatrix, comboMatrix(:,i));
         
         pointMatrix(1,i) = tempPos(1,1);
         pointMatrix(2,i) = tempPos(1,2);
