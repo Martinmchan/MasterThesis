@@ -1,6 +1,4 @@
 function [tStart, tEnd] = findSound(signal, nbrSamples)
-
-
     sz = length(signal);
 
     signal = abs(signal);
