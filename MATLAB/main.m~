@@ -22,6 +22,7 @@ end
 if type == 'n'
     fastSync = 1;
     quality = 0;
+<<<<<<< HEAD
     [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
 end
 
@@ -31,11 +32,17 @@ end
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
 soundNbr = 0;
 
+=======
+    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync)
+end
+
+>>>>>>> 593401a6f50b084ac78e26e6fb1876a772bc04c1
 %Position the sound source, choose between
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
 methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
+<<<<<<< HEAD
 if soundNbr > 0
     for i = 1:nbrOfSpeakers
         tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
@@ -63,4 +70,10 @@ end
 
 
 
+=======
+x0 = [1, 4, 1];
+lsb = [-1,-1,-1];
+usb = [3,7,3];
+positionMatrix = positioning(signalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+>>>>>>> 593401a6f50b084ac78e26e6fb1876a772bc04c1
 

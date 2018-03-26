@@ -35,32 +35,23 @@ soundNbr = 0;
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
-methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
+methods = {'calcPos', 'MovingAverage'; 'calcPos', 'GCCphat'};
+lsb = [-1,-1,-1];
+usb = [3,7,3];
+x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 if soundNbr > 0
     for i = 1:nbrOfSpeakers
         tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
     end
-    positionMatrix = positioning(tempSignalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+    positionMatrix = positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
 else
     positionMatrix = [];
     for i = 1:nbrSound
         for i = 1:nbrOfSpeakers
             tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
         end
-    positionMatrix = [positionMatrix positioning(tempSignalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)];
+    positionMatrix = [positionMatrix positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)];
    end
 end
     
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -69,19 +69,19 @@ end
 pointMatrix = LMCombo(syncedSignalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
 
 % %SRP-Phat
-% microphones = [];
-% for i=1:nbrOfSpeakers
-%    mic = syncedSignalMatrix{i};
-%    microphones = [microphones mic];
-% end
-% SRPMatrix = zeros(3,35);
-% 
-% for i = 1:length(SRPMatrix(1,:))
-%     [finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
-%     xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
-%     SRPMatrix(1,i) = xSRP; SRPMatrix(2,i) = ySRP; SRPMatrix(3,i) = zSRP;
-% end
-% xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
+microphones = [];
+for i=1:nbrOfSpeakers
+   mic = syncedSignalMatrix{i};
+   microphones = [microphones mic];
+end
+SRPMatrix = zeros(3,35);
+
+for i = 1:length(SRPMatrix(1,:))
+    [finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
+    xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
+    SRPMatrix(1,i) = xSRP; SRPMatrix(2,i) = ySRP; SRPMatrix(3,i) = zSRP;
+end
+xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
 
 %Scatterplots them.
 plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
