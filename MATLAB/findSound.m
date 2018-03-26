@@ -1,9 +1,9 @@
-function [tStart, tEnd] = findSound(signal, nbrSamples)
+function [tStart, tEnd] = findSound(signal, nbrSamples, treshold)
     sz = length(signal);
 
     signal = abs(signal);
 
-    multStart = 10;
+    multStart = treshold;
     multEnd = 1.2;
     avg = mean(signal(1:nbrSamples));
     tempAvg = avg;

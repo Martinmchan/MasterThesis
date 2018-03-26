@@ -7,7 +7,7 @@ type = 'n';
 
 %Initiate and read all data
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
-microphones =  {'mic1_0320_18.wav';'mic2_0320_18.wav';'mic3_0320_18.wav';'mic4_0320_18.wav';'mic5_0320_18.wav';'mic6_0320_18.wav';'mic7_0320_18.wav';'mic8_0320_18.wav'};
+microphones =  {'mic1_0320_10.wav';'mic2_0320_10.wav';'mic3_0320_10.wav';'mic4_0320_10.wav';'mic5_0320_10.wav';'mic6_0320_10.wav';'mic7_0320_10.wav';'mic8_0320_10.wav'};
 nbrOfSpeakers = length(microphones);
 
 signalMatrix = [];
@@ -26,7 +26,7 @@ if type == 'n'
 end
 
 %Finds the sound source in time
-[startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}, 5);
+[startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
 soundNbr = 0;
@@ -47,10 +47,10 @@ if soundNbr > 0
 else
     positionMatrix = [];
     for i = 1:nbrSound
-        for i = 1:nbrOfSpeakers
-            tempSignalMatrix{i} = signalMatrix{i}(startSoundArray(soundNbr):endSoundArray(soundNbr)); 
+        for j = 1:nbrOfSpeakers
+            tempSignalMatrix{j} = signalMatrix{j}(startSoundArray(i):endSoundArray(i)); 
         end
-    positionMatrix = [positionMatrix positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)];
+    positionMatrix = [positionMatrix; positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods)];
    end
 end
     
