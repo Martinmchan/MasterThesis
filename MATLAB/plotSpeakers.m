@@ -1,4 +1,4 @@
-function plotSpeakers(micMatrix, nbrOfSpeakers, lb, ub)
+function plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb)
 %scatterPlot Plots the microphones and the sound source.
 %   INPUT
 %       xyzMic - a matrix with the coordinates for the four microphones
@@ -10,6 +10,6 @@ function plotSpeakers(micMatrix, nbrOfSpeakers, lb, ub)
     a = [1:nbrOfSpeakers]'; b = num2str(a); c = cellstr(b);
     dx = 0.2; dy = 0.2; dz = 0.2;
     text(micX+dx, micY+dy, micZ+dz, c);
-    set(gca,'Xlim',[min(lb), max(ub)], 'YLim', [min(lb), max(ub)], 'Zlim', [0, 3])
+    set(gca,'Xlim',[min(lsb), max(usb)], 'YLim', [min(lsb), max(usb)], 'Zlim', [0, 3])
 
 end
