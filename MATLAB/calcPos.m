@@ -5,7 +5,9 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
         if tdoaMethod == 'GCCphat'
             for i=2:nbrOfSpeakers
                 tmp = ourGCCphat(signalMatrix{1}, signalMatrix{i});
-                tdoa{i} = tmp/f*343;
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
+                tdoa{i} = min(tmp,rDist - 0.1);
             end
         else
             error('You have to choose one of the options');
@@ -15,7 +17,9 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
         if tdoaMethod == 'GCCscores'
             for i=2:nbrOfSpeakers
                 tmp = ourGCCscore(signalMatrix{1}, signalMatrix{i});
-                tdoa{i} = tmp/f*343;
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
+                tdoa{i} = min(tmp,rDist - 0.1);
             end
         else
             error('You have to choose one of the options');
@@ -25,7 +29,9 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
         if tdoaMethod == 'MovingAverage'
            for i=2:nbrOfSpeakers
                 tmp = ourMovingAverage(signalMatrix{1}, signalMatrix{i});
-                tdoa{i} = tmp/f*343;
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
+                tdoa{i} = min(tmp,rDist - 0.1);
            end
         else
             error('You have to choose one of the options');

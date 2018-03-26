@@ -3,11 +3,10 @@ function [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers)
     microphones{1} = 0;
     if type == 'n'
         for i=1:nbrOfSpeakers
-            microphones{i} = sprintf('%s%d%s','mic',i,namebase)
+            microphones{i} = sprintf('%s%d%s','mic',i,namebase);
         end
     elseif type == 't'
         for i=1:nbrOfSpeakers
-            sprintf('%s%d%s',namebase,i,'.wav')
             microphones{i} = sprintf('%s%d%s',namebase,i,'.wav');
         end
     end
