@@ -1,4 +1,4 @@
-function quality = ManyCheckSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVec)
+function quality = checkSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVec)
 %ExperimentChechSyncQuality checks the quality of the synchronization.
 
 %Check distance
@@ -16,7 +16,7 @@ err = mean([err]);
 quality{1} = err;
 
 
-%Check synchronization using checkSync2
+%Check synchronization
 j = 2;
 for i=2:nbrOfSpeakers
     if i == nbrOfSpeakers

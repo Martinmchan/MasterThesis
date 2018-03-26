@@ -29,7 +29,7 @@ function [syncedSignalMatrix, quality] = generateSyncedSignals(signalMatrix, nbr
     end
 
     if calcQuality
-        quality = ManyCheckSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVec);
+        quality = checkSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVec);
     else
         quality = 0;
     end
