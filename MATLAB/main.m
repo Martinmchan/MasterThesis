@@ -44,7 +44,3 @@ ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb)
 
 
 
-
-
-
-
