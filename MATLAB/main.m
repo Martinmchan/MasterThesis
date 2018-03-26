@@ -29,6 +29,9 @@ end
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
-methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
-positionMatrix = positioning(signalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+methods = {'calcPos', 'MovingAverage'; 'calcPos', 'GCCphat'};
+lsb = [-1,-1,-1];
+usb = [3,7,3];
+x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
+positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
 
