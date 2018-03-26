@@ -15,27 +15,27 @@ function pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb,
             
         elseif length(tdoaMethod) ==length('GCCscores')
             if tdoaMethod == 'GCCscores'
-                tdoa1 = gccScore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
-                tdoa2 = gccScore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
-                tdoa3 = gccScore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+                tdoa1 = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa2 = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa3 = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
             end
         
         elseif length(tdoaMethod) == length('MovingAverage')
             if tdoaMethod == 'MovingAverage'
-                tdoa1 = balloon(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
-                tdoa2 = balloon(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
-                tdoa3 = balloon(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+                tdoa1 = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa2 = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa3 = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
             end
         else
             error('You have to choose one of the options');
         end       
 
         
-        xPos = lsqnonlin(@myFunc,x0, lsb ,usb, [], tdoa1, tdoa2, tdoa3, micMatrix);
+        xPos = lsqnonlin(@ourFuncCombo,x0, lsb ,usb, [], tdoa1, tdoa2, tdoa3, micMatrix);
         
         pointMatrix(1,i) = xPos(1,1);
-        pointMatrix(2,i) = xPos(2,1);
-        pointMatrix(3,i) = xPos(3,1);
+        pointMatrix(2,i) = xPos(1,2);
+        pointMatrix(3,i) = xPos(1,3);
     end
     
     xCombo = mean(pointMatrix(1,:));yCombo = mean(pointMatrix(2,:));zCombo = mean(pointMatrix(3,:));
