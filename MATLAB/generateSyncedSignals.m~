@@ -5,18 +5,16 @@ function [syncedSignalMatrix, quality] = generateSyncedSignals(signalMatrix, nbr
     sVec{1} = 0;
     if fastSync
         if nbrSound == nbrOfSpeakers
-            disp("Synchronizing with fast method.")
+            disp("Synchronizing with
             for i = 1:nbrOfSpeakers
                 sVec{i} = startSoundArray(i):endSoundArray(i);
             end
         else
-            disp("Couldn't synchronize with fast method, using slow instead.")
             for i = 1:nbrOfSpeakers
                 sVec{i} = (i*200000 - 199999):i*200000; 
             end
         end
     else
-        disp("Synchronizing with fast method.")
         for i = 1:nbrOfSpeakers
             sVec{i} = (i*200000 - 199999):i*200000; 
         end

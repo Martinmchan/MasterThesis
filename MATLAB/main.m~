@@ -20,6 +20,7 @@ end
 
 %Syncs the signals if NCS is chosen
 if type == 'n'
+<<<<<<< HEAD
     [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, 0);
 end
 
@@ -30,3 +31,9 @@ end
 %   GCCPhat, GCCScores, Balloon
 methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
 positionMatrix = positioning(signalMatrix,f, lsb, usb, nbrOfSpeakers, methods);
+=======
+    fastSync = 1;
+    quality = 0;
+    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
+end
+>>>>>>> 0f2a04eb9d77c0f48d2f6e5b15e648f1ae376359

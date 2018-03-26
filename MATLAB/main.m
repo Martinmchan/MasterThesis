@@ -20,7 +20,9 @@ end
 
 %Syncs the signals if NCS is chosen
 if type == 'n'
-    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, 0);
+    fastSync = 1;
+    quality = 0;
+    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
 end
 
 %Position the sound source, choose between
@@ -29,3 +31,4 @@ end
 %   GCCPhat, GCCScores, MovingAverage
 methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
 positionMatrix = positioning(signalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+
