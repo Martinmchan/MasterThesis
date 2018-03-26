@@ -5,8 +5,8 @@ function [tStart, tEnd] = findSound(signal, nbrSamples)
 
     signal = abs(signal);
 
-    multStart = 20;
-    
+    multStart = 10;
+    multEnd = 1.2;
     avg = mean(signal(1:nbrSamples));
     tempAvg = avg;
     
@@ -24,7 +24,6 @@ function [tStart, tEnd] = findSound(signal, nbrSamples)
     %Find the time for silence again if sound was found
     if tStart ~= 0
         tEnd = 0;
-        multEnd = 1.2;
         tempAvg = mean(signal(tStart:tStart + nbrSamples - 1));
         for i = tStart:sz - nbrSamples
            if  tempAvg < multEnd*avg

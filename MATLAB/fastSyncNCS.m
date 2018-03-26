@@ -19,19 +19,20 @@ for i = 1:nbrOfSpeakers
     plot(mic);
 end
 
+%Finds where the sync tone is.
+[startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signalMatrix{1}(1:nbrOfSpeakers*200000));
+
 %Syncs all the microphones using mic1 as master, then plot the result.
 %Distance between the microphones are also shown as an indicator of how
 %good the sync was.
-j=200001;
 figure;
 plot(signalMatrix{1});
-sVec{1} = 1:200000;
+sVec{1} = startSoundArray(1):endSoundArray(1);
 for i = 2:nbrOfSpeakers
-   s = j:j+200000;
+   s = startSoundArray(i):endSoundArray(i);
    [mic, distance, ~] = ourSync(signalMatrix{1}, signalMatrix{i}, sVec{1}, s);
    signalMatrix{i} = mic;
    sVec{i} = s;
-   j = j+200000;
    hold on
    plot(signalMatrix{i});
    dist(i) = distance;
@@ -42,7 +43,7 @@ quality = ManyCheckSyncQuality(micMatrix, dist, signalMatrix, nbrOfSpeakers, sVe
 %Generate the data after sync
 figure;
 for i = 1:nbrOfSpeakers
-    signalMatrix{i} = signalMatrix{i}(j:end);
+    signalMatrix{i} = signalMatrix{i}(nbrOfSpeakers*200000:end);
     plot(signalMatrix{i});
     hold on;
 end
@@ -68,24 +69,8 @@ end
 %Combo LMs
 pointMatrix = LMCombo(syncedSignalMatrix, nbrOfSpeakers, micMatrix, lsb, usb);
 
-% %SRP-Phat
-% microphones = [];
-% for i=1:nbrOfSpeakers
-%    mic = syncedSignalMatrix{i};
-%    microphones = [microphones mic];
-% end
-% SRPMatrix = zeros(3,35);
-% 
-% for i = 1:length(SRPMatrix(1,:))
-%     [finalpos,finalsrp,finalfe]=srplems(microphones, micMatrix, f, lsb, usb);
-%     xSRP = finalpos(1,1); ySRP = finalpos(1,2); zSRP = finalpos(1,3);
-%     SRPMatrix(1,i) = xSRP; SRPMatrix(2,i) = ySRP; SRPMatrix(3,i) = zSRP;
-% end
-% xSRP = mean(SRPMatrix(1,:));ySRP = mean(SRPMatrix(2,:));zSRP = mean(SRPMatrix(3,:));
-
 %Scatterplots them.
 plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb);
-
 
 hold on
 scatter3(xLM,yLM,zLM,'*k')
