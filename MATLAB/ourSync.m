@@ -48,7 +48,7 @@ function [y2Synced, dist, deltaT]= ourSync(mic1, mic2, s1, s2)
     end
     
     deltaT = round(((cap1b+play2b)-(play1a+cap2a))/2);
-    dist = abs((((cap2a + cap1b) - (play1a + play2b))/2))*343/f;
+    dist = abs((((cap2a + cap1b) - (play1a + play2b))/2))*343/f + 0.2;
     
     if deltaT < 0
         y2Synced = [zeros(1-deltaT,1);mic2];

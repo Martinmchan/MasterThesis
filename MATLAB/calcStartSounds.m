@@ -12,7 +12,7 @@ function [startSoundArray, endSoundArray, nbrSound] = calcStartSounds(signal)
     nbrSamples = 10000;
     
     while counter < sz - nbrSamples
-        [tStart, tEnd] = findSound(signal(counter:sz - nbrSamples - 1), nbrSamples);
+        [tStart, tEnd] = findSound(signal(counter:sz), nbrSamples);
         if tStart ~= 0
             tempStart = tStart - 3*nbrSamples;
             tempEnd = tEnd + 3*nbrSamples;
