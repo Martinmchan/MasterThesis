@@ -1,4 +1,4 @@
-function tdoa = balloon(mic1, mic2)
+function tdoa = ourMovingAverage(mic1, mic2)
     
     sz = min([length(mic1) length(mic2)]);
 

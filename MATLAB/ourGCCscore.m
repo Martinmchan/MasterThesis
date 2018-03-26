@@ -1,4 +1,4 @@
-function score = gccScore(mic1, mic2)
+function score = ourGCCscore(mic1, mic2)
     
     sz = min([length(mic1) length(mic2)]);
     window = 4000;
@@ -13,18 +13,8 @@ function score = gccScore(mic1, mic2)
         gcc = floor((window/2+lags(idx)));
         score = [score gcc];
     end
-%     figure
-%     plot(score);
-    figure
-    h = histogram(score/48000*343, 150)
-    
-    %score = mean(score);
         
     [score, xout] = hist(score, 150);    
     [~, maxScoresIndex] = max(score);
     score = xout(maxScoresIndex);
-    
-    
-    
-
 end

@@ -23,9 +23,10 @@ if type == 'n'
     [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, 0);
 end
 
-%Position the sound source, choose between
-%   calcPos, calcPosCombo, SRP-PHAT
+%Position the sound source
+%Choose between as a method
+%   LM, LM-Combo, SRP-PHAT
 %Then choose the method to calculate TDOA
-%   GCCPhat, GCCScores, MovingAverage
+%   GCCPhat, GCCScores, Balloon
 methods = {'SRP-Phat', 35; 'LM', 'GCCPhat'};
-positionMatrix = positioning(signalMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
+positionMatrix = positioning(signalMatrix,f, lsb, usb, nbrOfSpeakers, methods);
