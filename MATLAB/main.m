@@ -3,11 +3,13 @@ clear all
 close all
 
 %Choose between tascam or NCS
-type = 'n';
+type = 't';
 
 %Initiate and read all data
-micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
-microphones =  {'mic1_0320_10.wav';'mic2_0320_10.wav';'mic3_0320_10.wav';'mic4_0320_10.wav';'mic5_0320_10.wav';'mic6_0320_10.wav';'mic7_0320_10.wav';'mic8_0320_10.wav'};
+micMatrix = [0 0 1.74; 0 23 1.74; 2 23 1.74; 2 0 1.74];
+lsb = [-1,-1,1.5];
+usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,1.9];
+microphones =  {'000306_255_mono1.wav','000306_255_mono2.wav','000306_255_mono3.wav','000306_255_mono4.wav'};
 nbrOfSpeakers = length(microphones);
 
 signalMatrix = [];
@@ -36,8 +38,6 @@ soundNbr = 0;
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
 methods = {'calcPos', 'MovingAverage'};
-lsb = [-1,-1,-1];
-usb = [3,7,3];
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
