@@ -25,7 +25,13 @@ function positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, 
                 positionMatrix(i,1) = pos(1,1); positionMatrix(i,2) = pos(1,2); positionMatrix(i,3) = pos(1,3);
             end
         end
-
+        
+        if length(methods{i,1}) == length('calcPos4Combo')
+            if methods{i,1} == 'calcPos4Combo'
+                pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, methods{i,2});
+                positionMatrix(i,1) = pos(1,1); positionMatrix(i,2) = pos(1,2); positionMatrix(i,3) = pos(1,3);
+            end
+        end
 
 
 

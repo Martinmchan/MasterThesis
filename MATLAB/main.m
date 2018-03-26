@@ -35,7 +35,7 @@ soundNbr = 0;
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
-methods = {'calcPos', 'MovingAverage'; 'calcPos', 'GCCphat'};
+methods = {'calcPos4Combo', 'MovingAverage'; 'calcPos4Combo', 'GCCphat'};
 lsb = [-1,-1,-1];
 usb = [3,7,3];
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
