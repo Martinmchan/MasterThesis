@@ -25,6 +25,18 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
             error('You have to choose one of the options');
         end
         
+    elseif length(tdoaMethod) ==length('CrossCorrelation')
+        if tdoaMethod == 'CrossCorrelation'
+            for i=2:nbrOfSpeakers
+                tmp = ourCrossCorr(signalMatrix{1}, signalMatrix{i});
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
+                tdoa{i} = min(tmp,rDist - 0.1);
+            end
+        else
+            error('You have to choose one of the options');
+        end    
+       
     elseif length(tdoaMethod) == length('MovingAverage')
         if tdoaMethod == 'MovingAverage'
            for i=2:nbrOfSpeakers

@@ -26,6 +26,14 @@ function pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb,
                 tdoa{2} = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
                 tdoa{3} = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
             end
+        
+        elseif length(tdoaMethod) == length('CrossCorrelation')
+            if tdoaMethod == 'CrossCorrelation'
+                tdoa{1} = ourCrossCorr(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa{2} = ourCrossCorr(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa{3} = ourCrossCorr(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+            end    
+            
         else
             error('You have to choose one of the options');
         end       
