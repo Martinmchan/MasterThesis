@@ -36,6 +36,18 @@ function pos = calcPosAll(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, us
             error('You have to choose one of the options');
         end
         
+    elseif length(tdoaMethod) ==length('AED')
+        if tdoaMethod == 'AED'
+            for i=1:nbrTDOA
+                tmp = ourAED(signalMatrix{allMatrix(i,1)}, signalMatrix{allMatrix(i,2)});
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(allMatrix(i,1),:) - micMatrix(allMatrix(i,2),:));
+                tdoa{i} = min(tmp,rDist - 0.1);
+            end
+        else
+            error('You have to choose one of the options');
+        end    
+        
     elseif length(tdoaMethod) ==length('CrossCorrelation')
         if tdoaMethod == 'CrossCorrelation'
             for i=1:nbrTDOA

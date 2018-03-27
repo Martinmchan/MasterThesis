@@ -15,11 +15,18 @@ function pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb,
             
         elseif length(tdoaMethod) ==length('GCCscores')
             if tdoaMethod == 'GCCscores'
-                tdoa{1} = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
-                tdoa{2} = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
-                tdoa{3} = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+                tdoa{1} = ourGCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa{2} = ourGCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa{3} = ourGCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
             end
         
+        elseif length(tdoaMethod) ==length('AED')
+            if tdoaMethod == 'AED'
+                tdoa{1} = ourAED(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa{2} = ourAED(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa{3} = ourAED(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+            end    
+            
         elseif length(tdoaMethod) == length('MovingAverage')
             if tdoaMethod == 'MovingAverage'
                 tdoa{1} = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;

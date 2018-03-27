@@ -5,7 +5,7 @@ close all
 %Initiate data
 micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
 nbrOfSpeakers = length(micMatrix(:,1));
-lsb = [-1,-1,0];
+lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
 namebase = '_0320_11.wav'; type = 'n';
 %namebase = './tascam/000306_256_mono'; type = 't';
@@ -43,7 +43,7 @@ end
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
-methods = {'calcPos', 'MovingAverage'};
+methods = {'calcPos', 'AED'};
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
