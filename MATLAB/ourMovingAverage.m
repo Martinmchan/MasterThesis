@@ -4,7 +4,7 @@ function tdoa = ourMovingAverage(mic1, mic2)
 
     mic1 = abs(mic1);
     mic2 = abs(mic2);
-    
+
     nbrSamples = 10000;
     multP = 10;
     

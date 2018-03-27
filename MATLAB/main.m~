@@ -7,8 +7,8 @@ micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.
 nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,0];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
-namebase = '_0320_11.wav'; type = 'n';
-%namebase = './tascam/000306_256_mono'; type = 't';
+namebase = '_0320_.wav'; type = 'n';
+%namebase = './tascam/000306_255_mono'; type = 't';
 
 %Read data
 [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
@@ -29,15 +29,6 @@ end
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
 soundNbr = 0;
-
-%Choose if noise should be totally removed
-noiseRemoval = 0;
-if noiseRemoval
-    for i = 1:nbrOfSpeakers
-        signalMatrix{i} = ourTotalNoiseRemoval(signalMatrix{i});
-    end
-end
-
 
 %Position the sound source, choose between
 %   calcPos, calcPosCombo, SRP-PHAT

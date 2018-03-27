@@ -54,6 +54,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
 
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';
-    pos = lsqnonlin(@ourFunc,x0, lsb ,usb, [], tdoa, nbrOfSpeakers, micMatrix);
+    opt = optimoptions('lsqnonlin','Display','off');
+    pos = lsqnonlin(@ourFunc,x0, lsb ,usb, opt, tdoa, nbrOfSpeakers, micMatrix);
 
 end

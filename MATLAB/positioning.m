@@ -7,7 +7,7 @@ function positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, 
                    mic = signalMatrix{j};
                    microphones = [microphones mic];
                 end
-                SRPMatrix = zeros(3,methods{j,2});
+                SRPMatrix = zeros(3,methods{i,2});
 
                 for j = 1:length(SRPMatrix(1,:))
                     [finalpos,~,~]=srplems(microphones, micMatrix, f, lsb, usb);
@@ -42,7 +42,7 @@ function positionMatrix = positioning(signalMatrix, micMatrix, f, x0, lsb, usb, 
         
         if length(methods{i,1}) == length('calcPosTwice')
             if methods{i,1} == 'calcPosTwice'
-                pos = calcPosTwice(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, methods{i,2})
+                pos = calcPosTwice(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, methods{i,2});
                 positionMatrix(i,:) = pos;
             end
         end

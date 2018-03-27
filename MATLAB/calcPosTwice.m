@@ -11,7 +11,6 @@ function pos = calcPosTwice(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, 
         dist2speaker(idx) = 10e6;
         sortSpeaker(i) = idx;
     end
-    sortSpeaker
     
     pos = calcPos(signalMatrix(sortSpeaker(1:4)), 4, micMatrix(sortSpeaker(1:4),:), f, x0, lsb, usb, tdoaMethod);
 
