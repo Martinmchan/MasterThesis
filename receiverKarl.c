@@ -28,10 +28,6 @@ static GMutex mutex;
 
 static int nbr_of_streams = 0;
 static GMainLoop *mainloop;
-<<<<<<< HEAD
-=======
-GHashTable * mapping; 
->>>>>>> be865fa19373327c71ac914aa076a081ed8f0d31
 
 static void
 signal_handler(G_GNUC_UNUSED gint signo)
@@ -63,23 +59,8 @@ g_mutex_lock (&mutex);
 
   gst_element_link_many(rtpL16depay, audioconvert, alsacaps, NULL);
 
-<<<<<<< HEAD
   pad = gst_element_get_static_pad(alsacaps, "src");
   GstPad * another_pad  = gst_element_get_static_pad(interleave, g_strdup_printf("sink_%u",i));
-=======
-  //Read from the map
-  guint ssrc = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(new_pad), "ssrc"));
-  GString ssrcString = g_int_hash((void *) ssrc);
-  guint index = (guint) g_hash_table_lookup(mapping, (void *)ssrcString);
-
-  
-  printf("ssrc %d\n", ssrc);
-  printf("ssrcString %s\n", ssrcString);
-  printf("index %d\n", index);
-
-  pad = gst_element_get_static_pad(alsacaps, "src");
-  GstPad * another_pad  = gst_element_get_static_pad(interleave, g_strdup_printf("sink_%u",index));
->>>>>>> be865fa19373327c71ac914aa076a081ed8f0d31
   gst_pad_link(pad, another_pad);
 
   gst_element_sync_state_with_parent(rtpL16depay);
@@ -114,13 +95,6 @@ int main(int argc, char *argv[]) {
 
   mainloop = g_main_loop_new(NULL, FALSE);
 
-<<<<<<< HEAD
-=======
-  //Make the map
-  mapping = g_hash_table_new (NULL, NULL);
-  g_hash_table_insert(mapping, (void *)"200", (void *)0);
-  g_hash_table_insert(mapping, (void *)"38", (void *)1);
->>>>>>> be865fa19373327c71ac914aa076a081ed8f0d31
 
   clock = gst_net_client_clock_new("net-clock",CLOCK_REMOTE_ADDRESS, CLOCK_REMOTE_PORT, 0);
   gst_clock_wait_for_sync(clock, 5000 * GST_MSECOND);
@@ -183,18 +157,11 @@ int main(int argc, char *argv[]) {
 
   gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
-<<<<<<< HEAD
 
   //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline");
 
   signal(SIGINT, signal_handler);
   
-=======
-  //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline");
-
-  signal(SIGINT, signal_handler);
-
->>>>>>> be865fa19373327c71ac914aa076a081ed8f0d31
   g_main_loop_run(mainloop); /* wait for mainloop to be quit */
 
   //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline_3");

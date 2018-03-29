@@ -7,8 +7,13 @@ micMatrix = [0 0 1.74; 0 23 1.74; 2 23 1.74; 2 0 1.74];
 nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
+<<<<<<< HEAD
 %namebase = '_0320_11.wav'; type = 'n';
 namebase = './tascam/000306_256_mono'; type = 't';
+=======
+namebase = '_0320_11.wav'; type = 'n';
+%namebase = './tascam/000306_256_mono'; type = 't';
+>>>>>>> be865fa19373327c71ac914aa076a081ed8f0d31
 
 %Read data
 [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
@@ -43,7 +48,11 @@ end
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
+<<<<<<< HEAD
 methods = {'calcPos', 'MovingAverage'};
+=======
+methods = {'calcPos', 'AED'};
+>>>>>>> be865fa19373327c71ac914aa076a081ed8f0d31
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
