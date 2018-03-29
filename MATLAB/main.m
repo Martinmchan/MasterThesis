@@ -2,16 +2,13 @@
 clear all
 close all
 
-%Choose between tascam or NCS
-type = 'n';
-
 %Initiate data
-micMatrix = [0 0 1.7; 0.9 0 0.1; 1.83 0 0.5; 0 2.4 0.1; 1.83 2.40 1.8; 0 4.45 1.1; 0.9 4.45 0.1; 1.83 4.45 1.08];
+micMatrix = [0 0 1.74; 0 23 1.74; 2 23 1.74; 2 0 1.74];
 nbrOfSpeakers = length(micMatrix(:,1));
-lsb = [-1,-1,0];
+lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
-namebase = '_0315_10.wav';
-%namebase = '000306_255_mono';
+%namebase = '_0320_11.wav'; type = 'n';
+namebase = './tascam/000306_256_mono'; type = 't';
 
 %Read data
 [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
@@ -26,21 +23,34 @@ end
 
 %Finds the sound source in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
+if nbrOfSound == 0
+    return;
+end
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
 soundNbr = 0;
+
+%Choose if noise should be totally removed
+noiseRemoval = 0;
+if noiseRemoval
+    for i = 1:nbrOfSpeakers
+        signalMatrix{i} = ourTotalNoiseRemoval(signalMatrix{i});
+    end
+end
+
 
 %Position the sound source, choose between
 %   calcPos, calcPosCombo, SRP-PHAT
 %Then choose the method to calculate TDOA
 %   GCCPhat, GCCScores, MovingAverage
-methods = {'calcPosAll', 'MovingAverage'};
+methods = {'calcPos', 'MovingAverage'};
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
 
 %Plots the results
-ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb)
+numbering = 1;
+ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 
 

@@ -6,6 +6,9 @@ if soundNbr > 0
     positionMatrix = positioning(tempSignalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods);
 else
     positionMatrix = [];
+    if endSoundArray(nbrOfSound) > length(signalMatrix{1})
+        nbrOfSound = nbrOfSound - 1;
+    end
     for i = 1:nbrOfSound
         for j = 1:nbrOfSpeakers
             tempSignalMatrix{j} = signalMatrix{j}(startSoundArray(i):endSoundArray(i)); 

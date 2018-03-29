@@ -36,6 +36,30 @@ function pos = calcPosAll(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, us
             error('You have to choose one of the options');
         end
         
+    elseif length(tdoaMethod) ==length('AED')
+        if tdoaMethod == 'AED'
+            for i=1:nbrTDOA
+                tmp = ourAED(signalMatrix{allMatrix(i,1)}, signalMatrix{allMatrix(i,2)});
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(allMatrix(i,1),:) - micMatrix(allMatrix(i,2),:));
+                tdoa{i} = min(tmp,rDist - 0.1);
+            end
+        else
+            error('You have to choose one of the options');
+        end    
+        
+    elseif length(tdoaMethod) ==length('CrossCorrelation')
+        if tdoaMethod == 'CrossCorrelation'
+            for i=1:nbrTDOA
+                tmp = ourCrossCorr(signalMatrix{allMatrix(i,1)}, signalMatrix{allMatrix(i,2)});
+                tmp = tmp/f*343;
+                rDist = norm(micMatrix(allMatrix(i,1),:) - micMatrix(allMatrix(i,2),:));
+                tdoa{i} = min(tmp,rDist - 0.1);
+            end
+        else
+            error('You have to choose one of the options');
+        end    
+        
     elseif length(tdoaMethod) == length('MovingAverage')
         if tdoaMethod == 'MovingAverage'
            for i=1:nbrTDOA
@@ -53,5 +77,6 @@ function pos = calcPosAll(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, us
 
     %Calculate the position of the sound source using Levenberg-Marquardt
     %options.Algorithm = 'levenberg-marquardt';
-    pos = lsqnonlin(@ourFuncAll,x0, lsb ,usb, [], tdoa, nbrOfSpeakers, micMatrix, nbrTDOA, allMatrix);
+    opt = optimoptions('lsqnonlin','Display','off');
+    pos = lsqnonlin(@ourFuncAll,x0, lsb ,usb, opt, tdoa, nbrOfSpeakers, micMatrix, nbrTDOA, allMatrix);
 end

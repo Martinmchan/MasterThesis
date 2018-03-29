@@ -15,17 +15,32 @@ function pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb,
             
         elseif length(tdoaMethod) ==length('GCCscores')
             if tdoaMethod == 'GCCscores'
-                tdoa{1} = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
-                tdoa{2} = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
-                tdoa{3} = GCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+                tdoa{1} = ourGCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa{2} = ourGCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa{3} = ourGCCscore(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
             end
         
+        elseif length(tdoaMethod) ==length('AED')
+            if tdoaMethod == 'AED'
+                tdoa{1} = ourAED(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa{2} = ourAED(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa{3} = ourAED(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+            end    
+            
         elseif length(tdoaMethod) == length('MovingAverage')
             if tdoaMethod == 'MovingAverage'
                 tdoa{1} = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
                 tdoa{2} = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
                 tdoa{3} = ourMovingAverage(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
             end
+        
+        elseif length(tdoaMethod) == length('CrossCorrelation')
+            if tdoaMethod == 'CrossCorrelation'
+                tdoa{1} = ourCrossCorr(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(2,i)})/f*343;
+                tdoa{2} = ourCrossCorr(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(3,i)})/f*343;
+                tdoa{3} = ourCrossCorr(signalMatrix{comboMatrix(1,i)}, signalMatrix{comboMatrix(4,i)})/f*343;
+            end    
+            
         else
             error('You have to choose one of the options');
         end       
@@ -36,8 +51,9 @@ function pos = calcPos4Combo(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb,
         tdoa{2} = min(tdoa{2},rDist - 0.1);
         rDist = norm(micMatrix(comboMatrix(1,i),:) - micMatrix(comboMatrix(4,i),:));
         tdoa{3} = min(tdoa{3},rDist - 0.1);
-
-        tempPos = lsqnonlin(@ourFunc4Combo,x0, lsb ,usb, [], tdoa, micMatrix, comboMatrix(:,i));
+        
+        opt = optimoptions('lsqnonlin','Display','off');
+        tempPos = lsqnonlin(@ourFunc4Combo,x0, lsb ,usb, opt, tdoa, micMatrix, comboMatrix(:,i));
         
         pointMatrix(1,i) = tempPos(1,1);
         pointMatrix(2,i) = tempPos(1,2);

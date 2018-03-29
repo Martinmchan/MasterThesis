@@ -13,7 +13,7 @@ function [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signal, 
     
     while counter < sz - nbrSamples
         [tStart, tEnd] = findSound(signal(counter:sz), nbrSamples, treshold);
-        if tStart ~= 0
+        if (tStart ~= 0) && (tEnd ~= 0)
             tempStart = tStart - spacing*nbrSamples;
             tempEnd = tEnd + spacing*nbrSamples;
             startSoundArray = [startSoundArray (counter + tempStart)];

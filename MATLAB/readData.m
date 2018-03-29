@@ -3,7 +3,7 @@ function [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers)
     microphones{1} = 0;
     if type == 'n'
         for i=1:nbrOfSpeakers
-            microphones{i} = sprintf('%s%d%s','mic',i,namebase);
+            microphones{i} = sprintf('%s%d%s','./NCS/mic',i,namebase);
         end
     elseif type == 't'
         for i=1:nbrOfSpeakers
