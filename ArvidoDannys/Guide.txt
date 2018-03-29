@@ -4,9 +4,8 @@ Guide Receiver:
 1: Make Jason files
 2: Send to devices
 3: mkfifo xx.json.in and xx.json.out
-4: systemctl??
-5: usr/bin/audio-netsend /tmp/xx.json
 6: systemctl start audio-conf
 7: killall audio-netrecv (ps | grep audio)
+usr/bin/audio-netsend /tmp/xx.json
 8: From computer run receiver x, where x is nbrOfSpeaker
 

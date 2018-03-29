@@ -16,7 +16,7 @@
   "application/x-rtp, media=audio, payload=96, encoding-name=L16, clock-rate=48000, channels=2"
 
 #define CLOCK_REMOTE_ADDRESS "172.25.13.200"
-#define CLOCK_REMOTE_PORT 5015
+#define CLOCK_REMOTE_PORT 6000
 
 #define RTP_PORT 6000
 
@@ -157,11 +157,10 @@ int main(int argc, char *argv[]) {
 
   gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
-
   //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline");
 
   signal(SIGINT, signal_handler);
-  
+
   g_main_loop_run(mainloop); /* wait for mainloop to be quit */
 
   //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline_3");
