@@ -8,7 +8,7 @@ nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
 
-namebase = '_0402_3.wav'; type = 'n';
+namebase = '_0402_8.wav'; type = 'n';
 %namebase = './tascam/000312_244_mono'; type = 't';
 
 %Read data
@@ -20,11 +20,11 @@ for i = 1:nbrOfSpeakers
     plot(signalMatrix{i})
 end
 %Syncs the signals if NCS is chosen
-if type == 'n'
-    fastSync = 1;
-    quality = 0;
-    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
-end
+% if type == 'n'
+%     fastSync = 1;
+%     quality = 0;
+%     [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
+% end
 
 %Finds the sound source in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
