@@ -20,7 +20,7 @@ function [tStart, tEnd] = findSound(signal, nbrSamples, treshold)
     end
     
     %Find the time for silence again if sound was found
-    if tStart ~= 0
+    if (tStart ~= 0) && (tStart + nbrSamples - 1) < length(signal)
         tEnd = 0;
         tempAvg = mean(signal(tStart:tStart + nbrSamples - 1));
         for i = tStart:sz - nbrSamples

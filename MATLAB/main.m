@@ -3,18 +3,22 @@ clear all
 close all
 
 %Initiate data
-micMatrix = [0 0 1.75; 0 5.9 1.75; 9.35 0 1.75; 9.35 5.9 1.75];
+micMatrix = [0 0 1.75; 7.1 0 1.75; 0 5.3 1.75; 7.1 5.3 1.75];
 nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
 
-%namebase = '_0320_11.wav'; type = 'n';
-namebase = './tascam/000312_244_mono'; type = 't';
+namebase = '_0402_3.wav'; type = 'n';
+%namebase = './tascam/000312_244_mono'; type = 't';
 
 %Read data
 [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
 
-
+figure
+hold on
+for i = 1:nbrOfSpeakers
+    plot(signalMatrix{i})
+end
 %Syncs the signals if NCS is chosen
 if type == 'n'
     fastSync = 1;

@@ -11,6 +11,7 @@
 #sox -r 48000 -e signed-integer -b 16 -c 1 cap99.raw  ~/MATLAB/MasterThesis/MATLAB/cap99.wav
 #sox -r 48000 -e signed-integer -b 16 -c 1 cap38.raw  ~/MATLAB/MasterThesis/MATLAB/cap38.wav
 
-mv ~/Documents/GoertzelLocalization/deprecated/DistanceCalculation/bin/recordings/cap172.25.9.38.wav ~/MATLAB/MasterThesis/MATLAB/NCS/mic1.wav 
-mv ~/Documents/GoertzelLocalization/deprecated/DistanceCalculation/bin/recordings/cap172.25.13.200.wav ~/MATLAB/MasterThesis/MATLAB/NCS/mic2.wav 
-
+mv ~/Documents/GoertzelLocalization/deprecated/DistanceCalculation/bin/recordings/cap172.25.13.200.wav ~/MATLAB/MasterThesis/MATLAB/NCS/mic1_0402_3.wav 
+mv ~/Documents/GoertzelLocalization/deprecated/DistanceCalculation/bin/recordings/cap172.25.12.99.wav ~/MATLAB/MasterThesis/MATLAB/NCS/mic2_0402_3.wav 
+mv ~/Documents/GoertzelLocalization/deprecated/DistanceCalculation/bin/recordings/cap172.25.11.186.wav ~/MATLAB/MasterThesis/MATLAB/NCS/mic3_0402_3.wav 
+mv ~/Documents/GoertzelLocalization/deprecated/DistanceCalculation/bin/recordings/cap172.25.9.38.wav ~/MATLAB/MasterThesis/MATLAB/NCS/mic4_0402_3.wav 
