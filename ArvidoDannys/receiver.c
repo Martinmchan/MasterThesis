@@ -60,10 +60,10 @@ g_mutex_lock (&mutex);
 
   gst_element_link_many(rtpL16depay, audioconvert, alsacaps, NULL);
 
-
-  //Read from the map
-  guint index = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(new_pad), "ssrc"));
-
+  char * name = gst_pad_get_name (new_pad);
+  int index = name[13] - '0';
+  g_print("index is: %d\n", index);
+  
   pad = gst_element_get_static_pad(alsacaps, "src");
   GstPad * another_pad  = gst_element_get_static_pad(interleave, g_strdup_printf("sink_%u",index));
 
@@ -156,8 +156,6 @@ int main(int argc, char *argv[]) {
     gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
     gst_element_get_request_pad(interleave, g_strdup_printf("sink_%u",i));
 
-
-    g_object_set_data(rtcp_sinkpad, "ssrc", i);
   }
 
   g_signal_connect(rtpbin, "pad-added",

@@ -7,6 +7,5 @@ cat inMic6.sh | sshpass -p pass ssh root@172.25.45.109 &
 cat inMic7.sh | sshpass -p pass ssh root@172.25.45.70 &
 cat inMic8.sh | sshpass -p pass ssh root@172.25.45.188 &
 
-#~/Documents/GoertzelLocalization/create.sh run
 
 
