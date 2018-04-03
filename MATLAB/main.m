@@ -3,19 +3,19 @@ clear all
 close all
 
 %Initiate data
-micMatrix = [0 0 1.7; -0.1 2.7 1.7; 2.1 0.5 1.67; 2.1 2.85 1.03; 1.1 2.0 0.6; 2.05 1.35 0.95; 1.4 0.25 0.3];
+micMatrix = [0 0 1.75; 7.1 0 1.75; 0 5.3 1.75; 7.1 5.3 1.75];
 nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,1];
-usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1,2];
+usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
-namebase = '_0314_1.wav'; type = 'n';
-%namebase = './tascam/000312_244_mono'; type = 't';
+namebase = '_0402_15.wav'; type = 'n';
+%namebase = './tascam/000312_243_mono'; type = 't';
 
 %Read data
 [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
 
 %Syncs the signals if needed
-syncNeeded = 1;
+syncNeeded = 0;
 if syncNeeded
     fastSync = 1;
     quality = 0;
@@ -29,7 +29,7 @@ if nbrOfSound == 0
 end
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
-soundNbr = 6;
+soundNbr = 0;
 
 %Choose if noise should be totally removed
 noiseRemoval = 0;

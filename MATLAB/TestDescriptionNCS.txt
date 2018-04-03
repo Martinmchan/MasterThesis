@@ -2,7 +2,19 @@
 micMatrix = [0 0 1.75; 7.1 0 1.75; 0 5.3 1.75; 7.1 5.3 1.75];
 0402_1: Skedar från mic 1 till mic 4
 0402_2: Skedar runt
-
+0402_3: Skedar från mic 1 till mic 4 (Sync behövs)
+0402_4: Skedar från mic 1 till mic 4
+0402_5: Skedar från mic 1 till mic 4
+0402_6: Skedar från mic 1 till mic 4
+0402_7: Skedar från mic 1 till mic 4 (Dåligt)
+0402_8: Skedar från mic 1 till mic 4 (Dåligt)
+0402_9: Skedar från mic 1 till mic 2
+0402_10: Skedar från mic 2 till mic 1
+0402_11: Skedar från mic 3 till mic 1
+0402_12: Skedar från mic 3 till mic 4
+0402_13: Skedar från mic 4 till mic 3
+0402_14: Skedar från mic 2 till mic 4
+0402_15: Skedar från mic 4 till mic 2
 
 
 
