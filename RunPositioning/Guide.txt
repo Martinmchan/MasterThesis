@@ -1,0 +1,2 @@
+g++ prepare.cpp -lnessh -o prepare
+

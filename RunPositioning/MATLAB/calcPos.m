@@ -6,8 +6,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
             for i=2:nbrOfSpeakers
                 tmp = ourGCCphat(signalMatrix{1}, signalMatrix{i});
                 tmp = tmp/f*343;
-                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
-                tdoa{i} = min(tmp,rDist - 0.1);
+                tdoa{i} = tmp;
             end
         else
             error('You have to choose one of the options');
@@ -18,8 +17,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
             for i=2:nbrOfSpeakers
                 tmp = ourGCCscore(signalMatrix{1}, signalMatrix{i});
                 tmp = tmp/f*343;
-                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
-                tdoa{i} = min(tmp,rDist - 0.1);
+                tdoa{i} = tmp;
             end
         else
             error('You have to choose one of the options');
@@ -30,8 +28,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
             for i=2:nbrOfSpeakers
                 tmp = ourAED(signalMatrix{1}, signalMatrix{i});
                 tmp = tmp/f*343;
-                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
-                tdoa{i} = min(tmp,rDist - 0.1);
+                tdoa{i} = tmp;
             end
         else
             error('You have to choose one of the options');
@@ -42,8 +39,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
             for i=2:nbrOfSpeakers
                 tmp = ourCrossCorr(signalMatrix{1}, signalMatrix{i});
                 tmp = tmp/f*343;
-                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
-                tdoa{i} = min(tmp,rDist - 0.1);
+                tdoa{i} = tmp;
             end
         else
             error('You have to choose one of the options');
@@ -54,8 +50,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
            for i=2:nbrOfSpeakers
                 tmp = ourMovingAverage(signalMatrix{1}, signalMatrix{i});
                 tmp = tmp/f*343;
-                rDist = norm(micMatrix(1,:) - micMatrix(i,:));
-                tdoa{i} = min(tmp,rDist - 0.1);
+                tdoa{i} = tmp;
            end
         else
             error('You have to choose one of the options');

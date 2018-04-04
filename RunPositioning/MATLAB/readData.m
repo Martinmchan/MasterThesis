@@ -1,17 +1,10 @@
-function [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers)
+function [signalMatrix, f] = readData(nbrOfSpeakers)
 
     microphones{1} = 0;
-    if type == 'n'
-        for i=1:nbrOfSpeakers
-            microphones{i} = sprintf('%s%d%s','mic',i,namebase);
-        end
-    elseif type == 't'
-        for i=1:nbrOfSpeakers
-            microphones{i} = sprintf('%s%d%s',namebase,i,'.wav');
-        end
+    for i=1:nbrOfSpeakers
+        microphones{i} = sprintf('%s%d%s','../tmp/tmp',i,'.wav');
     end
-
-    signalMatrix = [];
+   
     f=0;
     for i = 1:nbrOfSpeakers
         [mic, f] = audioread(microphones{i});

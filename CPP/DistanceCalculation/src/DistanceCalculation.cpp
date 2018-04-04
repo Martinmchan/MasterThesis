@@ -119,7 +119,7 @@ vector<string> createFilenames(vector<string>& configs) {
 }
 
 vector<string> runSetup(const vector<string>& ips) {//int num_recordings, char** ips) {
-	SSHMaster ssh_master;
+	const SSHMaster ssh_master;
 	
 	vector<string> configs(ips);//ips, ips + num_recordings);
 	vector<string> files;
