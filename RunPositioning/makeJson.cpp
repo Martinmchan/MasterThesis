@@ -16,8 +16,8 @@ int main()
 		string clockIP = line;
 
 		int i;
-		for(i = 1 ; i <= nbrIP ; i++) {
-			ofstream jsonFile("./json/mic" + to_string(i) + ".json");
+		for(i = 0 ; i < nbrIP ; i++) {
+			ofstream jsonFile("./json/mic" + to_string(i+1) + ".json");
 			jsonFile << "{\n  \"Source\": {\n    \"Type\": \"alsa\",\n    \"AlsaDevice\": \"audiosource\"\n  },\n";
 			jsonFile << "  \"Sinks\": [\n    {\n      \"Port\": "+ to_string(6000+i*2) +",\n      \"Address\":\""+ compID + "\"\n    }\n  ],\n";
 			jsonFile << "  \"Profile\": \"default\",\n  \"Enabled\": true,\n  \"Clock\": {\n    \"Type\": \"gstnet\",\n    \"Address\": \""+ clockIP +"\",\n    \"Port\": 5015\n  }\n}";
