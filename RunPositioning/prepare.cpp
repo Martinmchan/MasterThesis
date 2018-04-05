@@ -56,6 +56,7 @@ int main(int argc, char** argv) {
 	
 	vector<string> fromJson;
 	vector<string> fromAudioNetSend;
+
 	vector<string> to;
 	for (int i = 1; i < ips.size() + 1; i++){
 		string filename = "./json/mic";
@@ -64,9 +65,23 @@ int main(int argc, char** argv) {
 		fromJson.push_back(filename);
 		fromAudioNetSend.push_back("./audio-netsend");
 		to.push_back("/tmp/");
+		
 	}
 	master.transferRemote(ips, fromJson, to);
 	master.transferRemote(ips, fromAudioNetSend, to);
+
+	vector<string> command1;
+	vector<string> command2;
+	vector<string> command3;
+	vector<string> command4;
+	
+	for (int i = 1; i < ips.size() + 1; i++){
+		
+		
+	}
+
+
+
 	
 	return 0;
 }
