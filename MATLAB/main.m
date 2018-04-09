@@ -8,19 +8,14 @@ nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
-namebase = '_0402_15.wav'; type = 'n';
+namebase = '_0402_4.wav'; type = 'n';
 %namebase = './tascam/000312_243_mono'; type = 't';
 
 %Read data
 [signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
 
-%Syncs the signals if needed
-syncNeeded = 0;
-if syncNeeded
-    fastSync = 1;
-    quality = 0;
-    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
-end
+%Syncs the signals
+signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
 
 %Finds the sound source in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);

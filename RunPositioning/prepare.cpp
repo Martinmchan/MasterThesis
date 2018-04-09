@@ -45,14 +45,22 @@ const vector<string> readIPs(){
 	return ips;
 }
 
+void printSSHOutput(const vector<pair<string, vector<string>>>& output) {
+	for (auto& peer : output) {
+		cout << "Output for " << peer.first << endl;
+
+		for (auto& line : peer.second)
+			cout << "Line: " << line << endl;
+	}
+}	
+
 int main(int argc, char** argv) {
 	SSHMaster master;
 	int call = system("rm ./json/*; wait");
-	call = system("rm ./tmp/*; wait");
 	makeJson();
 	vector<string> ips = readIPs();
-
-	master.connect(ips,"pass");
+	if (!master.connect(ips,"pass"))
+		cout << "Could not connect to speakers\n";
 	
 	vector<string> fromJson;
 	vector<string> fromAudioNetSend;
@@ -67,21 +75,41 @@ int main(int argc, char** argv) {
 		to.push_back("/tmp/");
 		
 	}
+
+	master.setSetting(SETTING_ENABLE_SSH_OUTPUT_VECTOR_STYLE, true);
+
 	master.transferRemote(ips, fromJson, to);
 	master.transferRemote(ips, fromAudioNetSend, to);
-
-	vector<string> command1;
-	vector<string> command2;
-	vector<string> command3;
-	vector<string> command4;
 	
-	for (int i = 1; i < ips.size() + 1; i++){
-		
-		
+	string command;
+	vector<string> commands;
+
+	for (int i = 1; i < ips.size() + 1; i++) {
+		command = "cd /tmp; mkfifo mic" + to_string(i) + ".json.in; wait;";
+		commands.push_back(command);
 	}
+	printSSHOutput(master.command(ips, commands, true));
 
+	commands.clear();
+	for (int i = 1; i < ips.size() + 1; i++) {
+		command = "cd /tmp; mkfifo mic" + to_string(i) + ".json.out; wait;";
+		commands.push_back(command);
+	}
+	printSSHOutput(master.command(ips, commands, true));
 
+	commands.clear();
+	for (int i = 1; i < ips.size() + 1; i++) {
+		command = "cd /tmp; chmod +x audio-netsend; wait;";
+		commands.push_back(command);
+	}
+	printSSHOutput(master.command(ips, commands, true));
 
+	commands.clear();
+	for (int i = 1; i < ips.size() + 1; i++) {
+		command = "cd /tmp\n./audio-netsend mic" + to_string(i) + ".json &";
+		commands.push_back(command);
+	}
+	printSSHOutput(master.command(ips, commands, true));
 	
 	return 0;
 }
