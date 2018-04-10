@@ -1,2 +1,5 @@
 g++ prepare.cpp -lnessh -o prepare
 
+dspd -s -k
+dspd -s -b compressor
+dspd -s -u compressor

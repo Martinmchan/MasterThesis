@@ -88,28 +88,29 @@ int main(int argc, char** argv) {
 		command = "cd /tmp; mkfifo mic" + to_string(i) + ".json.in; wait;";
 		commands.push_back(command);
 	}
-	printSSHOutput(master.command(ips, commands, true));
+	master.command(ips, commands, true);
 
 	commands.clear();
 	for (int i = 1; i < ips.size() + 1; i++) {
 		command = "cd /tmp; mkfifo mic" + to_string(i) + ".json.out; wait;";
 		commands.push_back(command);
 	}
-	printSSHOutput(master.command(ips, commands, true));
+	master.command(ips, commands, true);
 
+/*
 	commands.clear();
 	for (int i = 1; i < ips.size() + 1; i++) {
 		command = "cd /tmp; chmod +x audio-netsend; wait;";
 		commands.push_back(command);
 	}
 	printSSHOutput(master.command(ips, commands, true));
-
+*/
 	commands.clear();
 	for (int i = 1; i < ips.size() + 1; i++) {
-		command = "cd /tmp\n./audio-netsend mic" + to_string(i) + ".json &";
+		command = "cd /tmp; /usr/bin/audio-netsend mic" + to_string(i) + ".json &";
 		commands.push_back(command);
 	}
-	printSSHOutput(master.command(ips, commands, true));
+	master.command(ips, commands, true);
 	
 	return 0;
 }

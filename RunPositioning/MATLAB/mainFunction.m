@@ -1,4 +1,5 @@
-
+close all
+clear all 
 %The main function that calls everything
 fileID = fopen('../configuration.txt');
 confFile = textscan(fileID,'%s', 'delimiter', '\t','collectoutput',true);
@@ -8,11 +9,14 @@ fclose(fileID);
 %Initiate data
 micMatrix = str2num(confFile{end});
 nbrOfSpeakers = length(micMatrix(:,1));
-lsb = [-1,-1,1];
-usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
+lsb = [-1,-1,0];
+usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2.5];
 
 %Read data
 [signalMatrix, f] = readData(nbrOfSpeakers);
+
+%Syncs the signals
+%signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
 
 figure
 hold on

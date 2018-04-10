@@ -5,6 +5,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+	system("find ./tmp -name '*.wav' -delete");
 	string line;
 	ifstream confFile("./configuration.txt");
 	int nbrIP;

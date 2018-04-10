@@ -1,6 +1,6 @@
 %The main function that calls everything
 clear all
-close all
+%close all
 
 %Initiate data
 micMatrix = [0 0 1.75; 7.1 0 1.75; 0 5.3 1.75; 7.1 5.3 1.75];
@@ -16,6 +16,10 @@ namebase = '_0402_4.wav'; type = 'n';
 
 %Syncs the signals
 signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
+
+% signalMatrix{2} = manualSync(signalMatrix{2}, -150);
+% signalMatrix{3} = manualSync(signalMatrix{3}, 0);
+% signalMatrix{4} = manualSync(signalMatrix{4}, 120);
 
 %Finds the sound source in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
