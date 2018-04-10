@@ -1,6 +1,6 @@
 function syncedMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix)
     
-    [~, endSound] = findSound(signalMatrix{1}, 10000, 20);
+    [startSound, endSound] = findSound(signalMatrix{1}, 10000, 20);
     
     for i = 2:nbrOfSpeakers
         realTDOA = round(-norm(micMatrix(1,:) - micMatrix(i,:))*48000/343 + 30);
@@ -18,10 +18,6 @@ function syncedMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix)
         
       syncedMatrix{1} = signalMatrix{1};
       
-%     for i = 1:nbrOfSpeakers
-%         syncedMatrix{i} = syncedMatrix{i}((endSound + 10000):end);
-%     end
-    
 
 end
 

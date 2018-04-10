@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 		command = "cd /tmp; /usr/bin/audio-netsend mic" + to_string(i) + ".json &";
 		commands.push_back(command);
 	}
-	master.command(ips, commands, true);
+	printSSHOutput(master.command(ips, commands, true));
 	
 	return 0;
 }
