@@ -15,7 +15,7 @@
 #define DEFAULT_RTP_CAPS \
   "application/x-rtp, media=audio, payload=96, encoding-name=L16, clock-rate=48000, channels=2"
 
-#define CLOCK_REMOTE_ADDRESS "172.25.11.186"
+#define CLOCK_REMOTE_ADDRESS "172.25.12.168"
 #define CLOCK_REMOTE_PORT 5015
 
 #define RTP_PORT 6000
@@ -28,7 +28,6 @@ static GMutex mutex;
 
 static int nbr_of_streams = 0;
 static GMainLoop *mainloop;
-
 
 static void
 signal_handler(G_GNUC_UNUSED gint signo)
@@ -51,8 +50,7 @@ g_mutex_lock (&mutex);
 
   GstElement * audioconvert = gst_element_factory_make("audioconvert", NULL);
   GstElement * alsacaps = gst_element_factory_make("capsfilter", NULL);
-  //GstCaps * caps = gst_caps_from_string(g_strdup_printf(DEFAULT_AUDIO_CAPS,i+1));
-  GstCaps * caps = gst_caps_from_string(DEFAULT_AUDIO_CAPS);
+  GstCaps *caps = gst_caps_from_string(DEFAULT_AUDIO_CAPS);
   g_object_set(alsacaps, "caps", caps, NULL);
 
   gst_bin_add_many(GST_BIN(pipeline), rtpL16depay, audioconvert, alsacaps, NULL);
@@ -63,10 +61,9 @@ g_mutex_lock (&mutex);
   char * name = gst_pad_get_name (new_pad);
   int index = name[13] - '0';
   g_print("index is: %d\n", index);
-  
+
   pad = gst_element_get_static_pad(alsacaps, "src");
   GstPad * another_pad  = gst_element_get_static_pad(interleave, g_strdup_printf("sink_%u",index));
-
   gst_pad_link(pad, another_pad);
 
   gst_element_sync_state_with_parent(rtpL16depay);
@@ -102,16 +99,26 @@ int main(int argc, char *argv[]) {
 
   mainloop = g_main_loop_new(NULL, FALSE);
 
+
   clock = gst_net_client_clock_new("net-clock",CLOCK_REMOTE_ADDRESS, CLOCK_REMOTE_PORT, 0);
-  gst_clock_wait_for_sync(clock, 5000 * GST_MSECOND);
+
+  if (!gst_clock_wait_for_sync(clock, 5000 * GST_MSECOND)) {
+    printf("clock failed to sync\n");
+  } else {
+    printf("clock sync established\n");
+  }
 
   pipeline = gst_pipeline_new(NULL);
 
   gst_pipeline_use_clock((GstPipeline *)pipeline, clock);
-  gst_element_set_base_time(pipeline, 0);
   gst_element_set_start_time(pipeline, GST_CLOCK_TIME_NONE);
+  gst_element_set_base_time(pipeline, 0);
+  gst_pipeline_set_latency(GST_PIPELINE(pipeline), 1000 * GST_MSECOND);
 
-  interleave = gst_element_factory_make("interleave", NULL);
+  interleave = gst_element_factory_make("audiointerleave", NULL);
+  g_object_set(interleave, "start-time-selection", 1, NULL);
+  g_object_set(interleave, "latency", 100 * GST_MSECOND, NULL);
+
   rtpbin = gst_element_factory_make("rtpbin", NULL);
   filesink = gst_element_factory_make("filesink", NULL);
 
@@ -153,7 +160,6 @@ int main(int argc, char *argv[]) {
     GstPad * rtcp_srcpad = gst_element_get_static_pad(rtcpsrc, "src");
     gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
     gst_element_get_request_pad(interleave, g_strdup_printf("sink_%u",i));
-
   }
 
   g_signal_connect(rtpbin, "pad-added",
@@ -161,18 +167,15 @@ int main(int argc, char *argv[]) {
 
   gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
-
-  //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline");
+  GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline");
 
   signal(SIGINT, signal_handler);
 
   g_main_loop_run(mainloop); /* wait for mainloop to be quit */
 
-  //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline_3");
+  GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline_3");
 
   gst_element_set_state(pipeline, GST_STATE_NULL);
-
-  printf("mainloop quit");
 
   return 0;
 }

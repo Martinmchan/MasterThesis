@@ -1,25 +1,36 @@
-%The main function that calls everything
-clear all
 close all
+clear all 
+%The main function that calls everything
+fileID = fopen('../configuration.txt');
+confFile = textscan(fileID,'%s', 'delimiter', '\t','collectoutput',true);
+confFile=confFile{1};
+fclose(fileID);
 
 %Initiate data
-micMatrix = [0 0 1.75; 7.1 0 1.75; 0 5.3 1.75; 7.1 5.3 1.75];
+micMatrix = str2num(confFile{end});
 nbrOfSpeakers = length(micMatrix(:,1));
 lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
-namebase = '_0402_15.wav'; type = 'n';
-%namebase = './tascam/000312_243_mono'; type = 't';
-
 %Read data
-[signalMatrix, f] = readData(type, namebase, nbrOfSpeakers);
+[signalMatrix, f] = readData(nbrOfSpeakers);
 
-%Syncs the signals if needed
-syncNeeded = 0;
-if syncNeeded
-    fastSync = 1;
-    quality = 0;
-    [signalMatrix, quality] = generateSyncedSignals(signalMatrix, nbrOfSpeakers, quality, fastSync);
+%Syncs the signals
+signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
+
+figure
+hold on
+for i = 1:nbrOfSpeakers
+    plot(signalMatrix{i})
+end
+
+
+wholeSignal = signalMatrix;
+
+%%
+s = 42600000:43000000;
+for i = 1:nbrOfSpeakers
+   signalMatrix{i} = wholeSignal{i}(s); 
 end
 
 %Finds the sound source in time
@@ -30,15 +41,6 @@ end
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
 soundNbr = 0;
-
-%Choose if noise should be totally removed
-noiseRemoval = 0;
-if noiseRemoval
-    for i = 1:nbrOfSpeakers
-        signalMatrix{i} = ourTotalNoiseRemoval(signalMatrix{i});
-    end
-end
-
 
 %Position the sound source, choose between
 %   calcPos, calcPosCombo, SRP-PHAT
@@ -52,6 +54,7 @@ positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrO
 %Plots the results
 numbering = 1;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
+
 
 
 
