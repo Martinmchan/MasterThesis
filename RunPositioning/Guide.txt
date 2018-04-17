@@ -31,3 +31,8 @@ ffmpeg -f s16le -ar 48k -ac 4 -i test.raw test.wav
 ffmpeg -i test.wav -map_channel 0.0.0 test1.wav -map_channel 0.0.1 test2.wav -map_channel 0.0.2 test3.wav -map_channel 0.0.3 test4.wav
 
 /var/spool/storage/SD_DISK
+
+
+
+
+cd /var/spool/storage/SD_DISK/; wait; arecord -Daudiosource -fS16_LE -r48000 -d5700 tmp1.wav; wait
