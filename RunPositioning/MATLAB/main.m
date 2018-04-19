@@ -21,14 +21,15 @@ signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
 figure
 hold on
 for i = 1:nbrOfSpeakers
-    plot(signalMatrix{i})
+    if i == 1
+        plot(signalMatrix{i})
+    end
 end
 
-
 wholeSignal = signalMatrix;
-
 %%
-s = 42600000:43000000;
+
+s = 242050000:242500000;
 for i = 1:nbrOfSpeakers
    signalMatrix{i} = wholeSignal{i}(s); 
 end
