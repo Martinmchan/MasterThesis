@@ -20,9 +20,9 @@
 
 #define RTP_PORT 6000
 
-static GstElement *interleave = NULL;
+//static GstElement *interleave = NULL;
 static GstElement *pipeline = NULL;
-static GstElement *output_selector = NULL;
+//static GstElement *output_selector = NULL;
 static GMutex mutex;
 vector<GstElement> filesinkVec;
 
@@ -51,8 +51,6 @@ g_mutex_lock (&mutex);
   GstElement * audioconvert = gst_element_factory_make("audioconvert", NULL);
   GstElement * alsacaps = gst_element_factory_make("capsfilter", NULL);
   GstElement * wavenc = gst_element_factory_make("wavenc", NULL);
-  GstElement * filesink = gst_element_factory_make("filesink", NULL);
-  gst_element_get_request_pad(filesink, g_strdup_printf("sink_%u",i));
   GstCaps *caps = gst_caps_from_string(DEFAULT_AUDIO_CAPS);
   g_object_set(alsacaps, "caps", caps, NULL);
 
@@ -65,20 +63,17 @@ g_mutex_lock (&mutex);
   int index = name[13] - '0';
   g_print("index is: %d\n", index);
 
-  pad = gst_element_get_static_pad(alsacaps, "src");
-  GstPad * another_pad  = gst_element_get_static_pad(filesink, g_strdup_printf("sink_%u",index));
+  pad = gst_element_get_static_pad(wavenc, "src");
+  GstPad * another_pad  = gst_element_get_static_pad(filesinkVec[index], g_strdup_printf("sink_%u",index));
   gst_pad_link(pad, another_pad);
 
   gst_element_sync_state_with_parent(rtpL16depay);
   gst_element_sync_state_with_parent(audioconvert);
   gst_element_sync_state_with_parent(alsacaps);
+  gst_element_sync_state_with_parent(wavenc);
 
-  if(++i == nbr_of_streams) {
-    GstPad * file_srcpad = gst_element_get_static_pad(output_selector, "src_1");
-    g_object_set(output_selector, "active-pad", file_srcpad, NULL);
-    gst_element_sync_state_with_parent(filesink);
-    printf("Recording started\n");
-  }
+  gst_element_sync_state_with_parent(filesinkVec[index]);
+  printf("Recording started\n");
 
   //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline_2");
 
@@ -166,7 +161,7 @@ int main(int argc, char *argv[]) {
   }
 
   g_signal_connect(rtpbin, "pad-added",
-  G_CALLBACK(on_rtpbin_pad_added), interleave);
+  G_CALLBACK(on_rtpbin_pad_added), filesinkVec);
 
   gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
