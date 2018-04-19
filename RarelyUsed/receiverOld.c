@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
   g_object_set(rtpbin, "buffer-mode", 4, NULL);
   g_object_set(rtpbin, "ntp-time-source", 3, NULL);
   g_object_set(rtpbin, "ntp-sync", TRUE, NULL);
-
+printf("test 1\n");
   int i;
   for(i = 0; i < nbr_of_streams; i++) {
     GstElement *rtpcaps = NULL;
@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
 
     GstPad * rtcp_sinkpad = gst_element_get_request_pad(rtpbin, "recv_rtcp_sink_%u");
     GstPad * rtcp_srcpad = gst_element_get_static_pad(rtcpsrc, "src");
-    gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
+    int code = gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
     gst_element_get_request_pad(interleave, g_strdup_printf("sink_%u",i));
   }
 

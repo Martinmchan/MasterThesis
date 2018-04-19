@@ -1,0 +1,230 @@
+digraph pipeline {
+  rankdir=LR;
+  fontname="sans";
+  fontsize="10";
+  labelloc=t;
+  nodesep=.1;
+  ranksep=.2;
+  label="<GstPipeline>\npipeline0\n[>]\nlatency=1000000000";
+  node [style="filled,rounded", shape=box, fontsize="9", fontname="sans", margin="0.0,0.0"];
+  edge [labelfontsize="6", fontsize="9", fontname="monospace"];
+  
+  legend [
+    pos="0,0!",
+    margin="0.05,0.05",
+    style="filled",
+    label="Legend\lElement-States: [~] void-pending, [0] null, [-] ready, [=] paused, [>] playing\lPad-Activation: [-] none, [>] push, [<] pull\lPad-Flags: [b]locked, [f]lushing, [b]locking; upper-case is set\lPad-Task: [T] has started task, [t] has paused task\l",
+  ];
+  subgraph cluster_udpsrc7_0x55abb3882e20 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc7\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6007\nuri=\"udp://0.0.0.0:6007\"\nused-socket=((GSocket*) 0x55abb384a280)";
+    subgraph cluster_udpsrc7_0x55abb3882e20_src {
+      label="";
+      style="invis";
+      udpsrc7_0x55abb3882e20_src_0x55abb3880df0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  subgraph cluster_udpsrc6_0x55abb38828d0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc6\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6006\nuri=\"udp://0.0.0.0:6006\"\nused-socket=((GSocket*) 0x55abb384a3d0)";
+    subgraph cluster_udpsrc6_0x55abb38828d0_src {
+      label="";
+      style="invis";
+      udpsrc6_0x55abb38828d0_src_0x55abb3880bb0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc6_0x55abb38828d0_src_0x55abb3880bb0 -> capsfilter3_0x55abb385eb50_sink_0x55abb3880730 [label="ANY"]
+  subgraph cluster_capsfilter3_0x55abb385eb50 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter3\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter3_0x55abb385eb50_sink {
+      label="";
+      style="invis";
+      capsfilter3_0x55abb385eb50_sink_0x55abb3880730 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter3_0x55abb385eb50_src {
+      label="";
+      style="invis";
+      capsfilter3_0x55abb385eb50_src_0x55abb3880970 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter3_0x55abb385eb50_sink_0x55abb3880730 -> capsfilter3_0x55abb385eb50_src_0x55abb3880970 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  subgraph cluster_udpsrc5_0x55abb387c910 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc5\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6005\nuri=\"udp://0.0.0.0:6005\"\nused-socket=((GSocket*) 0x55abb384a520)";
+    subgraph cluster_udpsrc5_0x55abb387c910_src {
+      label="";
+      style="invis";
+      udpsrc5_0x55abb387c910_src_0x55abb38776f0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  subgraph cluster_udpsrc4_0x55abb387c220 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc4\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6004\nuri=\"udp://0.0.0.0:6004\"\nused-socket=((GSocket*) 0x55abb384a670)";
+    subgraph cluster_udpsrc4_0x55abb387c220_src {
+      label="";
+      style="invis";
+      udpsrc4_0x55abb387c220_src_0x55abb38774b0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc4_0x55abb387c220_src_0x55abb38774b0 -> capsfilter2_0x55abb385e810_sink_0x55abb3877030 [label="ANY"]
+  subgraph cluster_capsfilter2_0x55abb385e810 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter2\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter2_0x55abb385e810_sink {
+      label="";
+      style="invis";
+      capsfilter2_0x55abb385e810_sink_0x55abb3877030 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter2_0x55abb385e810_src {
+      label="";
+      style="invis";
+      capsfilter2_0x55abb385e810_src_0x55abb3877270 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter2_0x55abb385e810_sink_0x55abb3877030 -> capsfilter2_0x55abb385e810_src_0x55abb3877270 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  subgraph cluster_udpsrc3_0x55abb38780d0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc3\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6003\nuri=\"udp://0.0.0.0:6003\"\nused-socket=((GSocket*) 0x55abb384a7c0)";
+    subgraph cluster_udpsrc3_0x55abb38780d0_src {
+      label="";
+      style="invis";
+      udpsrc3_0x55abb38780d0_src_0x55abb3876070 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  subgraph cluster_udpsrc2_0x55abb3873520 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc2\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6002\nuri=\"udp://0.0.0.0:6002\"\nused-socket=((GSocket*) 0x55abb384a910)";
+    subgraph cluster_udpsrc2_0x55abb3873520_src {
+      label="";
+      style="invis";
+      udpsrc2_0x55abb3873520_src_0x55abb3845d90 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc2_0x55abb3873520_src_0x55abb3845d90 -> capsfilter1_0x55abb385e4d0_sink_0x55abb3845910 [label="ANY"]
+  subgraph cluster_capsfilter1_0x55abb385e4d0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter1\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter1_0x55abb385e4d0_sink {
+      label="";
+      style="invis";
+      capsfilter1_0x55abb385e4d0_sink_0x55abb3845910 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter1_0x55abb385e4d0_src {
+      label="";
+      style="invis";
+      capsfilter1_0x55abb385e4d0_src_0x55abb3845b50 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter1_0x55abb385e4d0_sink_0x55abb3845910 -> capsfilter1_0x55abb385e4d0_src_0x55abb3845b50 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  subgraph cluster_udpsrc1_0x55abb36642d0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc1\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6001\nuri=\"udp://0.0.0.0:6001\"\nused-socket=((GSocket*) 0x55abb384aa60)";
+    subgraph cluster_udpsrc1_0x55abb36642d0_src {
+      label="";
+      style="invis";
+      udpsrc1_0x55abb36642d0_src_0x55abb3844950 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  subgraph cluster_udpsrc0_0x55abb3663ae0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc0\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6000\nuri=\"udp://0.0.0.0:6000\"\nused-socket=((GSocket*) 0x55abb384abb0)";
+    subgraph cluster_udpsrc0_0x55abb3663ae0_src {
+      label="";
+      style="invis";
+      udpsrc0_0x55abb3663ae0_src_0x55abb3844710 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc0_0x55abb3663ae0_src_0x55abb3844710 -> capsfilter0_0x55abb385e190_sink_0x55abb3844290 [label="ANY"]
+  subgraph cluster_capsfilter0_0x55abb385e190 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter0\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter0_0x55abb385e190_sink {
+      label="";
+      style="invis";
+      capsfilter0_0x55abb385e190_sink_0x55abb3844290 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter0_0x55abb385e190_src {
+      label="";
+      style="invis";
+      capsfilter0_0x55abb385e190_src_0x55abb38444d0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter0_0x55abb385e190_sink_0x55abb3844290 -> capsfilter0_0x55abb385e190_src_0x55abb38444d0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+}

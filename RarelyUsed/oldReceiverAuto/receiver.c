@@ -8,7 +8,6 @@
 #include <gst/net/gstnetclientclock.h>
 #include <time.h>
 
-
 #define DEFAULT_AUDIO_CAPS \
   "audio/x-raw, format=S16LE,channels=1,rate=48000"
 
@@ -24,8 +23,6 @@
 static GstElement *pipeline = NULL;
 //static GstElement *output_selector = NULL;
 static GMutex mutex;
-vector<GstElement> filesinkVec;
-
 static int nbr_of_streams = 0;
 static GMainLoop *mainloop;
 
@@ -48,31 +45,30 @@ g_mutex_lock (&mutex);
   GstElement * rtpL16depay = gst_element_factory_make("rtpL16depay", NULL);
   GstPad * pad = gst_element_get_static_pad(rtpL16depay, "sink");
 
-  GstElement * audioconvert = gst_element_factory_make("audioconvert", NULL);
-  GstElement * alsacaps = gst_element_factory_make("capsfilter", NULL);
-  GstElement * wavenc = gst_element_factory_make("wavenc", NULL);
-  GstCaps *caps = gst_caps_from_string(DEFAULT_AUDIO_CAPS);
-  g_object_set(alsacaps, "caps", caps, NULL);
-
-  gst_bin_add_many(GST_BIN(pipeline), rtpL16depay, audioconvert, alsacaps, wavenc, NULL);
-  gst_pad_link(new_pad, pad);
-
-  gst_element_link_many(rtpL16depay, audioconvert, alsacaps, wavenc, NULL);
-
   char * name = gst_pad_get_name (new_pad);
   int index = name[13] - '0';
   g_print("index is: %d\n", index);
 
-  pad = gst_element_get_static_pad(wavenc, "src");
-  GstPad * another_pad  = gst_element_get_static_pad(filesinkVec[index], g_strdup_printf("sink_%u",index));
-  gst_pad_link(pad, another_pad);
+  GstElement * audioconvert = gst_element_factory_make("audioconvert", NULL);
+  GstElement * alsacaps = gst_element_factory_make("capsfilter", NULL);
+	GstCaps *caps = gst_caps_from_string(DEFAULT_AUDIO_CAPS);
+  g_object_set(alsacaps, "caps", caps, NULL);
+  GstElement * wavenc = gst_element_factory_make("wavenc", NULL);
+	GstElement * filesink = gst_element_factory_make("filesink", NULL);
+	g_object_set(filesink, "location", g_strdup_printf("./tmp/tmp%d.wav",index), NULL);
+  
+
+  gst_bin_add_many(GST_BIN(pipeline), rtpL16depay, audioconvert, alsacaps, wavenc, filesink, NULL);
+  gst_pad_link(new_pad, pad);
+
+  gst_element_link_many(rtpL16depay, audioconvert, alsacaps, wavenc, filesink, NULL);
 
   gst_element_sync_state_with_parent(rtpL16depay);
   gst_element_sync_state_with_parent(audioconvert);
   gst_element_sync_state_with_parent(alsacaps);
   gst_element_sync_state_with_parent(wavenc);
+	gst_element_sync_state_with_parent(filesink);
 
-  gst_element_sync_state_with_parent(filesinkVec[index]);
   printf("Recording started\n");
 
   //GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "pipeline_2");
@@ -117,17 +113,7 @@ int main(int argc, char *argv[]) {
   //g_object_set(interleave, "latency", 100 * GST_MSECOND, NULL);
 
   rtpbin = gst_element_factory_make("rtpbin", NULL);
-
-  for(i = 0; i < nbr_of_streams; i++) {
-    filesink = gst_element_factory_make("filesink", NULL);
-    g_object_set(filesink, "location", g_strdup_printf("./tmp/tmp%d.wav",i), NULL);
-    gst_element_link(rtpbin, filesink);
-    gst_bin_add_many(GST_BIN(pipeline),rtpbin, filesink, NULL);
-    gst_element_get_request_pad(filesink, g_strdup_printf("sink_%u",i));
-    filesinkVec.push_back(filesink);
-  }
-
-
+  
   /* Sync-related stuff */
   g_object_set(rtpbin, "buffer-mode", 4, NULL);
   g_object_set(rtpbin, "ntp-time-source", 3, NULL);
@@ -141,6 +127,7 @@ int main(int argc, char *argv[]) {
     caps = gst_caps_from_string(DEFAULT_RTP_CAPS);
     g_object_set(rtpcaps, "caps", caps, NULL);
 
+
     GstElement * rtpsrc = gst_element_factory_make("udpsrc", NULL);
     GstElement * rtcpsrc = gst_element_factory_make("udpsrc", NULL);
     g_object_set(rtpsrc, "port", (RTP_PORT + i*2), NULL);
@@ -152,16 +139,18 @@ int main(int argc, char *argv[]) {
 
     GstPad * rtp_sinkpad = gst_element_get_request_pad(rtpbin, "recv_rtp_sink_%u");
     GstPad * rtp_srcpad = gst_element_get_static_pad(rtpcaps, "src");
-    gst_pad_link(rtp_srcpad, rtp_sinkpad);
+    int code = gst_pad_link(rtp_srcpad, rtp_sinkpad);
+		printf("%d\n",code);
 
     GstPad * rtcp_sinkpad = gst_element_get_request_pad(rtpbin, "recv_rtcp_sink_%u");
     GstPad * rtcp_srcpad = gst_element_get_static_pad(rtcpsrc, "src");
-    gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
+    code = gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
+		printf("%d\n",code);
     //gst_element_get_request_pad(interleave, g_strdup_printf("sink_%u",i));
   }
 
   g_signal_connect(rtpbin, "pad-added",
-  G_CALLBACK(on_rtpbin_pad_added), filesinkVec);
+  G_CALLBACK(on_rtpbin_pad_added),NULL);
 
   gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
