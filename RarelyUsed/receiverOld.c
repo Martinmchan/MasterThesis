@@ -22,9 +22,9 @@
 
 static GstElement *interleave = NULL;
 static GstElement *pipeline = NULL;
+static GstElement *filesink = NULL;
 static GstElement *output_selector = NULL;
 static GMutex mutex;
-vector<GstElement> filesinkVec;
 
 static int nbr_of_streams = 0;
 static GMainLoop *mainloop;
@@ -50,23 +50,20 @@ g_mutex_lock (&mutex);
 
   GstElement * audioconvert = gst_element_factory_make("audioconvert", NULL);
   GstElement * alsacaps = gst_element_factory_make("capsfilter", NULL);
-  GstElement * wavenc = gst_element_factory_make("wavenc", NULL);
-  GstElement * filesink = gst_element_factory_make("filesink", NULL);
-  gst_element_get_request_pad(filesink, g_strdup_printf("sink_%u",i));
   GstCaps *caps = gst_caps_from_string(DEFAULT_AUDIO_CAPS);
   g_object_set(alsacaps, "caps", caps, NULL);
 
-  gst_bin_add_many(GST_BIN(pipeline), rtpL16depay, audioconvert, alsacaps, wavenc, NULL);
+  gst_bin_add_many(GST_BIN(pipeline), rtpL16depay, audioconvert, alsacaps, NULL);
   gst_pad_link(new_pad, pad);
 
-  gst_element_link_many(rtpL16depay, audioconvert, alsacaps, wavenc, NULL);
+  gst_element_link_many(rtpL16depay, audioconvert, alsacaps, NULL);
 
   char * name = gst_pad_get_name (new_pad);
   int index = name[13] - '0';
   g_print("index is: %d\n", index);
 
   pad = gst_element_get_static_pad(alsacaps, "src");
-  GstPad * another_pad  = gst_element_get_static_pad(filesink, g_strdup_printf("sink_%u",index));
+  GstPad * another_pad  = gst_element_get_static_pad(interleave, g_strdup_printf("sink_%u",index));
   gst_pad_link(pad, another_pad);
 
   gst_element_sync_state_with_parent(rtpL16depay);
@@ -88,6 +85,7 @@ g_mutex_lock (&mutex);
 
 
 int main(int argc, char *argv[]) {
+
   GstClock *clock = NULL;
   GstElement *rtpbin = NULL;
 
@@ -117,21 +115,20 @@ int main(int argc, char *argv[]) {
   gst_element_set_base_time(pipeline, 0);
   gst_pipeline_set_latency(GST_PIPELINE(pipeline), 1000 * GST_MSECOND);
 
-  //interleave = gst_element_factory_make("audiointerleave", NULL);
-  //g_object_set(interleave, "start-time-selection", 1, NULL);
-  //g_object_set(interleave, "latency", 100 * GST_MSECOND, NULL);
+  interleave = gst_element_factory_make("audiointerleave", NULL);
+  g_object_set(interleave, "start-time-selection", 1, NULL);
+  g_object_set(interleave, "latency", 100 * GST_MSECOND, NULL);
 
   rtpbin = gst_element_factory_make("rtpbin", NULL);
+  filesink = gst_element_factory_make("filesink", NULL);
 
-  for(i = 0; i < nbr_of_streams; i++) {
-    filesink = gst_element_factory_make("filesink", NULL);
-    g_object_set(filesink, "location", g_strdup_printf("./tmp/tmp%d.wav",i), NULL);
-    gst_element_link(rtpbin, filesink);
-    gst_bin_add_many(GST_BIN(pipeline),rtpbin, filesink, NULL);
-    gst_element_get_request_pad(filesink, g_strdup_printf("sink_%u",i));
-    filesinkVec.push_back(filesink);
-  }
+  output_selector = gst_element_factory_make("output-selector", NULL);
+  GstElement * fakesink = gst_element_factory_make("fakesink", NULL);
 
+  g_object_set(filesink, "location", g_strdup_printf("./tmp/tmp.raw"), NULL);
+  gst_bin_add_many(GST_BIN(pipeline),rtpbin, interleave, output_selector, fakesink, filesink, NULL);
+  gst_element_link_many(interleave, output_selector, fakesink, NULL);
+  gst_element_link(output_selector, filesink);
 
   /* Sync-related stuff */
   g_object_set(rtpbin, "buffer-mode", 4, NULL);
@@ -162,7 +159,7 @@ int main(int argc, char *argv[]) {
     GstPad * rtcp_sinkpad = gst_element_get_request_pad(rtpbin, "recv_rtcp_sink_%u");
     GstPad * rtcp_srcpad = gst_element_get_static_pad(rtcpsrc, "src");
     gst_pad_link(rtcp_srcpad, rtcp_sinkpad);
-    //gst_element_get_request_pad(interleave, g_strdup_printf("sink_%u",i));
+    gst_element_get_request_pad(interleave, g_strdup_printf("sink_%u",i));
   }
 
   g_signal_connect(rtpbin, "pad-added",
