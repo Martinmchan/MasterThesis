@@ -13,7 +13,7 @@ lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
 %Read data
-[signalMatrix, f] = readSavedData(nbrOfSpeakers,'AXIS');
+[signalMatrix, f] = readSavedData(nbrOfSpeakers,'MC');
 
 %Syncs the signals
 signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
