@@ -5,6 +5,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+	/*
 	system("find ./tmp -name '*.wav' -delete");
 	string line;
 	ifstream confFile("./configuration.txt");
@@ -27,7 +28,7 @@ int main(int argc, char** argv) {
 	}
 	ffmpegCall += "; wait";
 	call = system(ffmpegCall.c_str());
-	
+	*/
 	call = system("../../bin/matlab -nodesktop -nosplash -r \"run ./MATLAB/mainFunction.m\"");
 	return 0;
 }

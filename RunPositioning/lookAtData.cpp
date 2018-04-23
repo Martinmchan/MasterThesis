@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 	vector<string> from;
 	vector<string> to;
 	for (int i = 0; i < ips.size(); i++) {
-		from.push_back("/var/spool/storage/SD_DISK/tmp" + to_string(i+1) + ".wav");
+		from.push_back("/tmp/tmp" + to_string(i+1) + ".wav");
 		to.push_back("tmp");
 	}
 	

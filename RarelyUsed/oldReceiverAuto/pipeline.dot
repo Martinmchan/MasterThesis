@@ -1,0 +1,533 @@
+digraph pipeline {
+  rankdir=LR;
+  fontname="sans";
+  fontsize="10";
+  labelloc=t;
+  nodesep=.1;
+  ranksep=.2;
+  label="<GstPipeline>\npipeline0\n[=] -> [>]\nlatency=1000000000";
+  node [style="filled,rounded", shape=box, fontsize="9", fontname="sans", margin="0.0,0.0"];
+  edge [labelfontsize="6", fontsize="9", fontname="monospace"];
+  
+  legend [
+    pos="0,0!",
+    margin="0.05,0.05",
+    style="filled",
+    label="Legend\lElement-States: [~] void-pending, [0] null, [-] ready, [=] paused, [>] playing\lPad-Activation: [-] none, [>] push, [<] pull\lPad-Flags: [b]locked, [f]lushing, [b]locking; upper-case is set\lPad-Task: [T] has started task, [t] has paused task\l",
+  ];
+  subgraph cluster_udpsrc7_0x558eb80c5de0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc7\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6007\nuri=\"udp://0.0.0.0:6007\"\nused-socket=((GSocket*) 0x558eb807f670)";
+    subgraph cluster_udpsrc7_0x558eb80c5de0_src {
+      label="";
+      style="invis";
+      udpsrc7_0x558eb80c5de0_src_0x558eb80c1b70 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc7_0x558eb80c5de0_src_0x558eb80c1b70 -> rtpbin0_0x558eb80920f0_recv_rtcp_sink_3_0x558eb80b7160 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtcp\lapplication/x-srtcp\l"]
+  subgraph cluster_udpsrc6_0x558eb80c56f0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc6\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6006\nuri=\"udp://0.0.0.0:6006\"\nused-socket=((GSocket*) 0x558eb807fbb0)";
+    subgraph cluster_udpsrc6_0x558eb80c56f0_src {
+      label="";
+      style="invis";
+      udpsrc6_0x558eb80c56f0_src_0x558eb80c1930 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc6_0x558eb80c56f0_src_0x558eb80c1930 -> capsfilter3_0x558eb80a0bc0_sink_0x558eb80c14b0 [label="ANY"]
+  subgraph cluster_capsfilter3_0x558eb80a0bc0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter3\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter3_0x558eb80a0bc0_sink {
+      label="";
+      style="invis";
+      capsfilter3_0x558eb80a0bc0_sink_0x558eb80c14b0 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter3_0x558eb80a0bc0_src {
+      label="";
+      style="invis";
+      capsfilter3_0x558eb80a0bc0_src_0x558eb80c16f0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter3_0x558eb80a0bc0_sink_0x558eb80c14b0 -> capsfilter3_0x558eb80a0bc0_src_0x558eb80c16f0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  capsfilter3_0x558eb80a0bc0_src_0x558eb80c16f0 -> rtpbin0_0x558eb80920f0_recv_rtp_sink_3_0x558eb80b6ef0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtp\lapplication/x-srtp\l"]
+  subgraph cluster_udpsrc5_0x558eb80bfa00 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc5\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6005\nuri=\"udp://0.0.0.0:6005\"\nused-socket=((GSocket*) 0x558eb807f520)";
+    subgraph cluster_udpsrc5_0x558eb80bfa00_src {
+      label="";
+      style="invis";
+      udpsrc5_0x558eb80bfa00_src_0x558eb80c04f0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc5_0x558eb80bfa00_src_0x558eb80c04f0 -> rtpbin0_0x558eb80920f0_recv_rtcp_sink_2_0x558eb80b6c80 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtcp\lapplication/x-srtcp\l"]
+  subgraph cluster_udpsrc4_0x558eb80bf2d0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc4\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6004\nuri=\"udp://0.0.0.0:6004\"\nused-socket=((GSocket*) 0x558eb807fa60)";
+    subgraph cluster_udpsrc4_0x558eb80bf2d0_src {
+      label="";
+      style="invis";
+      udpsrc4_0x558eb80bf2d0_src_0x558eb80c02b0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc4_0x558eb80bf2d0_src_0x558eb80c02b0 -> capsfilter2_0x558eb80a0880_sink_0x558eb80b3d80 [label="ANY"]
+  subgraph cluster_capsfilter2_0x558eb80a0880 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter2\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter2_0x558eb80a0880_sink {
+      label="";
+      style="invis";
+      capsfilter2_0x558eb80a0880_sink_0x558eb80b3d80 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter2_0x558eb80a0880_src {
+      label="";
+      style="invis";
+      capsfilter2_0x558eb80a0880_src_0x558eb80c0070 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter2_0x558eb80a0880_sink_0x558eb80b3d80 -> capsfilter2_0x558eb80a0880_src_0x558eb80c0070 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  capsfilter2_0x558eb80a0880_src_0x558eb80c0070 -> rtpbin0_0x558eb80920f0_recv_rtp_sink_2_0x558eb80b6a10 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtp\lapplication/x-srtp\l"]
+  subgraph cluster_udpsrc3_0x558eb80ba190 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc3\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6003\nuri=\"udp://0.0.0.0:6003\"\nused-socket=((GSocket*) 0x558eb807f3d0)";
+    subgraph cluster_udpsrc3_0x558eb80ba190_src {
+      label="";
+      style="invis";
+      udpsrc3_0x558eb80ba190_src_0x558eb80b2dc0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc3_0x558eb80ba190_src_0x558eb80b2dc0 -> rtpbin0_0x558eb80920f0_recv_rtcp_sink_1_0x558eb80b67a0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtcp\lapplication/x-srtcp\l"]
+  subgraph cluster_udpsrc2_0x558eb80b9aa0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc2\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6002\nuri=\"udp://0.0.0.0:6002\"\nused-socket=((GSocket*) 0x558eb807f910)";
+    subgraph cluster_udpsrc2_0x558eb80b9aa0_src {
+      label="";
+      style="invis";
+      udpsrc2_0x558eb80b9aa0_src_0x558eb80b2b80 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc2_0x558eb80b9aa0_src_0x558eb80b2b80 -> capsfilter1_0x558eb80a0540_sink_0x558eb80b2700 [label="ANY"]
+  subgraph cluster_capsfilter1_0x558eb80a0540 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter1\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter1_0x558eb80a0540_sink {
+      label="";
+      style="invis";
+      capsfilter1_0x558eb80a0540_sink_0x558eb80b2700 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter1_0x558eb80a0540_src {
+      label="";
+      style="invis";
+      capsfilter1_0x558eb80a0540_src_0x558eb80b2940 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter1_0x558eb80a0540_sink_0x558eb80b2700 -> capsfilter1_0x558eb80a0540_src_0x558eb80b2940 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  capsfilter1_0x558eb80a0540_src_0x558eb80b2940 -> rtpbin0_0x558eb80920f0_recv_rtp_sink_1_0x558eb80b6530 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtp\lapplication/x-srtp\l"]
+  subgraph cluster_udpsrc1_0x558eb80a4e20 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc1\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6001\nuri=\"udp://0.0.0.0:6001\"\nused-socket=((GSocket*) 0x558eb807f280)";
+    subgraph cluster_udpsrc1_0x558eb80a4e20_src {
+      label="";
+      style="invis";
+      udpsrc1_0x558eb80a4e20_src_0x558eb807b6d0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc1_0x558eb80a4e20_src_0x558eb807b6d0 -> rtpbin0_0x558eb80920f0_recv_rtcp_sink_0_0x558eb80b62c0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="application/x-rtcp\lapplication/x-srtcp\l"]
+  subgraph cluster_udpsrc0_0x558eb80a48d0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstUDPSrc\nudpsrc0\n[>]\nparent=(GstPipeline) pipeline0\ndo-timestamp=TRUE\nport=6000\nuri=\"udp://0.0.0.0:6000\"\nused-socket=((GSocket*) 0x558eb807f7c0)";
+    subgraph cluster_udpsrc0_0x558eb80a48d0_src {
+      label="";
+      style="invis";
+      udpsrc0_0x558eb80a48d0_src_0x558eb807b490 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffaaaa";
+  }
+
+  udpsrc0_0x558eb80a48d0_src_0x558eb807b490 -> capsfilter0_0x558eb80a0200_sink_0x558eb807b010 [label="ANY"]
+  subgraph cluster_capsfilter0_0x558eb80a0200 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstCapsFilter\ncapsfilter0\n[>]\nparent=(GstPipeline) pipeline0\ncaps=application/x-rtp, media=(string)audio, payload=(int)96, encoding-name=(string)L…";
+    subgraph cluster_capsfilter0_0x558eb80a0200_sink {
+      label="";
+      style="invis";
+      capsfilter0_0x558eb80a0200_sink_0x558eb807b010 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_capsfilter0_0x558eb80a0200_src {
+      label="";
+      style="invis";
+      capsfilter0_0x558eb80a0200_src_0x558eb807b250 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    capsfilter0_0x558eb80a0200_sink_0x558eb807b010 -> capsfilter0_0x558eb80a0200_src_0x558eb807b250 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  capsfilter0_0x558eb80a0200_src_0x558eb807b250 -> rtpbin0_0x558eb80920f0_recv_rtp_sink_0_0x558eb80b6050 [label="application/x-rtp\l               media: audio\l             payload: 96\l       encoding-name: L16\l          clock-rate: 48000\l            channels: 2\l"]
+  subgraph cluster_filesink0_0x558eb80991e0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstFileSink\nfilesink0\n[-] -> [=]\nparent=(GstPipeline) pipeline0\nsync=FALSE\nlocation=\"./tmp/tmp.raw\"";
+    subgraph cluster_filesink0_0x558eb80991e0_sink {
+      label="";
+      style="invis";
+      filesink0_0x558eb80991e0_sink_0x558eb807a4d0 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#aaaaff";
+  }
+
+  subgraph cluster_fakesink0_0x558eb809bd20 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstFakeSink\nfakesink0\n[-] -> [=]\nparent=(GstPipeline) pipeline0\nsync=FALSE";
+    subgraph cluster_fakesink0_0x558eb809bd20_sink {
+      label="";
+      style="invis";
+      fakesink0_0x558eb809bd20_sink_0x558eb807a950 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#aaaaff";
+  }
+
+  subgraph cluster_outputselector0_0x558eb809a060 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstOutputSelector\noutputselector0\n[>]\nparent=(GstPipeline) pipeline0\nactive-pad=(GstPad) src_0";
+    subgraph cluster_outputselector0_0x558eb809a060_sink {
+      label="";
+      style="invis";
+      outputselector0_0x558eb809a060_sink_0x558eb807a710 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_outputselector0_0x558eb809a060_src {
+      label="";
+      style="invis";
+      outputselector0_0x558eb809a060_src_0_0x558eb807ab90 [color=black, fillcolor="#ffaaaa", label="src_0\n[>][bfb]", height="0.2", style="filled,dashed"];
+      outputselector0_0x558eb809a060_src_1_0x558eb807add0 [color=black, fillcolor="#ffaaaa", label="src_1\n[>][bfb]", height="0.2", style="filled,dashed"];
+    }
+
+    outputselector0_0x558eb809a060_sink_0x558eb807a710 -> outputselector0_0x558eb809a060_src_0_0x558eb807ab90 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  outputselector0_0x558eb809a060_src_0_0x558eb807ab90 -> fakesink0_0x558eb809bd20_sink_0x558eb807a950 [label="ANY"]
+  outputselector0_0x558eb809a060_src_1_0x558eb807add0 -> filesink0_0x558eb80991e0_sink_0x558eb807a4d0 [label="ANY"]
+  subgraph cluster_audiointerleave0_0x558eb808b0e0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstAudioInterleave\naudiointerleave0\n[>]\nparent=(GstPipeline) pipeline0\nlatency=100000000\nstart-time-selection=first\nchannel-positions=((GValueArray*) 0x558eb80d7620)";
+    subgraph cluster_audiointerleave0_0x558eb808b0e0_sink {
+      label="";
+      style="invis";
+      audiointerleave0_0x558eb808b0e0_sink_0_0x558eb80b8e30 [color=black, fillcolor="#aaaaff", label="sink_0\n[>][bfb]", height="0.2", style="filled,dashed"];
+      audiointerleave0_0x558eb808b0e0_sink_1_0x558eb80be020 [color=black, fillcolor="#aaaaff", label="sink_1\nchannel=1\n[>][bfb]", height="0.2", style="filled,dashed"];
+      audiointerleave0_0x558eb808b0e0_sink_2_0x558eb80c4c10 [color=black, fillcolor="#aaaaff", label="sink_2\nchannel=2\n[>][bfb]", height="0.2", style="filled,dashed"];
+      audiointerleave0_0x558eb808b0e0_sink_3_0x558eb80cc120 [color=black, fillcolor="#aaaaff", label="sink_3\nchannel=3\n[>][bfb]", height="0.2", style="filled,dashed"];
+    }
+
+    subgraph cluster_audiointerleave0_0x558eb808b0e0_src {
+      label="";
+      style="invis";
+      audiointerleave0_0x558eb808b0e0_src_0x558eb807a290 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    audiointerleave0_0x558eb808b0e0_sink_0_0x558eb80b8e30 -> audiointerleave0_0x558eb808b0e0_src_0x558eb807a290 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  audiointerleave0_0x558eb808b0e0_src_0x558eb807a290 -> outputselector0_0x558eb809a060_sink_0x558eb807a710 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="audio/x-raw\l                rate: [ 1, 2147483647 ]\l            channels: [ 1, 2147483647 ]\l              format: { S8, U8, S16LE, S16... }\l              layout: interleaved\l", headlabel="ANY"]
+  subgraph cluster_rtpbin0_0x558eb80920f0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstRtpBin\nrtpbin0\n[>]\nparent=(GstPipeline) pipeline0\nsdes=application/x-rtp-source-sdes, cname=(string)\\\"user532707636\\\\@host-951aecf4…\nntp-sync=TRUE\nbuffer-mode=synced\nntp-time-source=clock-time";
+    subgraph cluster_rtpbin0_0x558eb80920f0_sink {
+      label="";
+      style="invis";
+      _proxypad0_0x558eb8092330 [color=black, fillcolor="#ddddff", label="proxypad0\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtp_sink_0_0x558eb80b6050 -> _proxypad0_0x558eb8092330 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtp_sink_0_0x558eb80b6050 [color=black, fillcolor="#ddddff", label="recv_rtp_sink_0\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad1_0x558eb8092580 [color=black, fillcolor="#ddddff", label="proxypad1\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtcp_sink_0_0x558eb80b62c0 -> _proxypad1_0x558eb8092580 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtcp_sink_0_0x558eb80b62c0 [color=black, fillcolor="#ddddff", label="recv_rtcp_sink_0\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad2_0x558eb80927d0 [color=black, fillcolor="#ddddff", label="proxypad2\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtp_sink_1_0x558eb80b6530 -> _proxypad2_0x558eb80927d0 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtp_sink_1_0x558eb80b6530 [color=black, fillcolor="#ddddff", label="recv_rtp_sink_1\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad3_0x558eb8092a20 [color=black, fillcolor="#ddddff", label="proxypad3\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtcp_sink_1_0x558eb80b67a0 -> _proxypad3_0x558eb8092a20 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtcp_sink_1_0x558eb80b67a0 [color=black, fillcolor="#ddddff", label="recv_rtcp_sink_1\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad4_0x558eb8092c70 [color=black, fillcolor="#ddddff", label="proxypad4\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtp_sink_2_0x558eb80b6a10 -> _proxypad4_0x558eb8092c70 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtp_sink_2_0x558eb80b6a10 [color=black, fillcolor="#ddddff", label="recv_rtp_sink_2\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad5_0x558eb8092ec0 [color=black, fillcolor="#ddddff", label="proxypad5\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtcp_sink_2_0x558eb80b6c80 -> _proxypad5_0x558eb8092ec0 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtcp_sink_2_0x558eb80b6c80 [color=black, fillcolor="#ddddff", label="recv_rtcp_sink_2\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad6_0x558eb8093110 [color=black, fillcolor="#ddddff", label="proxypad6\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtp_sink_3_0x558eb80b6ef0 -> _proxypad6_0x558eb8093110 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtp_sink_3_0x558eb80b6ef0 [color=black, fillcolor="#ddddff", label="recv_rtp_sink_3\n[>][bfb]", height="0.2", style="filled,dashed"];
+      _proxypad7_0x558eb8093360 [color=black, fillcolor="#ddddff", label="proxypad7\n[>][bfb]", height="0.2", style="filled,dashed"];
+    rtpbin0_0x558eb80920f0_recv_rtcp_sink_3_0x558eb80b7160 -> _proxypad7_0x558eb8093360 [style=dashed, minlen=0]
+      rtpbin0_0x558eb80920f0_recv_rtcp_sink_3_0x558eb80b7160 [color=black, fillcolor="#ddddff", label="recv_rtcp_sink_3\n[>][bfb]", height="0.2", style="filled,dashed"];
+    }
+
+    fillcolor="#ffffff";
+    subgraph cluster_rtpssrcdemux3_0x558eb80b13e0 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSsrcDemux\nrtpssrcdemux3\n[>]\nparent=(GstRtpBin) rtpbin0";
+      subgraph cluster_rtpssrcdemux3_0x558eb80b13e0_sink {
+        label="";
+        style="invis";
+        rtpssrcdemux3_0x558eb80b13e0_sink_0x558eb80c1db0 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+        rtpssrcdemux3_0x558eb80b13e0_rtcp_sink_0x558eb80c8040 [color=black, fillcolor="#aaaaff", label="rtcp_sink\n[>][bfb]", height="0.2", style="filled,solid"];
+      }
+
+      fillcolor="#aaaaff";
+    }
+
+    subgraph cluster_rtpsession3_0x558eb80aa920 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSession\nrtpsession3\n[>]\nparent=(GstRtpBin) rtpbin0\nsdes=application/x-rtp-source-sdes, cname=(string)\\\"user532707636\\\\@host-951aecf4…\ninternal-session=((RTPSession*) 0x558eb80aead0)\nstats=application/x-rtp-session-stats, rtx-drop-count=(uint)0, sent-nack-count=(uint)0…\nntp-time-source=clock-time";
+      subgraph cluster_rtpsession3_0x558eb80aa920_sink {
+        label="";
+        style="invis";
+        rtpsession3_0x558eb80aa920_recv_rtp_sink_0x558eb80c8280 [color=black, fillcolor="#aaaaff", label="recv_rtp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+        rtpsession3_0x558eb80aa920_recv_rtcp_sink_0x558eb80c8700 [color=black, fillcolor="#aaaaff", label="recv_rtcp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+      }
+
+      subgraph cluster_rtpsession3_0x558eb80aa920_src {
+        label="";
+        style="invis";
+        rtpsession3_0x558eb80aa920_recv_rtp_src_0x558eb80c84c0 [color=black, fillcolor="#ffaaaa", label="recv_rtp_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+        rtpsession3_0x558eb80aa920_sync_src_0x558eb80c8940 [color=black, fillcolor="#ffaaaa", label="sync_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+      }
+
+      rtpsession3_0x558eb80aa920_recv_rtp_sink_0x558eb80c8280 -> rtpsession3_0x558eb80aa920_recv_rtp_src_0x558eb80c84c0 [style="invis"];
+      fillcolor="#aaffaa";
+    }
+
+    _proxypad6_0x558eb8093110 -> rtpsession3_0x558eb80aa920_recv_rtp_sink_0x558eb80c8280 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtp\lapplication/x-srtp\l", headlabel="application/x-rtp\l"]
+    rtpsession3_0x558eb80aa920_recv_rtp_src_0x558eb80c84c0 -> rtpssrcdemux3_0x558eb80b13e0_sink_0x558eb80c1db0 [label="application/x-rtp\l"]
+    _proxypad7_0x558eb8093360 -> rtpsession3_0x558eb80aa920_recv_rtcp_sink_0x558eb80c8700 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtcp\lapplication/x-srtcp\l", headlabel="application/x-rtcp\l"]
+    rtpsession3_0x558eb80aa920_sync_src_0x558eb80c8940 -> rtpssrcdemux3_0x558eb80b13e0_rtcp_sink_0x558eb80c8040 [label="application/x-rtcp\l"]
+    subgraph cluster_rtpssrcdemux2_0x558eb80b12b0 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSsrcDemux\nrtpssrcdemux2\n[>]\nparent=(GstRtpBin) rtpbin0";
+      subgraph cluster_rtpssrcdemux2_0x558eb80b12b0_sink {
+        label="";
+        style="invis";
+        rtpssrcdemux2_0x558eb80b12b0_sink_0x558eb80c0730 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+        rtpssrcdemux2_0x558eb80b12b0_rtcp_sink_0x558eb80c0970 [color=black, fillcolor="#aaaaff", label="rtcp_sink\n[>][bfb]", height="0.2", style="filled,solid"];
+      }
+
+      fillcolor="#aaaaff";
+    }
+
+    subgraph cluster_rtpsession2_0x558eb80aa670 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSession\nrtpsession2\n[>]\nparent=(GstRtpBin) rtpbin0\nsdes=application/x-rtp-source-sdes, cname=(string)\\\"user532707636\\\\@host-951aecf4…\ninternal-session=((RTPSession*) 0x558eb80ae7a0)\nstats=application/x-rtp-session-stats, rtx-drop-count=(uint)0, sent-nack-count=(uint)0…\nntp-time-source=clock-time";
+      subgraph cluster_rtpsession2_0x558eb80aa670_sink {
+        label="";
+        style="invis";
+        rtpsession2_0x558eb80aa670_recv_rtp_sink_0x558eb80c0bb0 [color=black, fillcolor="#aaaaff", label="recv_rtp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+        rtpsession2_0x558eb80aa670_recv_rtcp_sink_0x558eb80c1030 [color=black, fillcolor="#aaaaff", label="recv_rtcp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+      }
+
+      subgraph cluster_rtpsession2_0x558eb80aa670_src {
+        label="";
+        style="invis";
+        rtpsession2_0x558eb80aa670_recv_rtp_src_0x558eb80c0df0 [color=black, fillcolor="#ffaaaa", label="recv_rtp_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+        rtpsession2_0x558eb80aa670_sync_src_0x558eb80c1270 [color=black, fillcolor="#ffaaaa", label="sync_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+      }
+
+      rtpsession2_0x558eb80aa670_recv_rtp_sink_0x558eb80c0bb0 -> rtpsession2_0x558eb80aa670_recv_rtp_src_0x558eb80c0df0 [style="invis"];
+      fillcolor="#aaffaa";
+    }
+
+    _proxypad4_0x558eb8092c70 -> rtpsession2_0x558eb80aa670_recv_rtp_sink_0x558eb80c0bb0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtp\lapplication/x-srtp\l", headlabel="application/x-rtp\l"]
+    rtpsession2_0x558eb80aa670_recv_rtp_src_0x558eb80c0df0 -> rtpssrcdemux2_0x558eb80b12b0_sink_0x558eb80c0730 [label="application/x-rtp\l"]
+    _proxypad5_0x558eb8092ec0 -> rtpsession2_0x558eb80aa670_recv_rtcp_sink_0x558eb80c1030 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtcp\lapplication/x-srtcp\l", headlabel="application/x-rtcp\l"]
+    rtpsession2_0x558eb80aa670_sync_src_0x558eb80c1270 -> rtpssrcdemux2_0x558eb80b12b0_rtcp_sink_0x558eb80c0970 [label="application/x-rtcp\l"]
+    subgraph cluster_rtpssrcdemux1_0x558eb80b1180 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSsrcDemux\nrtpssrcdemux1\n[>]\nparent=(GstRtpBin) rtpbin0";
+      subgraph cluster_rtpssrcdemux1_0x558eb80b1180_sink {
+        label="";
+        style="invis";
+        rtpssrcdemux1_0x558eb80b1180_sink_0x558eb80b3000 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+        rtpssrcdemux1_0x558eb80b1180_rtcp_sink_0x558eb80b3240 [color=black, fillcolor="#aaaaff", label="rtcp_sink\n[>][bfb]", height="0.2", style="filled,solid"];
+      }
+
+      fillcolor="#aaaaff";
+    }
+
+    subgraph cluster_rtpsession1_0x558eb80aa3c0 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSession\nrtpsession1\n[>]\nparent=(GstRtpBin) rtpbin0\nsdes=application/x-rtp-source-sdes, cname=(string)\\\"user532707636\\\\@host-951aecf4…\ninternal-session=((RTPSession*) 0x558eb80ae470)\nstats=application/x-rtp-session-stats, rtx-drop-count=(uint)0, sent-nack-count=(uint)0…\nntp-time-source=clock-time";
+      subgraph cluster_rtpsession1_0x558eb80aa3c0_sink {
+        label="";
+        style="invis";
+        rtpsession1_0x558eb80aa3c0_recv_rtp_sink_0x558eb80b3480 [color=black, fillcolor="#aaaaff", label="recv_rtp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+        rtpsession1_0x558eb80aa3c0_recv_rtcp_sink_0x558eb80b3900 [color=black, fillcolor="#aaaaff", label="recv_rtcp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+      }
+
+      subgraph cluster_rtpsession1_0x558eb80aa3c0_src {
+        label="";
+        style="invis";
+        rtpsession1_0x558eb80aa3c0_recv_rtp_src_0x558eb80b36c0 [color=black, fillcolor="#ffaaaa", label="recv_rtp_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+        rtpsession1_0x558eb80aa3c0_sync_src_0x558eb80b3b40 [color=black, fillcolor="#ffaaaa", label="sync_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+      }
+
+      rtpsession1_0x558eb80aa3c0_recv_rtp_sink_0x558eb80b3480 -> rtpsession1_0x558eb80aa3c0_recv_rtp_src_0x558eb80b36c0 [style="invis"];
+      fillcolor="#aaffaa";
+    }
+
+    _proxypad2_0x558eb80927d0 -> rtpsession1_0x558eb80aa3c0_recv_rtp_sink_0x558eb80b3480 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtp\lapplication/x-srtp\l", headlabel="application/x-rtp\l"]
+    rtpsession1_0x558eb80aa3c0_recv_rtp_src_0x558eb80b36c0 -> rtpssrcdemux1_0x558eb80b1180_sink_0x558eb80b3000 [label="application/x-rtp\l"]
+    _proxypad3_0x558eb8092a20 -> rtpsession1_0x558eb80aa3c0_recv_rtcp_sink_0x558eb80b3900 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtcp\lapplication/x-srtcp\l", headlabel="application/x-rtcp\l"]
+    rtpsession1_0x558eb80aa3c0_sync_src_0x558eb80b3b40 -> rtpssrcdemux1_0x558eb80b1180_rtcp_sink_0x558eb80b3240 [label="application/x-rtcp\l"]
+    subgraph cluster_rtpssrcdemux0_0x558eb80b1050 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSsrcDemux\nrtpssrcdemux0\n[>]\nparent=(GstRtpBin) rtpbin0";
+      subgraph cluster_rtpssrcdemux0_0x558eb80b1050_sink {
+        label="";
+        style="invis";
+        rtpssrcdemux0_0x558eb80b1050_sink_0x558eb807b910 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+        rtpssrcdemux0_0x558eb80b1050_rtcp_sink_0x558eb807bb50 [color=black, fillcolor="#aaaaff", label="rtcp_sink\n[>][bfb]", height="0.2", style="filled,solid"];
+      }
+
+      fillcolor="#aaaaff";
+    }
+
+    subgraph cluster_rtpsession0_0x558eb80aa110 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstRtpSession\nrtpsession0\n[>]\nparent=(GstRtpBin) rtpbin0\nsdes=application/x-rtp-source-sdes, cname=(string)\\\"user532707636\\\\@host-951aecf4…\nnum-sources=1\ninternal-session=((RTPSession*) 0x558eb80ae140)\nstats=application/x-rtp-session-stats, rtx-drop-count=(uint)0, sent-nack-count=(uint)0…\nntp-time-source=clock-time";
+      subgraph cluster_rtpsession0_0x558eb80aa110_sink {
+        label="";
+        style="invis";
+        rtpsession0_0x558eb80aa110_recv_rtp_sink_0x558eb807bd90 [color=black, fillcolor="#aaaaff", label="recv_rtp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+        rtpsession0_0x558eb80aa110_recv_rtcp_sink_0x558eb80b2280 [color=black, fillcolor="#aaaaff", label="recv_rtcp_sink\n[>][bfb]", height="0.2", style="filled,dashed"];
+      }
+
+      subgraph cluster_rtpsession0_0x558eb80aa110_src {
+        label="";
+        style="invis";
+        rtpsession0_0x558eb80aa110_recv_rtp_src_0x558eb80b2040 [color=black, fillcolor="#ffaaaa", label="recv_rtp_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+        rtpsession0_0x558eb80aa110_sync_src_0x558eb80b24c0 [color=black, fillcolor="#ffaaaa", label="sync_src\n[>][bfb]", height="0.2", style="filled,dotted"];
+      }
+
+      rtpsession0_0x558eb80aa110_recv_rtp_sink_0x558eb807bd90 -> rtpsession0_0x558eb80aa110_recv_rtp_src_0x558eb80b2040 [style="invis"];
+      fillcolor="#aaffaa";
+    }
+
+    _proxypad0_0x558eb8092330 -> rtpsession0_0x558eb80aa110_recv_rtp_sink_0x558eb807bd90 [label="application/x-rtp\l               media: audio\l             payload: 96\l       encoding-name: L16\l          clock-rate: 48000\l            channels: 2\l"]
+    rtpsession0_0x558eb80aa110_recv_rtp_src_0x558eb80b2040 -> rtpssrcdemux0_0x558eb80b1050_sink_0x558eb807b910 [label="application/x-rtp\l               media: audio\l             payload: 96\l       encoding-name: L16\l          clock-rate: 48000\l            channels: 2\l"]
+    _proxypad1_0x558eb8092580 -> rtpsession0_0x558eb80aa110_recv_rtcp_sink_0x558eb80b2280 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="application/x-rtcp\lapplication/x-srtcp\l", headlabel="application/x-rtcp\l"]
+    rtpsession0_0x558eb80aa110_sync_src_0x558eb80b24c0 -> rtpssrcdemux0_0x558eb80b1050_rtcp_sink_0x558eb807bb50 [label="application/x-rtcp\l"]
+  }
+
+}

@@ -45,11 +45,11 @@ int main(int argc, char** argv) {
 	
 	vector<string> commands;
 	for (int i = 1; i < ips.size() + 1; i++) {
-		if (i == 1) {
-			string command = "cd /var/spool/storage/SD_DISK; chrt -f 5 arecord -Daudiosource -fS16_LE -r48000 -d" + string(argv[1]) + " tmp" + to_string(i) + ".wav & \n sleep 2; cd /tmp ;aplay -Dlocalhw_0 ring1mod.wav; wait";
+		if (i == 0) {
+			string command = "cd /tmp; chrt -f 5 arecord -Daudiosource -fS16_LE -r48000 -d" + string(argv[1]) + " tmp" + to_string(i) + ".wav & \n sleep 2; cd /tmp ;aplay -Dlocalhw_0 ring1mod.wav; wait";
 			commands.push_back(command);
 		} else {
-			string command = "cd /var/spool/storage/SD_DISK; chrt -f 5 arecord -Daudiosource -fS16_LE -r48000 -d" + string(argv[1]) + " tmp" + to_string(i) + ".wav; wait;";
+			string command = "cd /tmp; chrt -f 5 arecord -Daudiosource -fS16_LE -r48000 -d" + string(argv[1]) + " tmp" + to_string(i) + ".wav; wait;";
 			commands.push_back(command);
 		}
 	}

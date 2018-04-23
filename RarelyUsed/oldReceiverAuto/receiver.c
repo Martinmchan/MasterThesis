@@ -113,6 +113,7 @@ int main(int argc, char *argv[]) {
   //g_object_set(interleave, "latency", 100 * GST_MSECOND, NULL);
 
   rtpbin = gst_element_factory_make("rtpbin", NULL);
+	gst_bin_add(GST_BIN(pipeline), rtpbin);
   
   /* Sync-related stuff */
   g_object_set(rtpbin, "buffer-mode", 4, NULL);

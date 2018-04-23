@@ -13,7 +13,7 @@ lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
 %Read data
-[signalMatrix, f] = readData(nbrOfSpeakers);
+[signalMatrix, f] = readSavedData(nbrOfSpeakers,'AXIS');
 
 %Syncs the signals
 signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
@@ -26,13 +26,13 @@ for i = 1:nbrOfSpeakers
     end
 end
 
-wholeSignal = signalMatrix;
-%%
-
-s = 242050000:242500000;
-for i = 1:nbrOfSpeakers
-   signalMatrix{i} = wholeSignal{i}(s); 
-end
+% wholeSignal = signalMatrix;
+% 
+% 
+% s = 242050000:242500000;
+% for i = 1:nbrOfSpeakers
+%    signalMatrix{i} = wholeSignal{i}(s); 
+% end
 
 %Finds the sound source in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
@@ -53,7 +53,7 @@ positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrO
 
 
 %Plots the results
-numbering = 1;
+numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 
