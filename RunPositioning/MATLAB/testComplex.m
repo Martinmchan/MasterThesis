@@ -1,7 +1,7 @@
-close all
+%close all
 clear all 
 %The main function that calls everything
-fileID = fopen('../configuration.txt');
+fileID = fopen('../configurationT319April.txt');
 confFile = textscan(fileID,'%s', 'delimiter', '\t','collectoutput',true);
 confFile=confFile{1};
 fclose(fileID);
@@ -13,7 +13,7 @@ lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
 %Read data
-[signalMatrix, f] = readSavedData(nbrOfSpeakers,'officeStill');
+[signalMatrix, f] = readSavedData(nbrOfSpeakers,'AXIS');
 
 %Finds the sound source in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);

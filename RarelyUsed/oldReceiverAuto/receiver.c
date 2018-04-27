@@ -55,7 +55,8 @@ g_mutex_lock (&mutex);
   g_object_set(alsacaps, "caps", caps, NULL);
   GstElement * wavenc = gst_element_factory_make("wavenc", NULL);
 	GstElement * filesink = gst_element_factory_make("filesink", NULL);
-	g_object_set(filesink, "location", g_strdup_printf("./tmp/tmp%d.wav",index), NULL);
+	g_object_set(filesink, "sync", 0);
+	g_object_set(filesink, "location", g_strdup_printf("./tmp/tmp%d.wav",index + 1), NULL);
   
 
   gst_bin_add_many(GST_BIN(pipeline), rtpL16depay, audioconvert, alsacaps, wavenc, filesink, NULL);
