@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
 		cout << "Could not connect to speakers\n";
 	
 	vector<string> fromJson;
-	//vector<string> fromAudioNetSend;
+	vector<string> fromAudioNetSend;
 
 	vector<string> to;
 	for (int i = 1; i < ips.size() + 1; i++){
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
 		filename += to_string(i);
 		filename += ".json";
 		fromJson.push_back(filename);
-		//fromAudioNetSend.push_back("./audio-netsend");
+		fromAudioNetSend.push_back("./audio-netsend");
 		to.push_back("/tmp/");
 		
 	}
@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
 	master.setSetting(SETTING_ENABLE_SSH_OUTPUT_VECTOR_STYLE, true);
 
 	master.transferRemote(ips, fromJson, to);
-	//master.transferRemote(ips, fromAudioNetSend, to);
+	master.transferRemote(ips, fromAudioNetSend, to);
 	
 	string command;
 	vector<string> commands;
@@ -97,14 +97,13 @@ int main(int argc, char** argv) {
 	}
 	master.command(ips, commands);
 
-/*
 	commands.clear();
 	for (int i = 1; i < ips.size() + 1; i++) {
 		command = "cd /tmp; chmod +x audio-netsend; wait;";
 		commands.push_back(command);
 	}
-	printSSHOutput(master.command(ips, commands, true));
-*/
+	master.command(ips, commands);
+
 	commands.clear();
 	for (int i = 1; i < ips.size() + 1; i++) {
 		command = "cd /tmp; /usr/bin/audio-netsend mic" + to_string(i) + ".json &";

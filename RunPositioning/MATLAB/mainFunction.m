@@ -27,15 +27,15 @@ if nbrOfSound == 0
 end
 
 %Syncs the signals
-[latencies, ~, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 4);
-for i = 2:nbrOfSpeakers
-    latency = round(latencies(i - 1)*48000/343);
-    if latency < 0
-        signalMatrix{i} = [zeros(-latency,1); signalMatrix{i}];
-    elseif latency > 0
-        signalMatrix{i} = signalMatrix{i}(latency:end);
-    end
-end
+signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
+% for i = 2:nbrOfSpeakers
+%     latency = round(latencies(i - 1)*48000/343);
+%     if latency < 0
+%         signalMatrix{i} = [zeros(-latency,1); signalMatrix{i}];
+%     elseif latency > 0
+%         signalMatrix{i} = signalMatrix{i}(latency:end);
+%     end
+% end
 
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
