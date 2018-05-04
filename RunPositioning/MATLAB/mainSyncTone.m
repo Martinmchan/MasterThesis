@@ -20,6 +20,8 @@ for i = 1:nbrOfSpeakers
     plot(signalMatrix{i})
 end
 
+signalMatrix = ourCalibrate(signalMatrix, nbrOfSpeakers, micMatrix);
+
 %Finds the sound sources in time
 [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signalMatrix{1}, 20 ,5);
 if nbrOfSound == 0
@@ -27,7 +29,7 @@ if nbrOfSound == 0
 end
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
-soundNbr = 0;
+soundNbr = 2;
 
 %Position the sound source, choose between
 %   calcPos, calcPosCombo, SRP-PHAT
@@ -41,4 +43,8 @@ positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrO
 numbering = 1;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
+
+fileID = fopen('10SyncTone.txt','a');
+fprintf(fileID,'%d %d %d\n',positionMatrix(1), positionMatrix(2), positionMatrix(3));
+fclose(fileID);
 
