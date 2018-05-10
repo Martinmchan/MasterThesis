@@ -27,7 +27,7 @@ if nbrOfSound == 0
 end
 
 %Choose which sound to calculate, or calculate all of them if 0 is chosen
-soundNbr = 1;
+soundNbr = 0;
 
 %Position the sound source, choose between
 %   calcPos, calcPosCombo, SRP-PHAT
@@ -42,7 +42,7 @@ numbering = 1;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 %Calculate latencies
-[latencies, ~, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 7);
+[latencies, ~, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 3);
 for i = 2:nbrOfSpeakers
     latency = round(latencies(i - 1)*48000/343);
     if latency < 0
@@ -52,14 +52,14 @@ for i = 2:nbrOfSpeakers
     end
 end
 positionMatrixSynced = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
+ourPlot(micMatrix, nbrOfSpeakers, positionMatrixSynced, lsb, usb, numbering)
 
+%fileID = fopen('100GStreamer.txt','a');
+%fprintf(fileID,'%d %d %d %d\n',positionMatrix(1,1), positionMatrix(1,2), positionMatrix(1,3),max(abs(latencies)));
+%fclose(fileID);
 
-fileID = fopen('100GStreamer.txt','a');
-fprintf(fileID,'%d %d %d %d\n',positionMatrix(1), positionMatrix(2), positionMatrix(3),max(abs(latencies)));
-fclose(fileID);
-
-fileID = fopen('100ComplexSyncedPos.txt','a');
-fprintf(fileID,'%d %d %d %d\n',positionMatrixSynced(1), positionMatrixSynced(2), positionMatrixSynced(3),max(abs(latencies)));
-fclose(fileID);
+%fileID = fopen('100ComplexSyncedPos.txt','a');
+%fprintf(fileID,'%d %d %d %d\n',positionMatrixSynced(1,1), positionMatrixSynced(1,2), positionMatrixSynced(1,3),max(abs(latencies)));
+%fclose(fileID);
 
 

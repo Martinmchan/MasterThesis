@@ -44,7 +44,4 @@ numbering = 1;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 
-fileID = fopen('10SyncTone.txt','a');
-fprintf(fileID,'%d %d %d\n',positionMatrix(1), positionMatrix(2), positionMatrix(3));
-fclose(fileID);
 

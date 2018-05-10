@@ -1,8 +1,8 @@
 function [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signal, treshold, spacing)
     
-    figure
-    plot(signal)
-    hold on
+    %figure
+    %plot(signal)
+    %hold on
 
     sz = length(signal);
     counter = 1;
@@ -27,8 +27,8 @@ function [startSoundArray, endSoundArray, nbrOfSound] = calcStartSounds(signal, 
     
     if ~isempty(startSoundArray) && ~isempty(endSoundArray)
         for i = 1:nbrOfSound
-            plot(startSoundArray(i),0,'o')
-            plot(endSoundArray(i),0,'o')
+            %plot(startSoundArray(i),0,'o')
+            %plot(endSoundArray(i),0,'o')
         end
     end
     

@@ -14,7 +14,7 @@
 #define DEFAULT_RTP_CAPS \
   "application/x-rtp, media=audio, payload=96, encoding-name=L16, clock-rate=48000, channels=2"
 
-#define CLOCK_REMOTE_ADDRESS "172.25.12.168"
+#define CLOCK_REMOTE_ADDRESS "172.25.9.27"
 #define CLOCK_REMOTE_PORT 5015
 
 #define RTP_PORT 6000
