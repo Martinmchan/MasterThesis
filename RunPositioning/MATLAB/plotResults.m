@@ -24,7 +24,6 @@ numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, results(:,1:3), lsb, usb, numbering)
 
 scatter3(1.6, 5, 2,100,'or','MarkerFaceColor','r')
-grid off;
 
 %Calculate the mean error
 for i =1:length(results)

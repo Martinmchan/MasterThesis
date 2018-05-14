@@ -6,7 +6,7 @@ function plotSpeakers(micMatrix, nbrOfSpeakers, lsb, usb)
 
     micX = micMatrix(:,1); micY = micMatrix(:,2); micZ = micMatrix(:,3);
     figure;
-    scatter3(micX, micY, micZ,100,'sr','MarkerFaceColor','r')
+    scatter3(micX, micY, micZ,100,'sk','MarkerFaceColor','k')
     a = [1:nbrOfSpeakers]'; b = num2str(a); c = cellstr(b);
     dx = 0.2; dy = 0.2; dz = 0.2;
     text(micX+dx, micY+dy, micZ+dz, c);
