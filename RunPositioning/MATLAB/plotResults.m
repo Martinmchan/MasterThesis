@@ -15,11 +15,15 @@ fileID = fopen('./100ComplexSyncedPos.txt');
 results = textscan(fileID,'%f %f %f %f', 'delimiter', '\t','collectoutput',true);
 results = results{1};
 fclose(fileID);
-
+resultsX = results(:,2);
+resultsY = results(:,1);
+results = [resultsX resultsY results(:,3)];
 
 %Plots the results
 numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, results(:,1:3), lsb, usb, numbering)
 
-scatter3(5, 1.6, 2,100,'or','MarkerFaceColor','r')
+scatter3(1.6, 5, 2,100,'or','MarkerFaceColor','r')
 grid off;
+
+%Calculate the error and the mean
