@@ -22,3 +22,4 @@ numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, results(:,1:3), lsb, usb, numbering)
 
 scatter3(5, 1.6, 2,100,'or','MarkerFaceColor','r')
+grid off;

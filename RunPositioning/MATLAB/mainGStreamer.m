@@ -13,7 +13,7 @@ lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
 %Read data and plot
-[signalMatrix, f] = readData(nbrOfSpeakers);
+[signalMatrix, f] = readSavedData(nbrOfSpeakers,'walk1');
 figure
 hold on
 for i = 1:nbrOfSpeakers
@@ -42,7 +42,7 @@ numbering = 1;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 %Calculate latencies
-[latencies, ~, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 3);
+[latencies, ~, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 10);
 for i = 2:nbrOfSpeakers
     latency = round(latencies(i - 1)*48000/343);
     if latency < 0
@@ -53,7 +53,7 @@ for i = 2:nbrOfSpeakers
 end
 positionMatrixSynced = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrixSynced, lsb, usb, numbering)
-
+grid off
 %fileID = fopen('100GStreamer.txt','a');
 %fprintf(fileID,'%d %d %d %d\n',positionMatrix(1,1), positionMatrix(1,2), positionMatrix(1,3),max(abs(latencies)));
 %fclose(fileID);
