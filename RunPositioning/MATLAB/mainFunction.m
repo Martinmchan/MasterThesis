@@ -38,11 +38,14 @@ x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
 %Plots the results
-numbering = 1;
-%ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
+numbering = 0;
+ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
+scatter3(1.6, 5, 2,100,'or','MarkerFaceColor','r')
+%Calculate the mean error
+for i =1:length(positionMatrix)
+    errorMatrix(i) = norm(positionMatrix(i,1:2) - [1.6 5]);
+end
 
-fileID = fopen('100AudioInterleave.txt','a');
-fprintf(fileID,'%d %d %d\n',positionMatrix(1), positionMatrix(2), positionMatrix(3));
-fclose(fileID);
+meanError = mean(errorMatrix);
 
