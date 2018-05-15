@@ -1,5 +1,6 @@
 close all
 clear all 
+tic
 %The main function that calls everything
 fileID = fopen('../configuration.txt');
 confFile = textscan(fileID,'%s', 'delimiter', '\t','collectoutput',true);
@@ -37,11 +38,22 @@ methods = {'calcPos', 'MovingAverage'};
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
+positionMatrixTemp = [];
+for i = 1:length(positionMatrix)
+   if positionMatrix(i,1) > 0.1
+       positionMatrixTemp = [positionMatrixTemp; positionMatrix(i,:)];
+   end
+end
+positionMatrix = positionMatrixTemp;
+toc
+%%
 %Plots the results
 numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 scatter3(1.6, 5, 2,100,'or','MarkerFaceColor','r')
+%grid off
+
 %Calculate the mean error
 for i =1:length(positionMatrix)
     errorMatrix(i) = norm(positionMatrix(i,1:2) - [1.6 5]);
