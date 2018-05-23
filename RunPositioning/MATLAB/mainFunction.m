@@ -53,6 +53,7 @@ ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 scatter3(1.6, 5, 2,100,'or','MarkerFaceColor','r')
 %grid off
+
 %Calculate the mean error
 for i =1:length(positionMatrix)
     errorMatrix(i) = norm(positionMatrix(i,1:2) - [1.6 5]);
