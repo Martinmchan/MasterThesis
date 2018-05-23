@@ -38,7 +38,7 @@ x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 
 %Plots the results
-numbering = 1;
+numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 %Calculate latencies
@@ -53,7 +53,7 @@ for i = 2:nbrOfSpeakers
 end
 positionMatrixSynced = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrixSynced, lsb, usb, numbering)
-grid off
+
 %fileID = fopen('100GStreamer.txt','a');
 %fprintf(fileID,'%d %d %d %d\n',positionMatrix(1,1), positionMatrix(1,2), positionMatrix(1,3),max(abs(latencies)));
 %fclose(fileID);
