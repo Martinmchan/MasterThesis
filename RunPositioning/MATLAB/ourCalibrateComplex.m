@@ -1,4 +1,4 @@
-function [latencies, posMatrix, amountOfSound] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, amountOfSound)
+function [latencies, posMatrix] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, amountOfSound)
     index = 1;
     for i = 1:amountOfSound
         for j = 2:nbrOfSpeakers

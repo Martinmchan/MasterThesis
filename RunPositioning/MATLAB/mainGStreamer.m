@@ -42,7 +42,7 @@ numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 
 %Calculate latencies
-[latencies, ~, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 10);
+[latencies, ~] = ourCalibrateComplex(signalMatrix, nbrOfSpeakers, micMatrix, startSoundArray, endSoundArray, 10);
 for i = 2:nbrOfSpeakers
     latency = round(latencies(i - 1)*48000/343);
     if latency < 0
