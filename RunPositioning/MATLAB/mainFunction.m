@@ -66,4 +66,5 @@ positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrO
 numbering = 0;
 %ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
 ourPlotXY(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering);
+grid on;
 

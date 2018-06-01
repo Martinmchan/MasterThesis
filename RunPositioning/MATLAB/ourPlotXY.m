@@ -2,7 +2,7 @@ function ourPlotXY(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering
     plotSpeakersXY(micMatrix, nbrOfSpeakers, lsb, usb);
     hold on
     for i = 1:length(positionMatrix(:,1))
-        plot(positionMatrix(i,1), positionMatrix(i,2), '*b')
+        plot(positionMatrix(i,1), positionMatrix(i,2), '*b', 'MarkerSize',10)
     end
     if numbering
         a = [1:length(positionMatrix(:,1))]'; b = num2str(a); c = cellstr(b);

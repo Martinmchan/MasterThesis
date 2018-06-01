@@ -6,7 +6,7 @@ function plotSpeakersXY(micMatrix, nbrOfSpeakers, lsb, usb)
 
     micX = micMatrix(:,1); micY = micMatrix(:,2);
     figure;
-    plot(micX, micY,'k.','MarkerSize',25)
+    plot(micX, micY,'k.','MarkerSize',30)
     a = [1:nbrOfSpeakers]'; b = num2str(a); c = cellstr(b);
     dx = 0.2; dy = 0.2; 
     text(micX+dx, micY+dy, c);
