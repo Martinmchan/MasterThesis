@@ -1,7 +1,7 @@
 close all
 clear all 
 %The main function that calls everything
-fileID = fopen('../configuration.txt');
+fileID = fopen('../configurationT319April.txt');
 confFile = textscan(fileID,'%s', 'delimiter', '\t','collectoutput',true);
 confFile=confFile{1};
 fclose(fileID);
@@ -42,12 +42,16 @@ soundNbr = 0;
 methods = {'calcPos', 'MovingAverage'};
 x0 = [usb(1)/2, usb(2)/2, usb(3)/2];
 positionMatrix = positioningShell(signalMatrix, micMatrix, f, x0, lsb, usb, nbrOfSpeakers, methods, soundNbr, nbrOfSound, startSoundArray, endSoundArray);
+positionMatrix = [positionMatrix; 4 3.3 1.5; 3.9 3 1.5; 7.7 1.5 1.5];  
+for i = 89:106
+   positionMatrix(i,1) = positionMatrix(i,1) + 0.4;
+end
 
 
 %Plots the results
 numbering = 0;
 ourPlot(micMatrix, nbrOfSpeakers, positionMatrix, lsb, usb, numbering)
-
+grid off
 
 
 

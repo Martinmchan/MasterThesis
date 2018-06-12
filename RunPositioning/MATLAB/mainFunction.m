@@ -2,7 +2,7 @@ close all
 clear all 
 
 %The main function that calls everything
-fileID = fopen('../configuration.txt');
+fileID = fopen('../configurationT319April.txt');
 confFile = textscan(fileID,'%s', 'delimiter', '\t','collectoutput',true);
 confFile=confFile{1};
 fclose(fileID);
@@ -14,11 +14,11 @@ lsb = [-1,-1,1];
 usb = [max(micMatrix(:,1)) + 1,max(micMatrix(:,2)) + 1, 2];
 
 %Read data and plot
-[signalMatrix, f] = readData(nbrOfSpeakers);
+[signalMatrix, f] = readSavedData(nbrOfSpeakers,'AXIS');
 %figure
 %hold on
-for i = 1:nbrOfSpeakers
-%    plot(signalMatrix{i})
+for i = 1:1
+    %plot(signalMatrix{i})
 end
 
 %Finds the sound sources in time
