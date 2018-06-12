@@ -28,5 +28,5 @@ scatter3(1.6, 5, 2,100,'or','MarkerFaceColor','r')
 for i =1:length(results)
     errorMatrix(i) = norm(results(i,1:2) - [1.6 5]);
 end
-
+standardDeviation = std(errorMatrix);
 meanError = mean(errorMatrix);

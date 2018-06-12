@@ -2,7 +2,7 @@ function pos = calcPos(signalMatrix, nbrOfSpeakers, micMatrix, f, x0, lsb, usb, 
     tdoa{1} = 0;
     %Calculate the TDOA using the choosen tdoa calculater
     if length(tdoaMethod) == length('GCCPhat')
-        if tdoaMethod == 'GCCphat'
+        if tdoaMethod == 'GCCPhat'
             for i=2:nbrOfSpeakers
                 tmp = ourGCCphat(signalMatrix{1}, signalMatrix{i});
                 tmp = tmp/f*343;
